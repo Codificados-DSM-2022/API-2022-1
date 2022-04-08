@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+        <div class="logo_name">API</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="#">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Perfil</span>
+        </a>
+         <span class="tooltip">Perfil</span>
+      </li>
+      <li>
+       <a href="./solicitar.html">
+         <i class='bx bx-grid-alt' ></i>
+         <span class="links_name">Solicitar</span>
+       </a>
+       <span class="tooltip">Solicitar</span>
+     </li>
+     <li>
+       <a href="./solicitacoes-p.html">
+         <i class='bx bx-chat' ></i>
+         <span class="links_name">Solicitaçoes pendentes</span>
+       </a>
+       <span class="tooltip">Solicitaçoes pendentes</span>
+     </li>
+     <li>
+       <a href="./solicitacoes-r.html">
+         <i class='bx bx-pie-chart-alt-2' ></i>
+         <span class="links_name">Solicitaçoes respondidas</span>
+       </a>
+       <span class="tooltip">Solicitaçoes respondidas</span>
+     </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-log-out' ></i>
+         <span class="links_name">Sair</span>
+       </a>
+       <span class="tooltip">Sair</span>
+     </li>
+    </ul>
+  </div>
+
+  <section class="home-section">
+      <div class="text">Realizar Solicitações</div>
+
+      <form action="/solicitar" method="POST">
+
+        <label>Título<p>*</p></label><br>
+
+        <input type="text" name="titulo" size="38"><br><br>
+
+        <label>Tema<p>*</p></label><br>
+
+        <select id="tipo" name="tipo">
+          <option value="hardware">Hardware</option>
+          <option value="software">Software</option>
+          <option value="informacao">Informação</option>
+        </select><br><br>
+
+        <label>Descrição<p>*</p></label><br>
+
+        <textarea name="descricao"></textarea><br><br>
+
+        <input type="file" name="imagem">
+
+        <input type="submit" name="enviar" value="Enviar Chamado">
+
+      </form>
+  </section>
+  <script src="../static/script.js"></script>
+</body>
+</html>
