@@ -40,12 +40,17 @@ def respondidas():
 def resposta():
     return "solicitando chamado"
 
-#Executor
+#Executor --------------------------------------------------------------------------------------------------------------
 
 @solicitar.route('/solic-act.html')
 def execAceitar():
     chamados = Chamado.query.all()
     return render_template('solic-act.html', chamados=chamados)
+
+@solicitar.route('/solic-rec.html')
+def execRecusar():
+    chamados = Chamado.query.all()
+    return render_template('solic-rec.html', chamados=chamados)
 
 @solicitar.route('/solic-executor.html')
 def execSolicitar():
@@ -76,8 +81,3 @@ def execPendentes():
 def execRespondidas():
     chamados = Chamado.query.all()
     return render_template('solic-r-executor.html', chamados=chamados)
-
-@solicitar.route('/solic-rec.html')
-def execRecusar():
-    chamados = Chamado.query.all()
-    return render_template('solic-rec.html', chamados=chamados)

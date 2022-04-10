@@ -76,8 +76,8 @@
                     <td date-label="Descrição">{{chamado.Chamado_descricao}}</td>
                     <td date-label="Imagen"><img src="./joe.jpg" alt=""></td>
                     <td date-label="">
-                      <a href="solic-act.html" class="btn">Aceitar</a>
-                      <a href="solic-rec.html" class="btn">Cancelar</a></td>
+                      <a href="{{ url_for('solicitar.execAceitar', id=chamado.idChamado) }}" class="btn">Aceitar</a>
+                      <a href="{{ url_for('solicitar.execRecusar', id=chamado.idChamado) }}" class="btn">Recusar</a></td>
                   </tr>
                 {% endif %}
               {% endfor %}
