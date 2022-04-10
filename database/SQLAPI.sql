@@ -1,3 +1,6 @@
+create database projeto;
+use projeto;
+
 CREATE TABLE Usuarios(
     idUser int auto_increment primary key,
     usuario_nome varchar(50) NOT NULL,
@@ -21,10 +24,13 @@ CREATE TABLE Chamado(
 	Chamado_descricao varchar(2000) NOT NULL,
     Chamado_resposta varchar(2000) NOT NULL,
     Chamado_avaliacao int NOT NULL,
-    Chamado_respondido boolean NOT NULL,
+    Chamado_respondido boolean NOT NULL
     
     -- IdUsuario int,
     -- idExecutor int
 );
 -- Alter table Chamado ADD constraint fk_user FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUser);
 -- Alter table Chamado ADD constraint fk_executor FOREIGN KEY (idExecutor) REFERENCES Usuarios(idUser);
+
+-- delete from Chamado where idChamado = 19;
+select * from Chamado;

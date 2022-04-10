@@ -18,7 +18,7 @@ def fazer_chamado():
     Chamado_tipo = request.form['Chamado_tipo']
     Chamado_descricao = request.form['Chamado_descricao']
 
-    novo_chamado = Chamado(Chamado_data_criacao , Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, '', 0, False)
+    novo_chamado = Chamado(Chamado_data_criacao , Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, '', 0, False, '')
 
     db.session.add(novo_chamado)
     db.session.commit()
@@ -42,14 +42,36 @@ def resposta():
 
 #Executor --------------------------------------------------------------------------------------------------------------
 
-@solicitar.route('/solic-act.html')
-def execAceitar():
-    chamados = Chamado.query.all()
+@solicitar.route('/solic-act/<idChamado>', methods=['POST','GET'])
+def execAceitar(idChamado):
+    if request.method == "POST":
+        chamados = Chamado.query.get(idChamado)
+        chamados.Chamado_resposta = request.form["resposta"]
+        chamados.Chamado_respondido = True
+        chamados.Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
+        chamados.Chamado_aceitar = 'Atendido'
+
+        db.session.commit()
+
+        return redirect("/solic-r-executor.html")
+
+    chamados = Chamado.query.get(idChamado)
     return render_template('solic-act.html', chamados=chamados)
 
-@solicitar.route('/solic-rec.html')
-def execRecusar():
-    chamados = Chamado.query.all()
+@solicitar.route('/solic-rec/<idChamado>', methods=['POST','GET'])
+def execRecusar(idChamado):
+    if request.method == "POST":
+        chamados = Chamado.query.get(idChamado)
+        chamados.Chamado_resposta = request.form["resposta"]
+        chamados.Chamado_respondido = True
+        chamados.Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
+        chamados.Chamado_aceitar = "Recusado"
+
+        db.session.commit()
+
+        return redirect("/solic-r-executor.html")
+
+    chamados = Chamado.query.get(idChamado)
     return render_template('solic-rec.html', chamados=chamados)
 
 @solicitar.route('/solic-executor.html')
@@ -65,7 +87,7 @@ def fazer_chamado_exec():
     Chamado_tipo = request.form['Chamado_tipo']
     Chamado_descricao = request.form['Chamado_descricao']
 
-    novo_chamado = Chamado(Chamado_data_criacao , Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, '', 0, False)
+    novo_chamado = Chamado(Chamado_data_criacao , Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, '', 0, False, '')
 
     db.session.add(novo_chamado)
     db.session.commit()

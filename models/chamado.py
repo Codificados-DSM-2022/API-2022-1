@@ -10,8 +10,9 @@ class Chamado(db.Model):
     Chamado_resposta = db.Column(db.String(1000))
     Chamado_avaliacao = db.Column(db.Integer)
     Chamado_respondido = db.Column(db.Boolean)
+    Chamado_aceitar = db.Column(db.String(10))
 
-    def __init__(self, Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_avaliacao, Chamado_respondido):
+    def __init__(self, Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_avaliacao, Chamado_respondido, Chamado_aceitar):
         self.Chamado_data_criacao = Chamado_data_criacao
         self.Chamado_data_entrega = Chamado_data_entrega
         self.Chamado_titulo = Chamado_titulo
@@ -20,3 +21,4 @@ class Chamado(db.Model):
         self.Chamado_resposta = Chamado_resposta
         self.Chamado_avaliacao = Chamado_avaliacao
         self.Chamado_respondido = Chamado_respondido
+        self.Chamado_aceitar = Chamado_aceitar

@@ -1,40 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style-exec.css">
-    <title>Solicitação Aceita</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/style-exec.css">
+  <title>Solicitação Aceita</title>
 </head>
+
 <body>
-    <section>
-        <div class="wrapper">
-            <div class="title">
-                Aceitar Chamado
-            </div>
-            <div class="form">
-               <div class="inputfield">
-                  <label>Titulo</label>
-                  <P>Teste do Texto</P>
-               </div>  
-                <div class="inputfield">
-                  <label>Tema</label>
-                  <p>Hardware</p>
-               </div>  
-               <div class="inputfield">
-                  <label>Descrição</label>
-                 <p>Esses dias, meu computador deu tela azul e nao quis mais ligar asdsadsadsadsad</p>
-               </div>  
-               <div class="inputfield">
-                <label>Resposta</label>
-                <textarea class="textarea"></textarea>
-             </div> 
-              <div class="inputfield">
-                <input type="submit" value="Enviar Resposta" class="btn" href="solic-p-executor.html">
-              </div>
-            </div>
+  <section>
+    <div class="wrapper">
+      <div class="title">
+        Aceitar Chamado
+      </div>
+      <form action="/solic-act/{{chamados.idChamado}}" method="POST">
+        <div class="form">
+          <div class="inputfield">
+            <label>Titulo</label>
+            <P>{{chamados.Chamado_titulo}}</P>
+          </div>
+          <div class="inputfield">
+            <label>Tipo</label>
+            <p>{{chamados.Chamado_tipo}}</p>
+          </div>
+          <div class="inputfield">
+            <label>Descrição</label>
+            <p>{{chamados.Chamado_descricao}}</p>
+          </div>
+          <div class="inputfield">
+            <label>Resposta</label>
+            <textarea class="textarea" name="resposta" id="resposta"></textarea>
+          </div>
+          <div class="inputfield">
+            <input type="submit" value="Enviar Resposta" class="btn">
+          </div>
         </div>
-    </section>
+      </form>
+    </div>
+  </section>
 </body>
+
 </html>
