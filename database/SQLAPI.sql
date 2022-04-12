@@ -5,14 +5,14 @@ CREATE TABLE Usuarios(
     idUser int auto_increment primary key,
     usuario_nome varchar(50) NOT NULL,
 	usuario_email varchar(150) NOT NULL,
-    usuario_senha varchar(50) NOT NULL,
+    usuario_senha varchar(50) NOT NULL
     );
 
 CREATE TABLE Executores(
 	idExecutor int auto_increment primary key,
     executor_nome varchar(50) NOT NULL,
 	executor_email varchar(150) NOT NULL,
-    executor_senha varchar(50) NOT NULL,
+    executor_senha varchar(50) NOT NULL
 );
 
 CREATE TABLE Chamado(

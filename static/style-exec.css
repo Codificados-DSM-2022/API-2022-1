@@ -1,426 +1,507 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins" , sans-serif;
-}
-body {
-    width: 100%;
-    font-family: 'Roboto', sans-serif;
-    background:  #11101D;
+  font-family: "Poppins", sans-serif;
 }
 
-.sidebar{
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 78px;
-    background: #E4E9F7;
-    padding: 6px 14px;
-    z-index: 99;
-    transition: all 0.5s ease;
+body {
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  background: #11101D;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 78px;
+  background: #E4E9F7;
+  padding: 6px 14px;
+  z-index: 99;
+  transition: all 0.5s ease;
+}
+
+.sidebar.open {
+  width: 300px;
+}
+
+.sidebar .logo-details {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.sidebar .logo-details .icon {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar .logo-details .logo_name {
+  color: #11101D;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name {
+  opacity: 1;
+}
+
+.sidebar .logo-details #btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  transition: all 0.4s ease;
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.sidebar.open .logo-details #btn {
+  text-align: right;
+}
+
+.sidebar i {
+  color: #11101D;
+  height: 60px;
+  min-width: 50px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
+}
+
+.sidebar .nav-list {
+  margin-top: 20px;
+  height: 100%;
+}
+
+.sidebar li {
+  position: relative;
+  margin: 8px 0;
+  list-style: none;
+}
+
+.sidebar li .tooltip {
+  position: absolute;
+  top: -20px;
+  left: calc(100% + 15px);
+  z-index: 3;
+  color: #11101D;
+  background: #E4E9F7;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0s;
+}
+
+.sidebar li:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sidebar.open li .tooltip {
+  display: none;
+}
+
+.sidebar input {
+  font-size: 15px;
+  color: #11101D;
+  font-weight: 400;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  width: 50px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: #1d1b31;
+}
+
+.sidebar.open input {
+  padding: 0 20px 0 50px;
+  width: 100%;
+}
+
+.sidebar li a {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: #E4E9F7;
+}
+
+.sidebar li a:hover {
+  background: #11101D;
+}
+
+.sidebar li a .links_name {
+  color: #11101D;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+.sidebar.open li a .links_name {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i {
+  transition: all 0.5s ease;
+  color: #fff;
+}
+
+.sidebar li i {
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+
+.sidebar li.profile {
+  position: fixed;
+  height: 60px;
+  width: 78px;
+  left: 0;
+  bottom: -8px;
+  padding: 10px 14px;
+  background: #1d1b31;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+.sidebar.open li.profile {
+  width: 250px;
+}
+
+.sidebar li .profile-details {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.sidebar li img {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.sidebar li.profile .name,
+.sidebar li.profile .job {
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.sidebar li.profile .job {
+  font-size: 12px;
+}
+
+.sidebar .profile #log_out {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: #1d1b31;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 0px;
+  transition: all 0.5s ease;
+}
+
+.sidebar.open .profile #log_out {
+  width: 50px;
+  background: none;
+}
+
+.home-section .text {
+  color: #fff;
+  font-size: 25px;
+  font-weight: 500;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 420px) {
+  .home-section .text {
+    margin-left: 20%;
   }
-  .sidebar.open{
-    width: 300px;
-  }
-  .sidebar .logo-details{
-    height: 60px;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-  .sidebar .logo-details .icon{
-    opacity: 0;
-    transition: all 0.5s ease;
-  }
-  .sidebar .logo-details .logo_name{
-    color: #11101D;
-    font-size: 20px;
-    font-weight: 600;
-    opacity: 0;
-    transition: all 0.5s ease;
-  }
-  .sidebar.open .logo-details .icon,
-  .sidebar.open .logo-details .logo_name{
-    opacity: 1;
-  }
-  .sidebar .logo-details #btn{
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-size: 22px;
-    transition: all 0.4s ease;
-    font-size: 23px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.5s ease;
-  }
-  .sidebar.open .logo-details #btn{
-    text-align: right;
-  }
-  .sidebar i{
-    color: #11101D;
-    height: 60px;
-    min-width: 50px;
-    font-size: 28px;
-    text-align: center;
-    line-height: 60px;
-  }
-  .sidebar .nav-list{
-    margin-top: 20px;
-    height: 100%;
-  }
-  .sidebar li{
-    position: relative;
-    margin: 8px 0;
-    list-style: none;
-  }
-  .sidebar li .tooltip{
-    position: absolute;
-    top: -20px;
-    left: calc(100% + 15px);
-    z-index: 3;
-    color: #11101D;
-    background: #E4E9F7;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 15px;
-    font-weight: 400;
-    opacity: 0;
-    white-space: nowrap;
-    pointer-events: none;
-    transition: 0s;
-  }
-  .sidebar li:hover .tooltip{
-    opacity: 1;
-    pointer-events: auto;
-    transition: all 0.4s ease;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .sidebar.open li .tooltip{
+
+  .sidebar li .tooltip {
     display: none;
   }
-  .sidebar input{
-    font-size: 15px;
-    color: #11101D;
-    font-weight: 400;
-    outline: none;
-    height: 50px;
-    width: 100%;
-    width: 50px;
-    border: none;
-    border-radius: 12px;
-    transition: all 0.5s ease;
-    background: #1d1b31;
-  }
-  .sidebar.open input{
-    padding: 0 20px 0 50px;
-    width: 100%;
-  }
-  .sidebar li a{
-    display: flex;
-    height: 100%;
-    width: 100%;
-    border-radius: 12px;
-    align-items: center;
-    text-decoration: none;
-    transition: all 0.4s ease;
-    background: #E4E9F7;
-  }
-  .sidebar li a:hover{
-    background: #11101D;
-  }
-  .sidebar li a .links_name{
-    color: #11101D;
-    font-size: 15px;
-    font-weight: 400;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.4s;
-  }
-  .sidebar.open li a .links_name{
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .sidebar li a:hover .links_name,
-  .sidebar li a:hover i{
-    transition: all 0.5s ease;
-    color: #fff;
-  }
-  .sidebar li i{
-    height: 50px;
-    line-height: 50px;
-    font-size: 18px;
-    border-radius: 12px;
-  }
-  .sidebar li.profile{
-    position: fixed;
-    height: 60px;
-    width: 78px;
-    left: 0;
-    bottom: -8px;
-    padding: 10px 14px;
-    background: #1d1b31;
-    transition: all 0.5s ease;
-    overflow: hidden;
-  }
-  .sidebar.open li.profile{
-    width: 250px;
-  }
-  .sidebar li .profile-details{
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-  }
-  .sidebar li img{
-    height: 45px;
-    width: 45px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-right: 10px;
-  }
-  .sidebar li.profile .name,
-  .sidebar li.profile .job{
-    font-size: 15px;
-    font-weight: 400;
-    color: #fff;
-    white-space: nowrap;
-  }
-  .sidebar li.profile .job{
-    font-size: 12px;
-  }
-  .sidebar .profile #log_out{
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    background: #1d1b31;
-    width: 100%;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 0px;
-    transition: all 0.5s ease;
-  }
-  .sidebar.open .profile #log_out{
-    width: 50px;
-    background: none;
-  }
-  
-  .home-section .text{
-    color: #fff;
-    font-size: 25px;
-    font-weight: 500;
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-  }
-  @media (max-width: 420px) {
-    .home-section .text{
-      margin-left: 20%;
-    }
-    .sidebar li .tooltip{
-      display: none;
-    }
-  }
-  
-/*FORMULARIO CSS*/
+}
+
+/*INICIO*/
+.inicio{
+  margin-top: 300px;
+}
+.inicio .titulo h1{
+  font-size: 30px;
+  color: #E4E9F7;
+  display: flex;
+  justify-content: center;
+}
+.inicio .titulo p{
+  font-size: 18px;
+  color: #E4E9F7;
+  display: flex;
+  justify-content: center;
+}
 
 /*TABELA CSS*/
 
-  .table-section{
-    height: 650px;
-    overflow: hidden;
-    background-color: E4E9F7;
-  }
-  table{
-    width: 100% ;
-    border-collapse: collapse;
-    margin-top: 50px;
-  }
-  .btn{
-      text-decoration: none;
-    outline: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 16px;
-    color: #fff;
-  }
-  td .btn:nth-child(1){
-    background-color: green;
-  }
-  td .btn:nth-child(2){
-    background-color: red;
-  }
-  thead th{
-    position: sticky;
-    top: 0;
-    background-color: #E4E9F7;
-    color: #11101D;
-    font-size: 15px;
-  }
-  th,td{
-    border-bottom: 1px solid #dddddd;
-    padding: 10px 20px;
-    word-break: break-all;
-    text-align: center;
-    color: #E4E9F7;
-  }
-  td img{
-    height: 60px;
-    width: 60px;
-    object-fit: cover;
-    border-radius: 15px;
-    border: 5px solid #ced0d2;
-  }
-  tr:hover td{
-    color: #11101D;
-    cursor: pointer;
-    background-color: #ced0d2;
+.btnact {
+  text-decoration: none;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 16px;
+  color: #fff;
+  background-color: #0f0;
+}
+
+.btnrec {
+  text-decoration: none;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 16px;
+  color: #fff;
+  background-color: #f00;
+}
+
+
+main {
+  margin-left: 78px;
+}
+
+details {
+  border: solid 2px #A8A7A7;
+  border-radius: 10px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px;
+  position: relative;
+  margin-bottom: 10px;
+  margin-left: 5%;
+}
+
+details summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+summary p {
+  color: #E4E9F7;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+summary h1 {
+  font-size: 20px;
+  color: #E4E9F7;
+}
+
+summary img {
+  height: 50px;
+  width: 50px;
+}
+
+.conteudo {
+  overflow-wrap: break-word;
+  width: 80%;
+}
+
+.conteudo p {
+  color: #E4E9F7;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.conteudo h1 {
+  color: #E4E9F7;
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+/*FORMULARIO ACEITAR/RECUSAR CSS*/
+.wrapper {
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  margin: 100px auto;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.125);
+  padding: 30px;
+}
+
+.wrapper .title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #11101D;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.wrapper .form {
+  width: 100%;
+}
+
+.wrapper .form .inputfield {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.wrapper .form .inputfield label {
+  width: 200px;
+  color: #757575;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.wrapper .form .inputfield .input,
+.wrapper .form .inputfield .textarea {
+  width: 100%;
+  outline: none;
+  border: 1px solid #d5dbd9;
+  font-size: 15px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.wrapper .form .inputfield .textarea {
+  width: 100%;
+  height: 125px;
+  resize: none;
+}
+
+.wrapper .form .inputfield .custom_select {
+  position: relative;
+  width: 100%;
+  height: 37px;
+}
+
+.wrapper .form .inputfield .custom_select:before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  border: 8px solid;
+  border-color: #d5dbd9 transparent transparent transparent;
+  pointer-events: none;
+}
+
+.wrapper .form .inputfield .custom_select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 1px solid #d5dbd9;
+  border-radius: 3px;
+}
+
+
+.wrapper .form .inputfield .input:focus,
+.wrapper .form .inputfield .textarea:focus,
+.wrapper .form .inputfield .custom_select select:focus {
+  border: 1px solid #fec107;
+}
+
+.wrapper .form .inputfield p {
+  font-size: 14px;
+  color: #757575;
+}
+
+.wrapper .form .inputfield .check {
+  width: 15px;
+  height: 15px;
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.wrapper .form .inputfield .check input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.wrapper .form .inputfield .btn {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 0px;
+  background: #11101D;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}
+
+.wrapper .form .inputfield .btn:hover {
+  background: #2b2942;
+}
+
+.wrapper .form .inputfield:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width:420px) {
+  .wrapper .form .inputfield {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /*FORMULARIO ACEITAR/RECUSAR CSS*/
-  .wrapper{
-    max-width: 500px;
-    width: 100%;
-    background: #fff;
-    margin: 100px auto;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.125);
-    padding: 30px;
+  .wrapper .form .inputfield label {
+    margin-bottom: 5px;
   }
-  
-  .wrapper .title{
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: #11101D;
-    text-transform: uppercase;
-    text-align: center;
+
+  .wrapper .form .inputfield.terms {
+    flex-direction: row;
   }
-  
-  .wrapper .form{
-    width: 100%;
-  }
-  
-  .wrapper .form .inputfield{
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .wrapper .form .inputfield label{
-     width: 200px;
-     color: #757575;
-     margin-right: 10px;
-    font-size: 14px;
-  }
-  
-  .wrapper .form .inputfield .input,
-  .wrapper .form .inputfield .textarea{
-    width: 100%;
-    outline: none;
-    border: 1px solid #d5dbd9;
-    font-size: 15px;
-    padding: 8px 10px;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-  }
-  
-  .wrapper .form .inputfield .textarea{
-    width: 100%;
-    height: 125px;
-    resize: none;
-  }
-  
-  .wrapper .form .inputfield .custom_select{
-    position: relative;
-    width: 100%;
-    height: 37px;
-  }
-  
-  .wrapper .form .inputfield .custom_select:before{
-    content: "";
-    position: absolute;
-    top: 12px;
-    right: 10px;
-    border: 8px solid;
-    border-color: #d5dbd9 transparent transparent transparent;
-    pointer-events: none;
-  }
-  
-  .wrapper .form .inputfield .custom_select select{
-    -webkit-appearance: none;
-    -moz-appearance:   none;
-    appearance:        none;
-    outline: none;
-    width: 100%;
-    height: 100%;
-    border: 0px;
-    padding: 8px 10px;
-    font-size: 15px;
-    border: 1px solid #d5dbd9;
-    border-radius: 3px;
-  }
-  
-  
-  .wrapper .form .inputfield .input:focus,
-  .wrapper .form .inputfield .textarea:focus,
-  .wrapper .form .inputfield .custom_select select:focus{
-    border: 1px solid #fec107;
-  }
-  
-  .wrapper .form .inputfield p{
-     font-size: 14px;
-     color: #757575;
-  }
-  .wrapper .form .inputfield .check{
-    width: 15px;
-    height: 15px;
-    position: relative;
-    display: block;
-    cursor: pointer;
-  }
-  .wrapper .form .inputfield .check input[type="checkbox"]{
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-  }
-  .wrapper .form .inputfield .btn{
-    width: 100%;
-     padding: 8px 10px;
-    font-size: 15px; 
-    border: 0px;
-    background:  #11101D;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 3px;
-    outline: none;
-  }
-  
-  .wrapper .form .inputfield .btn:hover{
-    background: #2b2942;
-  }
-  
-  .wrapper .form .inputfield:last-child{
-    margin-bottom: 0;
-  }
-  
-  @media (max-width:420px) {
-    .wrapper .form .inputfield{
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .wrapper .form .inputfield label{
-      margin-bottom: 5px;
-    }
-    .wrapper .form .inputfield.terms{
-      flex-direction: row;
-    }
-  }
+}

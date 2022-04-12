@@ -7,6 +7,7 @@
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitações Pendentes</title>
 </head>
 
 <body>
@@ -17,7 +18,7 @@
     </div>
     <ul class="nav-list">
       <li>
-        <a href="#">
+        <a href="index-executor.html">
           <i class='bx bx-user'></i>
           <span class="links_name">Perfil</span>
         </a>
@@ -53,39 +54,35 @@
       </li>
     </ul>
   </div>
+  
+  <main>
+    <section class="home-section">
+      <div class="text">Solicitações Pendentes</div>
+      {% for chamado in chamados %}
+      {% if chamado.Chamado_respondido == 0 %}
+      <details class="card">
+        <summary>
+          <h1>{{chamado.Chamado_titulo}}</h1>
+          <p>Pendente</p>
+        </summary>
+        <div class="conteudo">
+          <h1>Titulo:</h1>
+          <p>{{chamado.Chamado_titulo}}</p>
+          <h1>Tipo:</h1>
+          <p>{{chamado.Chamado_tipo}}</p>
+          <h1>Descrição:</h1>
+          <p>{{chamado.Chamado_descricao}}</p>
+          <br>
+          <a href="{{ url_for('solicitar.execAceitar', idChamado=chamado.idChamado) }}" class="btnact">Aceitar</a>
+          <a href="{{ url_for('solicitar.execRecusar', idChamado=chamado.idChamado) }}" class="btnrec">Recusar</a>
+          <br><br>
+        </div>
+      </details>
+    </section>
+    {% endif %}
+    {% endfor %}
 
-  <section class="home-section">
-    <div class="text">Solicitações Pendentes</div>
-    <div class="table-container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Titulo</th>
-            <th>Tema</th>
-            <th>Descrição</th>
-            <th>Imagem</th>
-            <th>#</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for chamado in chamados %}
-            {% if chamado.Chamado_respondido == 0 %}
-              <tr>
-                <td date-label="Titulo">{{chamado.Chamado_titulo}}</td>
-                <td date-label="Tipo">{{chamado.Chamado_tipo}}</td>
-                <td date-label="Descrição">{{chamado.Chamado_descricao}}</td>
-                <td date-label="Imagen"><img src="./joe.jpg" alt=""></td>
-                <td date-label="">
-                  <a href="{{ url_for('solicitar.execAceitar', idChamado=chamado.idChamado) }}" class="btn">Aceitar</a>
-                  <a href="{{ url_for('solicitar.execRecusar', idChamado=chamado.idChamado) }}" class="btn">Recusar</a>
-                </td>
-              </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </section>
+  </main>
   <script src="../static/script.js"></script>
 </body>
 

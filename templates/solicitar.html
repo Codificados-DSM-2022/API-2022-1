@@ -2,85 +2,96 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../static/style.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-  <div class="sidebar">
-    <div class="logo-details">
-      <div class="logo_name">API</div>
-      <i class='bx bx-menu' id="btn"></i>
+    <div class="sidebar">
+        <div class="logo-details">
+            <div class="logo_name">API</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="#">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Perfil</span>
+                </a>
+                <span class="tooltip">Perfil</span>
+            </li>
+            <li>
+                <a href="./solicitar.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Solicitar</span>
+                </a>
+                <span class="tooltip">Solicitar</span>
+            </li>
+            <li>
+                <a href="./solicitacoes-p.html">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Solicitaçoes pendentes</span>
+                </a>
+                <span class="tooltip">Solicitaçoes pendentes</span>
+            </li>
+            <li>
+                <a href="./solicitacoes-r.html">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Solicitaçoes respondidas</span>
+                </a>
+                <span class="tooltip">Solicitaçoes respondidas</span>
+            </li>
+            <li>
+                <a href="solic-p-executor.html">
+                    <i class='bx bx-log-out'></i>
+                    <span class="links_name">Executor</span>
+                </a>
+                <span class="tooltip">Executor</span>
+            </li>
+        </ul>
     </div>
-    <ul class="nav-list">
-      <li>
-        <a href="#">
-          <i class='bx bx-user'></i>
-          <span class="links_name">Perfil</span>
-        </a>
-        <span class="tooltip">Perfil</span>
-      </li>
-      <li>
-        <a href="./solicitar.html">
-          <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Solicitar</span>
-        </a>
-        <span class="tooltip">Solicitar</span>
-      </li>
-      <li>
-        <a href="./solicitacoes-p.html">
-          <i class='bx bx-chat'></i>
-          <span class="links_name">Solicitaçoes pendentes</span>
-        </a>
-        <span class="tooltip">Solicitaçoes pendentes</span>
-      </li>
-      <li>
-        <a href="./solicitacoes-r.html">
-          <i class='bx bx-pie-chart-alt-2'></i>
-          <span class="links_name">Solicitaçoes respondidas</span>
-        </a>
-        <span class="tooltip">Solicitaçoes respondidas</span>
-      </li>
-      <li>
-        <a href="solic-p-executor.html">
-          <i class='bx bx-log-out'></i>
-          <span class="links_name">Executor</span>
-        </a>
-        <span class="tooltip">Executor</span>
-      </li>
-    </ul>
-  </div>
 
-  <section class="home-section">
-    <div class="text">Realizar Solicitações</div>
+    <section class="home-section">
 
-    <form action="/solicitar" method="POST">
+        <form action="/solicitar" method="POST">
 
-      <label>Título<p>*</p></label><br>
+            <div class="wrapper">
+                <div class="title">Realizar Solicitações
+                </div>
+                <div class="form">
+                    <div class="inputfield">
+                        <label>Titulo</label>
+                        <input type="text" class="input" name="Chamado_titulo">
+                    </div>
+                    <div class="inputfield">
+                        <label>Tema</label>
+                        <div class="custom_select">
+                            <select id="Chamado_tipo" name="Chamado_tipo">
+                                <option value="Hardware">Hardware</option>
+                                <option value="Software">Software</option>
+                                <option value="Informação">Informação</option>
+                            </select>
+                        </div>
+                    </div>
 
-      <input type="text" name="Chamado_titulo" size="38"><br><br>
+                    <div class="inputfield">
+                        <label>Descrição</label>
+                        <textarea class="textarea" name="Chamado_descricao"></textarea>
+                    </div>
 
-      <label>Tema<p>*</p></label><br>
+                    <input type="file" name="Chamado_imagem">
+                    <br><br>
+                    <div class="inputfield">
+                        <input type="submit" value="Enviar" class="btn">
+                    </div>
+                </div>
+            </div>
 
-      <select id="Chamado_tipo" name="Chamado_tipo">
-        <option value="hardware">Hardware</option>
-        <option value="software">Software</option>
-        <option value="informacao">Informação</option>
-      </select><br><br>
-
-      <label>Descrição<p>*</p></label><br>
-
-      <textarea name="Chamado_descricao"></textarea><br><br>
-
-      <input type="file" name="Chamado_imagem">
-
-      <input type="submit" name="enviar" value="Enviar Chamado">
-
-    </form>
-  </section>
-  <script src="../static/script.js"></script>
+        </form>
+    </section>
+    <script src="../static/script.js"></script>
 </body>
 
 </html>
