@@ -24,7 +24,8 @@ CREATE TABLE Chamado(
 	Chamado_descricao varchar(2000) NOT NULL,
     Chamado_resposta varchar(2000) NOT NULL,
     Chamado_avaliacao int NOT NULL,
-    Chamado_respondido boolean NOT NULL
+    Chamado_respondido boolean NOT NULL,
+    Chamado_aceitar varchar(10)
     
     -- IdUsuario int,
     -- idExecutor int

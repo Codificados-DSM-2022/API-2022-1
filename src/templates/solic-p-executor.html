@@ -72,6 +72,8 @@
           <p>{{chamado.Chamado_tipo}}</p>
           <h1>Descrição:</h1>
           <p>{{chamado.Chamado_descricao}}</p>
+          <h1>Data enviada:</h1>
+          <p>{{chamado.Chamado_data_criacao}}</p>
           <br>
           <a href="{{ url_for('solicitar.execAceitar', idChamado=chamado.idChamado) }}" class="btnact">Aceitar</a>
           <a href="{{ url_for('solicitar.execRecusar', idChamado=chamado.idChamado) }}" class="btnrec">Recusar</a>
