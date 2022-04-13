@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../static/style-exec.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Realizar Solicitações</title>
+  <title>Solicitações Respondidas</title>
 </head>
 
 <body>
@@ -45,7 +46,7 @@
         <span class="tooltip">Solicitaçoes respondidas</span>
       </li>
       <li>
-        <a href="solicitacoes-p.html">
+        <a href="index-cliente.html">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Cliente</span>
         </a>
@@ -54,43 +55,34 @@
     </ul>
   </div>
 
-  <section class="home-section">
+  <main>
+    <section class="home-section">
+      <div class="text">Solicitações Respondidas</div>
+      {% for chamado in chamados %}
+        {% if chamado.Chamado_respondido == 1 %}
+          <details class="card">
+            <summary>
+              <h1>{{chamado.Chamado_titulo}}</h1>
+              <p>{{chamado.Chamado_aceitar}}</p>
+            </summary>
+            <div class="conteudo">
+              <h1>Titulo:</h1>
+              <p>{{chamado.Chamado_titulo}}</p>
+              <h1>Tipo:</h1>
+              <p>{{chamado.Chamado_tipo}}</p>
+              <h1>Descrição:</h1>
+              <p>{{chamado.Chamado_descricao}}</p>
+              <hr>
 
-    <form action="/solicitarExec" method="POST">
+              <h1>Resposta enviada:</h1>
+              <p>{{chamado.Chamado_resposta}}</p>
 
-      <div class="wrapper">
-        <div class="title">Realizar Solicitações
-        </div>
-        <div class="form">
-          <div class="inputfield">
-            <label>Titulo</label>
-            <input type="text" class="input" name="Chamado_titulo">
-          </div>
-          <div class="inputfield">
-            <label>Tema</label>
-            <div class="custom_select">
-              <select id="Chamado_tipo" name="Chamado_tipo">
-                <option value="Hardware">Hardware</option>
-                <option value="Software">Software</option>
-                <option value="Informação">Informação</option>
-              </select>
             </div>
-          </div>
-
-          <div class="inputfield">
-            <label>Descrição</label>
-            <textarea class="textarea" name="Chamado_descricao"></textarea>
-          </div>
-
-          <input type="file" name="Chamado_imagem">
-          <br><br>
-          <div class="inputfield">
-            <input type="submit" value="Enviar" class="btn">
-          </div>
-        </div>
-      </div>
-    </form>
-  </section>
+          </details>
+        </section>
+      {% endif %}
+    {% endfor %}
+  </main>
   <script src="../static/script.js"></script>
 </body>
 

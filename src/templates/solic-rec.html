@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-br" dir="ltr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../static/style-exec.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solicitações Pendentes</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../static/style-exec.css">
+  <title>Solicitação Recusada</title>
 </head>
 
 <body>
@@ -46,7 +46,7 @@
         <span class="tooltip">Solicitaçoes respondidas</span>
       </li>
       <li>
-        <a href="solicitacoes-p.html">
+        <a href="index-cliente.html">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Cliente</span>
         </a>
@@ -54,36 +54,37 @@
       </li>
     </ul>
   </div>
-  
-  <main>
-    <section class="home-section">
-      <div class="text">Solicitações Pendentes</div>
-      {% for chamado in chamados %}
-      {% if chamado.Chamado_respondido == 0 %}
-      <details class="card">
-        <summary>
-          <h1>{{chamado.Chamado_titulo}}</h1>
-          <p>Pendente</p>
-        </summary>
-        <div class="conteudo">
-          <h1>Titulo:</h1>
-          <p>{{chamado.Chamado_titulo}}</p>
-          <h1>Tipo:</h1>
-          <p>{{chamado.Chamado_tipo}}</p>
-          <h1>Descrição:</h1>
-          <p>{{chamado.Chamado_descricao}}</p>
-          <br>
-          <a href="{{ url_for('solicitar.execAceitar', idChamado=chamado.idChamado) }}" class="btnact">Aceitar</a>
-          <a href="{{ url_for('solicitar.execRecusar', idChamado=chamado.idChamado) }}" class="btnrec">Recusar</a>
-          <br><br>
-        </div>
-      </details>
-    </section>
-    {% endif %}
-    {% endfor %}
 
-  </main>
-  <script src="../static/script.js"></script>
+  <section>
+    <div class="wrapper">
+      <div class="title">
+        Recusar Chamado
+      </div>
+      <form action="/solic-rec/{{chamados.idChamado}}" method="POST">
+        <div class="form">
+          <div class="inputfield">
+            <label>Titulo</label>
+            <P>{{chamados.Chamado_titulo}}</P>
+          </div>
+          <div class="inputfield">
+            <label>Tipo</label>
+            <p>{{chamados.Chamado_tipo}}</p>
+          </div>
+          <div class="inputfield">
+            <label>Descrição</label>
+            <p>{{chamados.Chamado_descricao}}</p>
+          </div>
+          <div class="inputfield">
+            <label>Motivo</label>
+            <textarea class="textarea" name="resposta" id="resposta"></textarea>
+          </div>
+          <div class="inputfield">
+            <input type="submit" value="Enviar Resposta" class="btn">
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
 </body>
 
 </html>

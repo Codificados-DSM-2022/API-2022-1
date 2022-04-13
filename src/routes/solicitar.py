@@ -23,9 +23,14 @@ def fazer_chamado():
     db.session.add(novo_chamado)
     db.session.commit()
 
-    return redirect('/')
+    return redirect('/solicitacoes-p.html')
 
 @solicitar.route('/')
+@solicitar.route('/index-cliente.html')
+def indexcliente():
+    chamados = Chamado.query.all()
+    return render_template('index-cliente.html', chamados=chamados)
+
 @solicitar.route('/solicitacoes-p.html')
 def pendentes():
     chamados = Chamado.query.all()
@@ -41,6 +46,11 @@ def resposta():
     return "solicitando chamado"
 
 #Executor --------------------------------------------------------------------------------------------------------------
+
+@solicitar.route('/index-executor.html')
+def indexexecutor():
+    chamados = Chamado.query.all()
+    return render_template('index-executor.html', chamados=chamados)
 
 @solicitar.route('/solic-act/<idChamado>', methods=['POST','GET'])
 def execAceitar(idChamado):

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../static/style.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitações Pendentes</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <div class="logo_name">API</div>
+      <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="index-cliente.html">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Perfil</span>
+        </a>
+        <span class="tooltip">Perfil</span>
+      </li>
+      <li>
+        <a href="./solicitar.html">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Solicitar</span>
+        </a>
+        <span class="tooltip">Solicitar</span>
+      </li>
+      <li>
+        <a href="./solicitacoes-p.html">
+          <i class='bx bx-chat'></i>
+          <span class="links_name">Solicitaçoes pendentes</span>
+        </a>
+        <span class="tooltip">Solicitaçoes pendentes</span>
+      </li>
+      <li>
+        <a href="./solicitacoes-r.html">
+          <i class='bx bx-pie-chart-alt-2'></i>
+          <span class="links_name">Solicitaçoes respondidas</span>
+        </a>
+        <span class="tooltip">Solicitaçoes respondidas</span>
+      </li>
+      <li>
+        <a href="index-executor.html">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Executor</span>
+        </a>
+        <span class="tooltip">Executor</span>
+      </li>
+    </ul>
+  </div>
+
+    <main>
+      <section class="home-section">
+        <div class="text">Solicitações Pendentes</div>
+        {% for chamado in chamados %}
+        {% if chamado.Chamado_respondido == 0 %}
+        <details class="card">
+          <summary>
+            <h1>{{chamado.Chamado_titulo}}</h1>
+            <p>Pendente</p>
+          </summary>
+          <div class="conteudo">
+            <h1>Titulo:</h1>
+            <p>{{chamado.Chamado_titulo}}</p>
+            <h1>Tipo:</h1>
+            <p>{{chamado.Chamado_tipo}}</p>
+            <h1>Descrição:</h1>
+            <p>{{chamado.Chamado_descricao}}</p>
+            <br>
+          </div>
+        </details>
+      </section>
+      {% endif %}
+      {% endfor %}
+
+    </main>
+    <script src="../static/script.js"></script>
+</body>
+</html>
