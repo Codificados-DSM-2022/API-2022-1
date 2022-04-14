@@ -121,7 +121,7 @@ flask run
 
 Antes de realmente desenvolver o projeto, foi idealizado um layout específico, aplicado em um wireframe. Primeiramente o wireframe não foi aprovado, mas com as resposta e a orientação do cliente podemos arrumar e ir direto para o desenvolvimento de um protótipo.
 
-![](/Readme/Wireframe.pdf) 
+![](/Readme/Wireframe.jpg) 
 
  Depois, foi desenvolvido o sistema de acordo com as tecnologias pedidas e o planejamento do backlog, abaixo consegue ver o resultado da primeira sprint:
 
