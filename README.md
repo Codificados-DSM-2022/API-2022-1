@@ -29,7 +29,7 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 
 <span id="executar">
  
-## :computer: Executando uma aplicação
+## :computer: Executando a aplicação
 
 **Executar o banco de dados:** Para executar o banco de dados precisa inserir a sua senha e usuário do root do MySQL Workbench no arquivo app.py como mostrado no vídeo abaixo:
 <br><br>![](/Readme/senha.gif.gif)
@@ -151,7 +151,7 @@ Antes de realmente desenvolver o projeto, foi idealizado um layout específico, 
 | Scrum Master | Andressa Ginevro de Souza | [GitHub](https://github.com/Andressafatec) |
 | Product Owner | Gabriel da Cunha de Macedo | [GitHub](https://github.com/Tuuca) |
 | Equipe de desenvolvimento | Állan Victor Silva Campos Pereira | [GitHub](https://github.com/AlnVic) |
-| Equipe de desenvolvimento | Erich Bedenik | [GitHub] |
+| Equipe de desenvolvimento | Erich Bedenik | [GitHub](https://github.com/YangKai7) |
 | Equipe de desenvolvimento | Pedro Antonio Rizzo Toledo | [GitHub](https://github.com/Pedro-Toledo) |
 | Equipe de desenvolvimento | Victor dos Santos Salles | [GitHub](https://github.com/VictorSantos18) |
 
