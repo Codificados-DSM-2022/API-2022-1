@@ -114,3 +114,52 @@ flask run
 | Artigo | Descrição |
 | :--: | :------------------------- |
 | RF 09 | O sistema deve prover relatórios que mostrem:a)Aquantidadepercentualde solicitaçõesabertas e fechadas em um determinado intervalo de  tempo (uma espécie de “instantâneo” considerando um dia, uma semana ou um mês específico).b)A evolução diáriada quantidade de solicitações abertas e fechadas, considerando intervalos de tempo especificados (1 semana, 15 dias, etc., utilizando datas de início e término para especificar tal intervalo).c)A avaliação média de cada executor de solicitação.d)A  avaliação  média  global  do  sistema,  tendo  como  base  a  nota  atribuída  a  todos  os chamados.
+
+<span id="prototipo">
+
+## :desktop_computer: Protótipo
+
+Antes de realmente desenvolver o projeto, foi idealizado um layout específico, aplicado em um wireframe e validado com o cliente. Depois, foi criado um script que possibilita (em HTML, CSS e Java algumas indicações na interface e também a exibição de dados com fictícios possíveis), onde é observado o resultado gerado pelos indicações na abaixo:
+
+![](/prototipo/demo.gif)
+
+Depois de alguns feedbacks, o time desenvolveu um novo estilos e layouts para o site, contando com mais páginas em sua navegação, além de novos estilos e ícones. Observe o resultado da atualização do feito:
+
+![](/prototipo/demo-2.gif)
+
+→ [Voltar ao topo](#topo)
+
+<span id="tecnologias">
+
+## 🛠️ Tecnologias
+
+As seguintes ferramentas, linguagens, bibliotecas e tecnologias foram utilizadas na construção do projeto:
+
+- [Figma](http://www.figma.com): Prototipagem
+- [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML): Estrutura das páginas do site
+- [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS): Estilização do site
+- [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript): Interações do site
+- [Python](https://www.python.org/): Back-end
+- [Flask](https://flask.palletsprojects.com/en/2.0.x/): Servidor
+- [MySQL](https://www.mysql.com/products/workbench/): Banco de Dados
+- [Código do Visual Studio](https://code.visualstudio.com/): Codificação
+- [Slack](https://slack.com/): Comunicação
+- [Trello](https://trello.com/pt-BR): Ferramenta para organização
+- [GitHub](https://github.com/): Versionamento e documentação
+
+→ [Voltar ao topo](#topo)
+
+<span id="equipe">
+
+## :busts_in_silhouette: Equipe
+
+| Função | Nome | GitHub |
+| :----------: | :----------------------- | :--------------------------------------------: |
+| Scrum Master | Andressa Ginevro de Souza | [GitHub](https://github.com/Andressafatec) |
+| Equipe de desenvolvimento | Gabriel da Cunha de Macedo | [GitHub](https://github.com/Tuuca) |
+| Equipe de desenvolvimento | Állan Victor Silva Campos Pereira | [GitHub](https://github.com/AlnVic) |
+| Equipe de desenvolvimento | Erich Bedenik | [GitHub] |
+| Equipe de desenvolvimento | Pedro Antonio Rizzo Toledo | [GitHub](https://github.com/Pedro-Toledo) |
+| Equipe de desenvolvimento | Victor dos Santos Salles | [GitHub](https://github.com/VictorSantos18) |
+
+→ [Voltar ao topo](#topo)
