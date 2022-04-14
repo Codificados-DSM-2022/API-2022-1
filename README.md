@@ -123,10 +123,6 @@ Antes de realmente desenvolver o projeto, foi idealizado um layout específico, 
 
 ![](/Readme/prototipo.gif)
 
-Depois de alguns feedbacks, o time desenvolveu um novo estilos e layouts para o site, contando com mais páginas em sua navegação, além de novos estilos e ícones. Observe o resultado da atualização do feito:
-
-![](/prototipo/demo-2.gif)
-
 <span id="tecnologias">
 
 ## 🛠️ Tecnologias
