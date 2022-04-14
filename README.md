@@ -31,28 +31,28 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
  
 ## :computer: Executando uma aplicação
 
+**Executar o banco de dados:** Para executar o banco de dados precisa inserir a sua senha e usuário do root do MySQL Workbench no arquivo app.py como mostrado no vídeo abaixo:
+<br><br>![](/Readme/senha.gif.gif)
+<br><br> Também precisa executar o script SQL no Workbench, para efetuar essa tarefa basta abrir o script no sistema do MySQL Workbench, no qual se encontra com o nome de SQLAPI.sql no diretório database no src, como mostrado no vídeo abaixo: 
+<br><br>![](/Readme/mysql.gif)
+      
 Depois de baixar o [python](https://www.pyth.org/download/) e clonar o projeto (ou baixá-lo):
 
 ``` powershell
 # Acesse a pasta do projeto por meio do terminal
-cd API-2022-1
+cd src
 
 # Instale as dependências
-pip install -r requirements.
+pip install -r requirements.txt
       
 # Habilitar recurso de desenvolvimento
-set FLASK_ENV=development
+set FLASK_APP=app.py
 
-# Executar uma aplicação
+# Executar a aplicação
 flask run
 
-# O site estará disponível através do link: http://localhost:5000/
+# O site estará disponível através do link: http://localhost:5000/ ou http://127.0.0.1:5000/
 ```
-
-**Executar o banco de dados:** Para executar o banco de dados precisa inserir a sua senha do root do MySQL Workbench no arquivo app.py como mostrado no vídeo abaixo:
-<br><br>![](/Readme/senha.gif.gif)
-<br><br> Também precisa executar o banco de dados no Workbench, para efetuar essa tarefa tem que abrir o arquivo com o banco de dados no sistema do MySQL Workbench, no qual se encontra com o nome de SQLAPI na pasta database do projeto, como mostrado no vídeo abaixo: 
-<br><br>![](/Readme/mysql.gif)
       
  <span id="backlogs">
 
