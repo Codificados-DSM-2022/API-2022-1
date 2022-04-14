@@ -121,7 +121,8 @@ flask run
 
 Antes de realmente desenvolver o projeto, foi idealizado um layout específico, aplicado em um wireframe e validado com o cliente. Depois, foi desenvolvido o sistema de acordo com as tecnologias pedidas e o planejamento do backlog, abaixo consegue ver o resultado da primeira sprint:
 
-![](/Readme/prototipo.gif)
+![](/Readme/prototipo.gif) 
+Clique [aqui](link do video aqui) para visualizar o resultado.
 
 <span id="tecnologias">
 
