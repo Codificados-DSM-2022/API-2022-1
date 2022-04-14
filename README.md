@@ -24,7 +24,7 @@
 Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 <h4>O projeto tem como objetivo desenvolver um sistema que controlar a prestação de serviços de TI, tanto sob o ponto de vista do cliente como do executor</h4>
 
-> _Projeto baseado na metodologia ágil SCRUM, desenvolver a Proatividade, Autonomia e Entrega de Resultados envolvidos_ <br><br>
+> _Projeto baseado na metodologia ágil SCRUM_ <br><br>
 > **Status do Projeto: Desenvolvendo**
 
 <span id="executar">
@@ -119,9 +119,9 @@ flask run
 
 ## :desktop_computer: Protótipo
 
-Antes de realmente desenvolver o projeto, foi idealizado um layout específico, aplicado em um wireframe e validado com o cliente. Depois, foi criado um script que possibilita (em HTML, CSS e Java algumas indicações na interface e também a exibição de dados com fictícios possíveis), onde é observado o resultado gerado pelos indicações na abaixo:
+Antes de realmente desenvolver o projeto, foi idealizado um layout específico, aplicado em um wireframe e validado com o cliente. Depois, foi desenvolvido o sistema de acordo com as tecnologias pedidas e o planejamento do backlog, abaixo consegue ver o resultado da primeira sprint:
 
-![](/prototipo/demo.gif)
+![](/Readme/prototipo.gif)
 
 Depois de alguns feedbacks, o time desenvolveu um novo estilos e layouts para o site, contando com mais páginas em sua navegação, além de novos estilos e ícones. Observe o resultado da atualização do feito:
 
