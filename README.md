@@ -123,9 +123,13 @@ Antes de realmente desenvolver o projeto, foi idealizado um layout específico, 
 
 ![](/Readme/Wireframe.jpg) 
 
- Depois, foi desenvolvido o sistema de acordo com as tecnologias pedidas e o planejamento do backlog, abaixo consegue ver o resultado da primeira sprint:
+ Depois, foi desenvolvido o sistema de acordo com as tecnologias pedidas e o planejamento do backlog.
+ 
+De acordo com o planejamento a primeira Sprint apresentará um sistema com a página de solicitação, do executor e a página de visualização do usuário, abaixo consegue observar o resultado dela: 
 
+![](/Readme/vídeo_das páginas) 
 
+Clique [aqui](link do vídeo) para acessar o vídeo, no qual apresenta a codificação do sistema.
 
 <span id="tecnologias">
 
