@@ -135,7 +135,7 @@ De acordo com o planejamento a primeira Sprint apresentará um sistema com a pá
 
 ![](/Readme/executor.gif)
 
-Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo, no qual apresenta a codificação do sistema.
+Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
 
 <span id="tecnologias">
 
