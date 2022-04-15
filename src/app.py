@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:fatec@localhost/projeto'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:tuca123@localhost/projeto'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 create_engine.max_overflow = -1
 

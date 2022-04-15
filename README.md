@@ -127,9 +127,15 @@ Antes de realmente desenvolver o projeto, foi idealizado um layout específico, 
  
 De acordo com o planejamento a primeira Sprint apresentará um sistema com a página de solicitação, do executor e a página de visualização do usuário, abaixo consegue observar o resultado dela: 
 
-![](/Readme/vídeo_das páginas) 
+Área de cliente:
 
-Clique [aqui](link do vídeo) para acessar o vídeo, no qual apresenta a codificação do sistema.
+![](/Readme/cliente.gif)
+
+Área de executor:
+
+![](/Readme/executor.gif)
+
+Clique [aqui]() para acessar o vídeo, no qual apresenta a codificação do sistema.
 
 <span id="tecnologias">
 
