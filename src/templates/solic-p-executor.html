@@ -58,32 +58,32 @@
   <main>
     <section class="home-section">
       <div class="text">Solicitações Pendentes</div>
-      {% for chamado in chamados %}
-      {% if chamado.Chamado_respondido == 0 %}
+
+      {% for chamado in Chamados %}
+      {% if chamado[8] == 0 %}
       <details class="card">
         <summary>
-          <h1>{{chamado.Chamado_titulo}}</h1>
+          <h1>{{chamado[3]}}</h1>
           <p>Pendente</p>
         </summary>
         <div class="conteudo">
           <h1>Titulo:</h1>
-          <p>{{chamado.Chamado_titulo}}</p>
+          <p>{{chamado[3]}}</p>
           <h1>Tipo:</h1>
-          <p>{{chamado.Chamado_tipo}}</p>
+          <p>{{chamado[4]}}</p>
           <h1>Descrição:</h1>
-          <p>{{chamado.Chamado_descricao}}</p>
+          <p>{{chamado[5]}}</p>
           <h1>Data enviada:</h1>
-          <p>{{chamado.Chamado_data_criacao}}</p>
+          <p>{{chamado[1]}}</p>
           <br>
-          <a href="{{ url_for('solicitar.execAceitar', idChamado=chamado.idChamado) }}" class="btnact">Aceitar</a>
-          <a href="{{ url_for('solicitar.execRecusar', idChamado=chamado.idChamado) }}" class="btnrec">Recusar</a>
+          <a href="{{ url_for('execAceitar', idChamado=chamado[0]) }}" class="btnact">Aceitar</a>
+          <a href="{{ url_for('execRecusar', idChamado=chamado[0]) }}" class="btnrec">Recusar</a>
           <br><br>
         </div>
       </details>
     </section>
     {% endif %}
     {% endfor %}
-
   </main>
   <script src="../static/script.js"></script>
 </body>

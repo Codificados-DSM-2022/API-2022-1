@@ -55,33 +55,34 @@
     </ul>
   </div>
 
-    <main>
-      <section class="home-section">
-        <div class="text">Solicitações Pendentes</div>
-        {% for chamado in chamados %}
-        {% if chamado.Chamado_respondido == 0 %}
-        <details class="card">
-          <summary>
-            <h1>{{chamado.Chamado_titulo}}</h1>
-            <p>Pendente</p>
-          </summary>
-          <div class="conteudo">
-            <h1>Titulo:</h1>
-            <p>{{chamado.Chamado_titulo}}</p>
-            <h1>Tipo:</h1>
-            <p>{{chamado.Chamado_tipo}}</p>
-            <h1>Descrição:</h1>
-            <p>{{chamado.Chamado_descricao}}</p>
-            <h1>Data enviada:</h1>
-            <p>{{chamado.Chamado_data_criacao}}</p>
-            <br>
-          </div>
-        </details>
-      </section>
+  <main>
+    <section class="home-section">
+      <div class="text">Solicitações Pendentes</div>
+      {% for chamado in Chamados %}
+        {% if chamado[8] == 0 %}
+          <details class="card">
+            <summary>
+              <h1>{{chamado[3]}}</h1>
+              <p>Pendente</p>
+            </summary>
+            <div class="conteudo">
+              <h1>Titulo:</h1>
+              <p>{{chamado[3]}}</p>
+              <h1>Tipo:</h1>
+              <p>{{chamado[4]}}</p>
+              <h1>Descrição:</h1>
+              <p>{{chamado[5]}}</p>
+              <h1>Data enviada:</h1>
+              <p>{{chamado[1]}}</p>
+              <br>
+            </div>
+          </details>
+        </section>
       {% endif %}
-      {% endfor %}
+    {% endfor %}
 
-    </main>
-    <script src="../static/script.js"></script>
+  </main>
+  <script src="../static/script.js"></script>
 </body>
+
 </html>

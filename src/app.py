@@ -1,17 +1,156 @@
-from flask import Flask, render_template, request
-from routes.solicitar import solicitar
-from routes.solicitar import solicitarExec
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-#from flask_mysqldb import MySQL
+from flask import Flask, render_template, request, redirect, url_for
+from flask_mysqldb import MySQL
+from datetime import datetime
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:tuca123@localhost/projeto'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-create_engine.max_overflow = -1
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'tuca123'
+app.config['MYSQL_DB'] = 'projeto'
 
-SQLAlchemy(app)
+mysql = MySQL(app)
+#------------------------Usuário
 
-app.register_blueprint(solicitar)
-app.register_blueprint(solicitarExec)
+@app.route('/')
+@app.route('/index-cliente.html')
+def indexcliente():
+    return render_template('index-cliente.html')
+
+@app.route('/solicitar.html')
+def home():
+    return render_template('solicitar.html')
+
+@app.route('/solicitar', methods=['POST'])
+def fazer_chamado():
+    Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
+    Chamado_data_entrega = '0'
+    Chamado_titulo = request.form['Chamado_titulo']
+    Chamado_tipo = request.form['Chamado_tipo']
+    Chamado_descricao = request.form['Chamado_descricao']
+    Chamado_Reposta = ''
+    #Chamado_avaliacao = 0
+    Chamado_respondido = '0'
+
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
+    mysql.connection.commit()
+    cur.close()
+    return render_template('/solicitacoes-p.html')
+
+@app.route('/solicitacoes-p.html')
+def pendentes():
+    cur = mysql.connection.cursor()
+    Values = cur.execute("SELECT * FROM chamado")
+    if Values > 0:
+        Chamados = cur.fetchall()
+        return render_template('solicitacoes-p.html', Chamados=Chamados)
+    else:
+        return render_template('solicitacoes-p.html')
+
+@app.route('/solicitacoes-r.html')
+def respondidas():
+    cur = mysql.connection.cursor()
+    Values = cur.execute("SELECT * FROM chamado")
+    if Values > 0:
+        Chamados = cur.fetchall()
+        print (Chamados)
+        return render_template('solicitacoes-r.html', Chamados=Chamados)
+    else:
+        return render_template('solicitacoes-r.html')
+
+@app.route('/resposta')
+def resposta():
+    return "solicitando chamado"
+
+#----------------------------Executor-----------------------
+
+@app.route('/index-executor.html')
+def indexexecutor():
+    return render_template('index-executor.html')
+
+@app.route('/solic-act/<idChamado>', methods=['POST','GET'])
+def execAceitar(idChamado):
+    if request.method == "POST":
+        chamados = Chamado.query.get(idChamado)
+        Chamado_resposta = request.form["resposta"]
+        Chamado_respondido = True
+        Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
+        Chamado_aceitar = 'Atendido'
+
+        db.session.commit()
+
+        return redirect("/solic-r-executor.html")
+
+    chamados = Chamado.query.get(idChamado)
+    return render_template('solic-act.html', chamados=chamados)
+
+@app.route('/solic-rec/<idChamado>', methods=['POST','GET'])
+def execRecusar(idChamado):
+
+    cur = mysql.connection.cursor()
+
+    if request.method == "POST":
+        Chamado_resposta = request.form["resposta"]
+        Chamado_respondido = True
+        Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
+        Chamado_aceitar = "Recusado"
+
+        cur.execute("UPDATE chamado SET Chamado_resposta = %s, Chamado_respondido = %s, Chamado_data_entrega = %s, Chamado_aceitar = %s WHERE Chamado_id = %s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar, idChamado))
+        cur.connection.commit()
+        cur.close()
+        return redirect("/solic-r-executor.html")
+
+    Values = cur.execute("SELECT * FROM chamado")
+    Chamados = cur.fetchall()
+    for i in Chamados:
+        print(i)
+        print(i[0])
+        print(idChamado)
+        if int(i[0]) == int(idChamado):
+            print('uai')
+            return render_template('solic-rec.html', Chamados=i)
+
+@app.route('/solic-executor.html')
+def execSolicitar():
+    return render_template('solic-executor.html')
+
+@app.route('/solicitarExec', methods=['POST'])
+def fazer_chamado_exec():
+    Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
+    Chamado_data_entrega = '0'
+    Chamado_titulo = request.form['Chamado_titulo']
+    Chamado_tipo = request.form['Chamado_tipo']
+    Chamado_descricao = request.form['Chamado_descricao']
+    Chamado_Reposta = ''
+    #Chamado_avaliacao = 0
+    Chamado_respondido = '0'
+
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
+    mysql.connection.commit()
+    cur.close()
+    return render_template('/solic-p-executor.html')
+
+@app.route('/solic-p-executor.html')
+def execPendentes():
+    cur = mysql.connection.cursor()
+    Values = cur.execute("SELECT * FROM chamado")
+    if Values > 0:
+        Chamados = cur.fetchall()
+        return render_template('solic-p-executor.html', Chamados=Chamados)
+    else:
+        return render_template('solic-p-executor.html')
+
+@app.route('/solic-r-executor.html')
+def execRespondidas():
+    cur = mysql.connection.cursor()
+    Values = cur.execute("SELECT * FROM chamado")
+    if Values > 0:
+        Chamados = cur.fetchall()
+        return render_template('solic-r-executor.html', Chamados=Chamados)
+    else:
+        return render_template('solic-r-executor.html')
+
+if __name__ == "__main__":
+    app.run(debug=True)

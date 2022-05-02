@@ -60,19 +60,20 @@
       <div class="title">
         Recusar Chamado
       </div>
-      <form action="/solic-rec/{{chamados.idChamado}}" method="POST">
+      <label>{{chamado[0]}}</label>
+      <form action="/solic-rec/{{chamado[0]}}" method="POST">
         <div class="form">
           <div class="inputfield">
             <label>Titulo</label>
-            <P>{{chamados.Chamado_titulo}}</P>
+            <P>{{chamado[3]}}</P>
           </div>
           <div class="inputfield">
             <label>Tipo</label>
-            <p>{{chamados.Chamado_tipo}}</p>
+            <p>{{chamado[4]}}</p>
           </div>
           <div class="inputfield">
             <label>Descrição</label>
-            <p>{{chamados.Chamado_descricao}}</p>
+            <p>{{chamado[5]}}</p>
           </div>
           <div class="inputfield">
             <label>Motivo</label>
