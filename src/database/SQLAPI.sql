@@ -26,6 +26,7 @@ CREATE TABLE Chamado(
     Chamado_resposta varchar(2000) NOT NULL,
     Chamado_avaliacao int,
     Chamado_respondido bool, 
+    Chamado_aceitar varchar(10),
     primary key(idChamado)
     
     -- IdUsuario int,
