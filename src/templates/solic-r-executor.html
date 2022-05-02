@@ -18,35 +18,35 @@
     </div>
     <ul class="nav-list">
       <li>
-        <a href="index-executor.html">
+        <a href="index-executor">
           <i class='bx bx-user'></i>
           <span class="links_name">Perfil</span>
         </a>
         <span class="tooltip">Perfil</span>
       </li>
       <li>
-        <a href="solic-executor.html">
+        <a href="solic-executor">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Solicitar</span>
         </a>
         <span class="tooltip">Solicitar</span>
       </li>
       <li>
-        <a href="solic-p-executor.html">
+        <a href="solic-p-executor">
           <i class='bx bx-chat'></i>
           <span class="links_name">Solicitaçoes pendentes</span>
         </a>
         <span class="tooltip">Solicitaçoes pendentes</span>
       </li>
       <li>
-        <a href="solic-r-executor.html">
+        <a href="solic-r-executor">
           <i class='bx bx-pie-chart-alt-2'></i>
           <span class="links_name">Solicitaçoes respondidas</span>
         </a>
         <span class="tooltip">Solicitaçoes respondidas</span>
       </li>
       <li>
-        <a href="index-cliente.html">
+        <a href="index-cliente">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Cliente</span>
         </a>
@@ -58,33 +58,33 @@
   <main>
     <section class="home-section">
       <div class="text">Solicitações Respondidas</div>
-      {% for chamado in chamados %}
-        {% if chamado.Chamado_respondido == 1 %}
-          <details class="card">
-            <summary>
-              <h1>{{chamado.Chamado_titulo}}</h1>
-              <p>{{chamado.Chamado_aceitar}}</p>
-            </summary>
-            <div class="conteudo">
-              <h1>Titulo:</h1>
-              <p>{{chamado.Chamado_titulo}}</p>
-              <h1>Tipo:</h1>
-              <p>{{chamado.Chamado_tipo}}</p>
-              <h1>Descrição:</h1>
-              <p>{{chamado.Chamado_descricao}}</p>
-              <h1>Data recebida:</h1>
-              <p>{{chamado.Chamado_data_criacao}}</p>
-              <hr>
+      {% for chamado in Chamados %}
+      {% if chamado[8] == 1 %}
+      <details class="card">
+        <summary>
+          <h1>{{chamado[3]}}</h1>
+          <p>{{chamado[9]}}</p>
+        </summary>
+        <div class="conteudo">
+          <h1>Titulo:</h1>
+          <p>{{chamado[3]}}</p>
+          <h1>Tipo:</h1>
+          <p>{{chamado[4]}}</p>
+          <h1>Descrição:</h1>
+          <p>{{chamado[5]}}</p>
+          <h1>Data recebida:</h1>
+          <p>{{chamado[1]}}</p>
+          <hr>
 
-              <h1>Resposta enviada:</h1>
-              <p>{{chamado.Chamado_resposta}}</p>
-              <h1>Data enviada:</h1>
-              <p>{{chamado.Chamado_data_entrega}}</p>
+          <h1>Resposta enviada:</h1>
+          <p>{{chamado[6]}}</p>
+          <h1>Data enviada:</h1>
+          <p>{{chamado[2]}}</p>
 
-            </div>
-          </details>
-        </section>
-      {% endif %}
+        </div>
+      </details>
+    </section>
+    {% endif %}
     {% endfor %}
   </main>
   <script src="../static/script.js"></script>

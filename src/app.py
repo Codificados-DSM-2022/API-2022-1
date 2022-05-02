@@ -13,11 +13,11 @@ mysql = MySQL(app)
 #------------------------Usuário
 
 @app.route('/')
-@app.route('/index-cliente.html')
+@app.route('/index-cliente')
 def indexcliente():
     return render_template('index-cliente.html')
 
-@app.route('/solicitar.html')
+@app.route('/solicitar')
 def home():
     return render_template('solicitar.html')
 
@@ -38,7 +38,7 @@ def fazer_chamado():
     cur.close()
     return render_template('/solicitacoes-p.html')
 
-@app.route('/solicitacoes-p.html')
+@app.route('/solicitacoes-p')
 def pendentes():
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")
@@ -48,7 +48,7 @@ def pendentes():
     else:
         return render_template('solicitacoes-p.html')
 
-@app.route('/solicitacoes-r.html')
+@app.route('/solicitacoes-r')
 def respondidas():
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")
@@ -65,27 +65,33 @@ def resposta():
 
 #----------------------------Executor-----------------------
 
-@app.route('/index-executor.html')
+@app.route('/index-executor')
 def indexexecutor():
     return render_template('index-executor.html')
 
 @app.route('/solic-act/<idChamado>', methods=['POST','GET'])
 def execAceitar(idChamado):
+
+    cur = mysql.connection.cursor()
     if request.method == "POST":
-        chamados = Chamado.query.get(idChamado)
         Chamado_resposta = request.form["resposta"]
         Chamado_respondido = True
         Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
-        Chamado_aceitar = 'Atendido'
+        Chamado_aceitar = "Atendido"
 
-        db.session.commit()
+        cur.execute("UPDATE chamado SET Chamado_resposta = %s, Chamado_respondido = %s, Chamado_data_entrega = %s, Chamado_aceitar = %s WHERE idChamado = %s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar, idChamado))
+        cur.connection.commit()
+        cur.close()
+        return redirect("/solic-r-executor")
 
-        return redirect("/solic-r-executor.html")
+    Values = cur.execute("SELECT * FROM chamado")
+    Chamados = cur.fetchall()
+    for i in Chamados:
+        if int(i[0]) == int(idChamado):
+            return render_template('solic-act.html', Chamados=i)
 
-    chamados = Chamado.query.get(idChamado)
-    return render_template('solic-act.html', chamados=chamados)
 
-@app.route('/solic-rec/<idChamado>', methods=['POST','GET'])
+@app.route('/solic-act/<idChamado>', methods=['POST','GET'])
 def execRecusar(idChamado):
 
     cur = mysql.connection.cursor()
@@ -96,22 +102,18 @@ def execRecusar(idChamado):
         Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
         Chamado_aceitar = "Recusado"
 
-        cur.execute("UPDATE chamado SET Chamado_resposta = %s, Chamado_respondido = %s, Chamado_data_entrega = %s, Chamado_aceitar = %s WHERE Chamado_id = %s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar, idChamado))
+        cur.execute("UPDATE chamado SET Chamado_resposta=%s, Chamado_respondido=%s, Chamado_data_entrega=%s, Chamado_aceitar=%s WHERE idChamado=%s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar, idChamado))
         cur.connection.commit()
         cur.close()
-        return redirect("/solic-r-executor.html")
+        return redirect("/solic-r-executor")
 
     Values = cur.execute("SELECT * FROM chamado")
     Chamados = cur.fetchall()
     for i in Chamados:
-        print(i)
-        print(i[0])
-        print(idChamado)
         if int(i[0]) == int(idChamado):
-            print('uai')
-            return render_template('solic-rec.html', Chamados=i)
+            return render_template('solic-act.html', Chamados=i)
 
-@app.route('/solic-executor.html')
+@app.route('/solic-executor')
 def execSolicitar():
     return render_template('solic-executor.html')
 
@@ -132,7 +134,7 @@ def fazer_chamado_exec():
     cur.close()
     return render_template('/solic-p-executor.html')
 
-@app.route('/solic-p-executor.html')
+@app.route('/solic-p-executor')
 def execPendentes():
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")
@@ -142,7 +144,7 @@ def execPendentes():
     else:
         return render_template('solic-p-executor.html')
 
-@app.route('/solic-r-executor.html')
+@app.route('/solic-r-executor')
 def execRespondidas():
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")

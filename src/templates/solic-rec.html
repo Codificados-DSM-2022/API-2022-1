@@ -18,35 +18,35 @@
     </div>
     <ul class="nav-list">
       <li>
-        <a href="index-executor.html">
+        <a href="index-executor">
           <i class='bx bx-user'></i>
           <span class="links_name">Perfil</span>
         </a>
         <span class="tooltip">Perfil</span>
       </li>
       <li>
-        <a href="solic-executor.html">
+        <a href="solic-executor">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Solicitar</span>
         </a>
         <span class="tooltip">Solicitar</span>
       </li>
       <li>
-        <a href="solic-p-executor.html">
+        <a href="solic-p-executor">
           <i class='bx bx-chat'></i>
           <span class="links_name">Solicitaçoes pendentes</span>
         </a>
         <span class="tooltip">Solicitaçoes pendentes</span>
       </li>
       <li>
-        <a href="solic-r-executor.html">
+        <a href="solic-r-executor">
           <i class='bx bx-pie-chart-alt-2'></i>
           <span class="links_name">Solicitaçoes respondidas</span>
         </a>
         <span class="tooltip">Solicitaçoes respondidas</span>
       </li>
       <li>
-        <a href="index-cliente.html">
+        <a href="index-cliente">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Cliente</span>
         </a>
@@ -54,26 +54,25 @@
       </li>
     </ul>
   </div>
-
+  
   <section>
     <div class="wrapper">
       <div class="title">
         Recusar Chamado
       </div>
-      <label>{{chamado[0]}}</label>
-      <form action="/solic-rec/{{chamado[0]}}" method="POST">
+      <form action="/solic-rec/{{Chamados[0]}}" method="POST">
         <div class="form">
           <div class="inputfield">
             <label>Titulo</label>
-            <P>{{chamado[3]}}</P>
+            <P>{{Chamados[3]}}</P>
           </div>
           <div class="inputfield">
             <label>Tipo</label>
-            <p>{{chamado[4]}}</p>
+            <p>{{Chamados[4]}}</p>
           </div>
           <div class="inputfield">
             <label>Descrição</label>
-            <p>{{chamado[5]}}</p>
+            <p>{{Chamados[5]}}</p>
           </div>
           <div class="inputfield">
             <label>Motivo</label>
