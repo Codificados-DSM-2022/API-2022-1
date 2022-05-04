@@ -1,0 +1,41 @@
+body
+{
+    background-image: url("imagens/imagem_teste.jpg");
+    background-size: cover;
+}
+
+.cadastro
+{
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 10%;
+    width: 20%;
+    background-color: rgb(230, 210, 230);
+}
+.cadastro form img
+{
+    width: 50%;
+    height: 30%;
+    margin-left: 25%;
+}
+.cadastro input[type=text]
+{
+    width: 98%;
+    height: 20px;
+}
+.cadastro input[type=date]
+{
+    width: 98%;
+    height: 20px;
+}
+.cadastro input[type=password]
+{
+    width: 98%;
+    height: 20px;
+}
+.cadastro input[type=submit]
+{
+    width: 30%;
+}
