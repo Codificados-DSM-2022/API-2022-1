@@ -6,16 +6,33 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'tuca123'
+app.config['MYSQL_PASSWORD'] = 'fatec'
 app.config['MYSQL_DB'] = 'projeto'
 
 mysql = MySQL(app)
-#------------------------Usuário
+
+@app.route('/login')
+def logindoalazada():
+    return render_template('login.html')
+
+@app.route('/cadastro')
+def cadastrodopedrada():
+    return render_template('cadastro.html')
+
+#------------------------Usuário------------------------#
 
 @app.route('/')
 @app.route('/index-cliente')
 def indexcliente():
     return render_template('index-cliente.html')
+
+@app.route('/perfil-user')
+def perfilusuario():
+    return render_template('perfil-user.html')
+
+@app.route('/perfil-exec')
+def perfilexecutor():
+    return render_template('perfil-exec.html')
 
 @app.route('/solicitar')
 def home():

@@ -336,6 +336,202 @@ summary img {
   margin-top: 20px;
 }
 
+/*PERFIL DO USUÁRIO*/
+.container {
+  position: relative;
+  width: 80%;
+  max-width: 1400px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  background: #A8A7A7;
+  box-shadow: 8px 10px 25px #757575;
+  margin: 0 auto;
+}
+
+.container .left-side {
+  background: #fff;
+  padding: 1.5rem;
+}
+
+.container .right-side {
+  background: #11101D;
+  padding: 1.5rem;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.profile .img-sett {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  overflow: hidden;
+
+}
+
+.profile .img-sett img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile .texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile .texto h4 {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding-top: 1rem;
+  border-top: 1px solid #fff;
+}
+
+.profile .texto h5 {
+  color: #A8A7A7;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+.right-items {
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.formBx .form {
+  left: 0;
+  width: 100%;
+  padding: 50px;
+  transition: 0.5s;
+}
+
+.formBx .signinForm {
+  transition-delay: 0.25s;
+}
+
+.formBx.active .signinForm {
+  left: -100%;
+  transition-delay: 0s;
+}
+
+.formBx .signupForm {
+  left: 100%;
+  transition-delay: 0s;
+}
+
+.formBx.active .signupForm {
+  left: 0%;
+  transition-delay: 0.25s;
+}
+
+.formBx .form form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.formBx .form form h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.formBx .form form input {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  outline: none;
+  font-size: 16px;
+  border: 1´x solid #333;
+}
+
+.formBx .form form input[type="submit"] {
+  background: #11101D;
+  border: none;
+  color: #fff;
+  max-width: 100px;
+  cursor: pointer;
+}
+
+.popup {
+  position: absolute;
+  top: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transition: 0.25s;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 2px;
+  position: relative;
+  margin-top: 460px;
+}
+
+.popup-content i {
+  position: absolute;
+  font-size: 18px;
+  top: 15px;
+  right: 15px;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.popup-content p {
+  margin-bottom: 5px;
+}
+
+.popup-content .inputfield {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content .btn {
+  background: #11101D;
+  width: 80px;
+  height: 40px;
+  color: #fff;
+  justify-content: center;
+}
+
+.BtnExc {
+  background: #fff;
+  border: none;
+  color: #11101D;
+  max-width: 100px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100px;
+  height: 40px;
+}
+
+@media (max-width: 991px) {
+  .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .popup-content {
+    margin-top: 1000px;
+  }
+}
+
+
 /*FORM SOLICITAÇÃO CSS*/
 
 .wrapper {
