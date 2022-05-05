@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,27 +8,63 @@
     <link rel="stylesheet" href="../static/style-cadastro.css">
     <title>Cadastro</title>
 </head>
+
 <body>
-    <div class="cadastro">
-        <form>
-            <img src="../static/imagens/logo_teste.png"><br>
-            <label>Nome Completo</label><br>
-            <input type="text" name="nome" placeholder="Insira seu nome"><br><br>
-            <label>Email</label><br>
-            <input type="text" name="email" placeholder="Insira seu email"><br><br>
-            <label>Senha</label><br>
-            <input type="password" name="senha" placeholder="Insira sua senha"><br><br>
-            <label>Confirmar Senha</label><br>
-            <input type="password" name="csenha" placeholder="Confirme sua senha"><br><br>
-            <label>Data de Nascimento</label><br>
-            <input type="date" name="nasc"><br><br>
-            <label>Telefone</label><br>
-            <input type="text" maxlength="11" name="contato" placeholder="Insira um contato"><br><br>
-            <label>Endereço</label><br>
-            <input type="text" name="endereço" placeholder="Insira seu endereço"><br><br>
-            <input type="checkbox" name="termos"><label>Concordo em armazenar meus dados nesse site</label><br><br>
-            <input type="submit" name="concluir" value="Concluir">
+    <div class="center">
+        <h1>Cadastre-se</h1>
+        <form method="post">
+            <div class="left-side">
+                <div class="txt_field">
+                    <input type="text" name="nome" required>
+                    <span></span>
+                    <label>Nome</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="senha" required>
+                    <span></span>
+                    <label>Senha</label>
+                </div>
+                <div class="txt_field">
+                    <input type="date" name="nasc" required>
+                    <span></span>
+                    <label></label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="endereço" required>
+                    <span></span>
+                    <label>Endereço</label>
+                </div>
+
+            </div>
+            <div class="right-side">
+                <div class="txt_field">
+                    <input type="password" name="email" required>
+                    <span></span>
+                    <label>Email</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="confirmar-senha" required>
+                    <span></span>
+                    <label>Confirmar Senha</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" maxlength="11" name="contato" required>
+                    <span></span>
+                    <label>Telefone</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" maxlength="11" name="cep" required>
+                    <span></span>
+                    <label>CEP</label>
+                </div>
+            </div>
         </form>
+        <div class="signup_link">
+            já é cadastrado? <a href="./login.html">Faça Login</a>
+        </div>
+        <input type="submit" value="Cadastrar">
+
     </div>
 </body>
+
 </html>
