@@ -165,7 +165,7 @@ Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no q
 | Scrum Master | Andressa Ginevro de Souza | [GitHub](https://github.com/Andressafatec) |
 | Product Owner | Gabriel da Cunha de Macedo | [GitHub](https://github.com/Tuuca) |
 | Equipe de desenvolvimento | Állan Victor Silva Campos Pereira | [GitHub](https://github.com/AlnVic) |
-| Equipe de desenvolvimento | Erich Bedenik | [GitHub](https://github.com/YangKai7) |
+| Equipe de desenvolvimento | André Felipe da Costa | [GitHub](https://github.com/fecosta290) |
 | Equipe de desenvolvimento | Pedro Antonio Rizzo Toledo | [GitHub](https://github.com/Pedro-Toledo) |
 | Equipe de desenvolvimento | Victor dos Santos Salles | [GitHub](https://github.com/VictorSantos18) |
 
