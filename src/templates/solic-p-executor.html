@@ -26,11 +26,11 @@
       </li>
       <li>
         <a href="./perfil-exec">
-            <i class='bx bx-user'></i>
-            <span class="links_name">Perfil</span>
+          <i class='bx bx-user'></i>
+          <span class="links_name">Perfil</span>
         </a>
         <span class="tooltip">Perfil</span>
-    </li>
+      </li>
       <li>
         <a href="solic-executor">
           <i class='bx bx-grid-alt'></i>
@@ -65,32 +65,31 @@
   <main>
     <section class="home-section">
       <div class="text">Solicitações Pendentes</div>
-
       {% for chamado in Chamados %}
-      {% if chamado[8] == 0 %}
-      <details class="card">
-        <summary>
-          <h1>{{chamado[3]}}</h1>
-          <p>Pendente</p>
-        </summary>
-        <div class="conteudo">
-          <h1>Titulo:</h1>
-          <p>{{chamado[3]}}</p>
-          <h1>Tipo:</h1>
-          <p>{{chamado[4]}}</p>
-          <h1>Descrição:</h1>
-          <p>{{chamado[5]}}</p>
-          <h1>Data enviada:</h1>
-          <p>{{chamado[1]}}</p>
-          <br>
-          <a href="{{ url_for('execAceitar', idChamado=chamado[0]) }}" class="btnact">Aceitar</a>
-          <a href="{{ url_for('execRecusar', idChamado=chamado[0]) }}" class="btnrec">Recusar</a>
-          <br><br>
-        </div>
-      </details>
+        {% if chamado[8] == 0 %}
+          <details class="card">
+            <summary>
+              <h1>{{chamado[3]}}</h1>
+              <p>Pendente</p>
+            </summary>
+            <div class="conteudo">
+              <h1>Titulo:</h1>
+              <p>{{chamado[3]}}</p>
+              <h1>Tipo:</h1>
+              <p>{{chamado[4]}}</p>
+              <h1>Descrição:</h1>
+              <p>{{chamado[5]}}</p>
+              <h1>Data enviada:</h1>
+              <p>{{chamado[1]}}</p>
+              <br>
+              <a href="{{ url_for('execAceitar', idChamado=chamado[0]) }}" class="btnact">Aceitar</a>
+              <a href="{{ url_for('execRecusar', idChamado=chamado[0]) }}" class="btnrec">Recusar</a>
+              <br><br>
+            </div>
+          </details>
+        {% endif %}
+      {% endfor %}
     </section>
-    {% endif %}
-    {% endfor %}
   </main>
   <script src="../static/script.js"></script>
 </body>

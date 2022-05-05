@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'fatec'
+app.config['MYSQL_PASSWORD'] = 'tuca123'
 app.config['MYSQL_DB'] = 'projeto'
 
 mysql = MySQL(app)
@@ -19,7 +19,7 @@ def logindoalazada():
 def cadastrodopedrada():
     return render_template('cadastro.html')
 
-#------------------------Usuário------------------------#
+#------------------------------Usuário-------------------------------#
 
 @app.route('/')
 @app.route('/index-cliente')
@@ -80,7 +80,7 @@ def respondidas():
 def resposta():
     return "solicitando chamado"
 
-#----------------------------Executor-----------------------
+#----------------------------Executor--------------------------#
 
 @app.route('/index-executor')
 def indexexecutor():

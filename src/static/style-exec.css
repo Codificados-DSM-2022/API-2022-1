@@ -263,16 +263,18 @@ body {
 }
 
 /*INICIO*/
-.inicio{
+.inicio {
   margin-top: 300px;
 }
-.inicio .titulo h1{
+
+.inicio .titulo h1 {
   font-size: 30px;
   color: #E4E9F7;
   display: flex;
   justify-content: center;
 }
-.inicio .titulo p{
+
+.inicio .titulo p {
   font-size: 18px;
   color: #E4E9F7;
   display: flex;
@@ -701,5 +703,3 @@ summary img {
     flex-direction: row;
   }
 }
-
-

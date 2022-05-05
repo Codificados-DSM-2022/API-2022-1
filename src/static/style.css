@@ -266,16 +266,18 @@ body {
 }
 
 /*INICIO*/
-.inicio{
+.inicio {
   margin-top: 300px;
 }
-.inicio .titulo h1{
+
+.inicio .titulo h1 {
   font-size: 30px;
   color: #11101D;
   display: flex;
   justify-content: center;
 }
-.inicio .titulo p{
+
+.inicio .titulo p {
   font-size: 18px;
   color: #11101D;
   display: flex;
