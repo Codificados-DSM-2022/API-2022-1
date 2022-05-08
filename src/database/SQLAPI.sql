@@ -1,18 +1,23 @@
 create database projeto;
 use projeto;
 
-CREATE TABLE Usuarios(idUser int auto_increment,
-    usuario_nome varchar(150) NOT NULL,
+CREATE TABLE Usuarios(
+	idUsuario int auto_increment,
 	usuario_email varchar(150) NOT NULL,
-    usuario_senha varchar(50) NOT NULL,
-    primary key(idUser)
+	usuario_senha varchar(50) NOT NULL,
+    usuario_nome varchar(150) NOT NULL,
+    usuario_contato varchar(12) not null,
+    usuario_endereco varchar(250) NOT NULL,
+    primary key(idUsuario)
     );
 
 CREATE TABLE Executores(
 	idExecutor int auto_increment,
-    executor_nome varchar(150) NOT NULL,
-	executor_email varchar(150) NOT NULL,
+    executor_email varchar(150) NOT NULL,
     executor_senha varchar(50) NOT NULL,
+    executor_nome varchar(150) NOT NULL,
+	executor_contato varchar(12) not null,
+    executor_endereco varchar(250) NOT NULL,
     primary key(idExecutor)
 );
 
@@ -37,3 +42,4 @@ CREATE TABLE Chamado(
 -- Alter table Chamado ADD constraint fk_executor FOREIGN KEY (idExecutor) REFERENCES Usuarios(idUser);
 
 select * from Chamado;
+

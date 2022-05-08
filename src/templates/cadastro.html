@@ -12,25 +12,20 @@
 <body>
     <div class="center">
         <h1>Cadastre-se</h1>
-        <form method="post">
+        <form method="POST">
             <div class="left-side">
                 <div class="txt_field">
-                    <input type="text" name="nome" required>
+                    <input type="text" name="usuario_nome" required>
                     <span></span>
                     <label>Nome</label>
                 </div>
                 <div class="txt_field">
-                    <input type="password" name="senha" required>
+                    <input type="password" name="usuario_senha" required>
                     <span></span>
                     <label>Senha</label>
                 </div>
                 <div class="txt_field">
-                    <input type="date" name="nasc" required>
-                    <span></span>
-                    <label></label>
-                </div>
-                <div class="txt_field">
-                    <input type="text" name="endereço" required>
+                    <input type="text" name="usuario_endereco" required>
                     <span></span>
                     <label>Endereço</label>
                 </div>
@@ -38,31 +33,27 @@
             </div>
             <div class="right-side">
                 <div class="txt_field">
-                    <input type="password" name="email" required>
+                    <input type="text" name="usuario_email" required>
                     <span></span>
                     <label>Email</label>
                 </div>
                 <div class="txt_field">
-                    <input type="password" name="confirmar-senha" required>
+                    <input type="password" name="usuario_csenha" required>
                     <span></span>
                     <label>Confirmar Senha</label>
                 </div>
                 <div class="txt_field">
-                    <input type="text" maxlength="11" name="contato" required>
+                    <input type="text" maxlength="11" name="usuario_contato" required>
                     <span></span>
                     <label>Telefone</label>
                 </div>
-                <div class="txt_field">
-                    <input type="text" maxlength="11" name="cep" required>
-                    <span></span>
-                    <label>CEP</label>
-                </div>
             </div>
+            <p>{{msg}}</p>
+            <input type="submit" value="Cadastrar">
         </form>
         <div class="signup_link">
-            já é cadastrado? <a href="./login.html">Faça Login</a>
+            já é cadastrado? <a href="./login">Faça Login</a>
         </div>
-        <input type="submit" value="Cadastrar">
 
     </div>
 </body>
