@@ -139,19 +139,16 @@ def usuarios(cursor):
 
 @app.route('/index-cliente')
 def indexcliente():
-    return render_template('index-cliente.html', nome=session['usuario_nome'])
+    return render_template('usuario/index-cliente.html', nome=session['usuario_nome'])
 
 @app.route('/perfil-user')
 def perfilusuario():
-    return render_template('perfil-user.html')
+    return render_template('usuario/perfil-user.html')
 
-@app.route('/perfil-exec')
-def perfilexecutor():
-    return render_template('perfil-exec.html')
 
 @app.route('/solicitar')
 def solicitar():
-    return render_template('solicitar.html')
+    return render_template('usuario/solicitar.html')
 
 @app.route('/solicitar', methods=['POST'])
 def fazer_chamado():
@@ -168,7 +165,7 @@ def fazer_chamado():
     cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
     mysql.connection.commit()
     cur.close()
-    return render_template('/solicitacoes-p.html')
+    return render_template('usuario/solicitacoes-p.html')
 
 @app.route('/solicitacoes-p')
 def pendentes():
@@ -176,9 +173,9 @@ def pendentes():
     Values = cur.execute("SELECT * FROM chamado")
     if Values > 0:
         Chamados = cur.fetchall()
-        return render_template('solicitacoes-p.html', Chamados=Chamados)
+        return render_template('usuario/solicitacoes-p.html', Chamados=Chamados)
     else:
-        return render_template('solicitacoes-p.html')
+        return render_template('usuario/solicitacoes-p.html')
 
 @app.route('/solicitacoes-r')
 def respondidas():
@@ -187,19 +184,19 @@ def respondidas():
     if Values > 0:
         Chamados = cur.fetchall()
         print (Chamados)
-        return render_template('solicitacoes-r.html', Chamados=Chamados)
+        return render_template('usuario/solicitacoes-r.html', Chamados=Chamados)
     else:
-        return render_template('solicitacoes-r.html')
-
-@app.route('/resposta')
-def resposta():
-    return "solicitando chamado"
+        return render_template('usuario/solicitacoes-r.html')
 
 #----------------------------Executor--------------------------#
 
 @app.route('/index-executor')
 def indexexecutor():
-    return render_template('index-executor.html')
+    return render_template('executor/index-executor.html')
+
+@app.route('/perfil-exec')
+def perfilexecutor():
+    return render_template('executor/perfil-exec.html')
 
 @app.route('/solic-act/<idChamado>', methods=['POST','GET'])
 def execAceitar(idChamado):
@@ -220,7 +217,7 @@ def execAceitar(idChamado):
     Chamados = cur.fetchall()
     for i in Chamados:
         if int(i[0]) == int(idChamado):
-            return render_template('solic-act.html', Chamados=i)
+            return render_template('executor/solic-act.html', Chamados=i)
 
 
 @app.route('/solic-act/<idChamado>', methods=['POST','GET'])
@@ -243,11 +240,11 @@ def execRecusar(idChamado):
     Chamados = cur.fetchall()
     for i in Chamados:
         if int(i[0]) == int(idChamado):
-            return render_template('solic-act.html', Chamados=i)
+            return render_template('executor/solic-act.html', Chamados=i)
 
 @app.route('/solic-executor')
 def execSolicitar():
-    return render_template('solic-executor.html')
+    return render_template('executor/solic-executor.html')
 
 @app.route('/solicitarExec', methods=['POST'])
 def fazer_chamado_exec():
@@ -264,7 +261,7 @@ def fazer_chamado_exec():
     cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
     mysql.connection.commit()
     cur.close()
-    return render_template('/solic-p-executor.html')
+    return render_template('executor/solic-p-executor.html')
 
 @app.route('/solic-p-executor')
 def execPendentes():
@@ -272,9 +269,9 @@ def execPendentes():
     Values = cur.execute("SELECT * FROM chamado")
     if Values > 0:
         Chamados = cur.fetchall()
-        return render_template('solic-p-executor.html', Chamados=Chamados)
+        return render_template('executor/solic-p-executor.html', Chamados=Chamados)
     else:
-        return render_template('solic-p-executor.html')
+        return render_template('executor/solic-p-executor.html')
 
 @app.route('/solic-r-executor')
 def execRespondidas():
@@ -282,9 +279,9 @@ def execRespondidas():
     Values = cur.execute("SELECT * FROM chamado")
     if Values > 0:
         Chamados = cur.fetchall()
-        return render_template('solic-r-executor.html', Chamados=Chamados)
+        return render_template('executor/solic-r-executor.html', Chamados=Chamados)
     else:
-        return render_template('solic-r-executor.html')
+        return render_template('executor/solic-r-executor.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
