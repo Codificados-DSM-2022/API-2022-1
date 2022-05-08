@@ -1,3 +1,4 @@
+import email
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -15,9 +16,11 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 mysql = MySQL(app)
 
+
 @app.route('/')
 def index():
     return redirect('login')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,18 +28,16 @@ def login():
     msg = ''
     # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'email' in request.form and 'senha' in request.form:
-        # Create variables for easy access
+
         email = request.form['email']
         senha = request.form['senha']
-        # Check if account exists using MySQL
+
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM usuarios WHERE usuario_email = %s AND usuario_senha = %s', (email, senha))
-        # Fetch one record and return result
+
         usuarios = cursor.fetchone()
-        # If account exists in accounts table in out database
+
         if usuarios:
-            # Create session data, we can access this data in other routes
-            print(usuarios)
             session['loggedin'] = True
             session['idUsuario'] = usuarios[0]
             session['usuario_email'] = usuarios[1]
@@ -63,6 +64,7 @@ def login():
     # Show the login form with message (if any)
     return render_template('login.html', msg=msg)
 
+
 @app.route('/logout')
 def logout():
     # Remove session data, this will log the user out
@@ -85,14 +87,14 @@ def logout():
     return redirect(url_for('login'))
 
 
+
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST' and request.form['usuario_senha'] != request.form['usuario_csenha']:
-        print(request.form['usuario_senha'])
-        print(request.form['usuario_csenha'])
+
         msg = 'Senhas não conferem!'
     elif request.method == 'POST' and 'usuario_email' in request.form and 'usuario_senha' in request.form and 'usuario_nome' in request.form and 'usuario_contato' in request.form and 'usuario_endereco' in request.form:
         # Create variables for easy access
@@ -115,8 +117,8 @@ def cadastro():
             executor = cursor.fetchone()
             if not executor:
                 cursor.execute('insert into usuarios (usuario_nome, usuario_email, usuario_contato, usuario_endereco, usuario_senha) values (%s, %s, %s, %s, %s)', (usuario_nome, usuario_email, usuario_contato, usuario_endereco, usuario_senha))
-                mysql.connection.commit()
-                usuarios(cursor)
+                cursor.mysql.connection.commit()
+                cursor.close()
                 return redirect(url_for('login'))
             else:
                 msg = 'Email já cadastrado!'
@@ -129,44 +131,38 @@ def cadastro():
     # Show registration form with message (if any)
     return render_template('cadastro.html', msg=msg)
 
-def usuarios(cursor):
-    usuarios = cursor.fetchone()
-    # http://localhost:5000/pythinlogin/home - this will be the home page, only accessible for loggedin users
-
-
-
 #------------------------------Usuário-------------------------------#
+
 
 @app.route('/index-cliente')
 def indexcliente():
     return render_template('usuario/index-cliente.html', nome=session['usuario_nome'])
 
+
 @app.route('/perfil-user')
 def perfilusuario():
-    return render_template('usuario/perfil-user.html')
+    return render_template('usuario/perfil-user.html', id=session['idUsuario'] ,nome=session['usuario_nome'], email=session['usuario_email'], senha=session['usuario_senha'],contato=session['usuario_contato'], endereco=session['usuario_endereco']) 
+    
 
-
-@app.route('/solicitar')
+@app.route('/solicitar', methods=['POST', 'GET'])
 def solicitar():
+    if request.method == 'POST':
+        Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
+        Chamado_data_entrega = '0'
+        Chamado_titulo = request.form['Chamado_titulo']
+        Chamado_tipo = request.form['Chamado_tipo']
+        Chamado_descricao = request.form['Chamado_descricao']
+        Chamado_Reposta = ''
+        #Chamado_avaliacao = 0
+        Chamado_respondido = '0'
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
+        mysql.connection.commit()
+        cur.close()
+        return redirect("/solicitacoes-p")
     return render_template('usuario/solicitar.html')
-
-@app.route('/solicitar', methods=['POST'])
-def fazer_chamado():
-    Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
-    Chamado_data_entrega = '0'
-    Chamado_titulo = request.form['Chamado_titulo']
-    Chamado_tipo = request.form['Chamado_tipo']
-    Chamado_descricao = request.form['Chamado_descricao']
-    Chamado_Reposta = ''
-    #Chamado_avaliacao = 0
-    Chamado_respondido = '0'
-
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
-    mysql.connection.commit()
-    cur.close()
-    return render_template('usuario/solicitacoes-p.html')
-
+    
 @app.route('/solicitacoes-p')
 def pendentes():
     cur = mysql.connection.cursor()
@@ -177,26 +173,29 @@ def pendentes():
     else:
         return render_template('usuario/solicitacoes-p.html')
 
+
 @app.route('/solicitacoes-r')
 def respondidas():
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")
     if Values > 0:
         Chamados = cur.fetchall()
-        print (Chamados)
         return render_template('usuario/solicitacoes-r.html', Chamados=Chamados)
     else:
         return render_template('usuario/solicitacoes-r.html')
 
 #----------------------------Executor--------------------------#
 
+
 @app.route('/index-executor')
 def indexexecutor():
     return render_template('executor/index-executor.html')
 
+
 @app.route('/perfil-exec')
 def perfilexecutor():
     return render_template('executor/perfil-exec.html')
+
 
 @app.route('/solic-act/<idChamado>', methods=['POST','GET'])
 def execAceitar(idChamado):
@@ -218,6 +217,7 @@ def execAceitar(idChamado):
     for i in Chamados:
         if int(i[0]) == int(idChamado):
             return render_template('executor/solic-act.html', Chamados=i)
+
 
 
 @app.route('/solic-act/<idChamado>', methods=['POST','GET'])
@@ -242,9 +242,11 @@ def execRecusar(idChamado):
         if int(i[0]) == int(idChamado):
             return render_template('executor/solic-act.html', Chamados=i)
 
+
 @app.route('/solic-executor')
 def execSolicitar():
     return render_template('executor/solic-executor.html')
+
 
 @app.route('/solicitarExec', methods=['POST'])
 def fazer_chamado_exec():
@@ -263,6 +265,7 @@ def fazer_chamado_exec():
     cur.close()
     return render_template('executor/solic-p-executor.html')
 
+
 @app.route('/solic-p-executor')
 def execPendentes():
     cur = mysql.connection.cursor()
@@ -272,6 +275,7 @@ def execPendentes():
         return render_template('executor/solic-p-executor.html', Chamados=Chamados)
     else:
         return render_template('executor/solic-p-executor.html')
+
 
 @app.route('/solic-r-executor')
 def execRespondidas():

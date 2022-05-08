@@ -1,8 +1,18 @@
 create database projeto;
 use projeto;
 
+CREATE TABLE Administrador(
+    idAdm INT NOT NULL AUTO_INCREMENT,
+    adm_email VARCHAR(100) NOT NULL,
+    adm_senha VARCHAR(50) NOT NULL,
+    adm_exec_index INT NOT NULL,
+    primary key(idAdm)
+);
+
+INSERT INTO Administrador(adm_email, adm_senha, adm_exec_index) VALUES('admin', 'admin', 1);
+
 CREATE TABLE Usuarios(
-	idUsuario int auto_increment,
+	idUsuario INT NOT NULL AUTO_INCREMENT,
 	usuario_email varchar(150) NOT NULL,
 	usuario_senha varchar(50) NOT NULL,
     usuario_nome varchar(150) NOT NULL,
@@ -12,7 +22,7 @@ CREATE TABLE Usuarios(
     );
 
 CREATE TABLE Executores(
-	idExecutor int auto_increment,
+	idExecutor INT NOT NULL AUTO_INCREMENT,
     executor_email varchar(150) NOT NULL,
     executor_senha varchar(50) NOT NULL,
     executor_nome varchar(150) NOT NULL,
@@ -22,7 +32,7 @@ CREATE TABLE Executores(
 );
 
 CREATE TABLE Chamado(
-	idChamado int auto_increment,
+	idChamado INT NOT NULL AUTO_INCREMENT,
     Chamado_data_criacao varchar(15) NOT NULL,
     Chamado_data_entrega varchar(15) NOT NULL,
     Chamado_titulo varchar(100) NOT NULL,
