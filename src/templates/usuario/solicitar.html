@@ -60,44 +60,37 @@
       </li>
     </ul>
   </div>
+<main>
   <section class="home-section">
-
-    <form action="/solicitar" method="POST">
-
-      <div class="wrapper">
-        <div class="title">Realizar Solicitações
-        </div>
-        <div class="form">
-          <div class="inputfield">
-            <label>Titulo</label>
-            <input type="text" class="input" name="Chamado_titulo">
+    <div class="text">Realizar Solicitações</div>
+    <div class="wrapper">
+      <header>Realizar Solicitação</header>
+      <form action="/solicitar" method="POST">
+        <div class="dbl-field">
+          <div class="field">
+            <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema">
+            <i class='fas fa-user'></i>
           </div>
-          <div class="inputfield">
-            <label>Tema</label>
-            <div class="custom_select">
-              <select id="Chamado_tipo" name="Chamado_tipo">
-                <option value="Hardware">Hardware</option>
-                <option value="Software">Software</option>
-                <option value="Informação">Informação</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="inputfield">
-            <label>Descrição</label>
-            <textarea class="textarea" name="Chamado_descricao"></textarea>
-          </div>
-
-          <input type="file" name="Chamado_imagem">
-          <br><br>
-          <div class="inputfield">
-            <input type="submit" value="Enviar" class="btn">
+          <div class="dropdown">
+            <select id="Chamado_tipo" name="Chamado_tipo">
+              <option value="Hardware">Hardware</option>
+              <option value="Software">Software</option>
+              <option value="Informação">Informação</option>
+            </select>
           </div>
         </div>
-      </div>
-
-    </form>
+        <div class="message">
+          <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao"></textarea>
+          <i class="material-icons">message</i>
+        </div>
+        <input type="file" name="Chamado_imagem">
+        <div class="button-area">
+          <button type="submit">Enviar Solicitação</button>
+          <span></span>
+      </form>
+    </div>
   </section>
+</main>
   <script src="../static/script.js"></script>
 </body>
 

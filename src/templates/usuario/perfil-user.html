@@ -73,14 +73,14 @@
                                 <div class="form signupForm">
                                     <form action="/editar-user/{{id}}" method="POST">
                                         <h3>Atualize suas Informações</h3>
-                                        <h4>Nome: </h4>
-                                        <input type="text" placeholder="Nome do Usuário" value={{nome[0:]}} id="nome" name="nome">
+                                        <h4>Nome: {{nome}}</h4>
+                                        <textarea class="textarea" name="nome">{{nome}}</textarea>
                                         <h4>Endereço:</h4>
-                                        <input type="text" placeholder="Endereço" value={{endereco}} id="endereco" name="endereco">
+                                        <textarea class="textarea" name="endereco">{{endereco}}</textarea>
                                         <h4>Telefone:</h4>
-                                        <input type="text" placeholder="Telefone" value={{contato}} id="contato" name="contato">
+                                        <textarea class="textarea" name="contato">{{contato}}</textarea>
                                         <h4>Email:</h4>
-                                        <input type="text" placeholder="Email" value={{email}} id="email" name="email">
+                                        <textarea class="textarea" name="email">{{email}}</textarea>
                                         <h4>Nova senha:</h4>
                                         <input type="password" id="senha" name="senha">
                                         <h4>Confirmar senha:</h4>
