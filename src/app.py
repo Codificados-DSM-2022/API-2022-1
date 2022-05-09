@@ -1,4 +1,3 @@
-import email
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -117,7 +116,7 @@ def cadastro():
             executor = cursor.fetchone()
             if not executor:
                 cursor.execute('insert into usuarios (usuario_nome, usuario_email, usuario_contato, usuario_endereco, usuario_senha) values (%s, %s, %s, %s, %s)', (usuario_nome, usuario_email, usuario_contato, usuario_endereco, usuario_senha))
-                cursor.mysql.connection.commit()
+                cursor.connection.commit()
                 cursor.close()
                 return redirect(url_for('login'))
             else:
@@ -139,9 +138,19 @@ def indexcliente():
     return render_template('usuario/index-cliente.html', nome=session['usuario_nome'])
 
 
-@app.route('/perfil-user')
+@app.route('/perfil-user', methods=['GET', 'POST'])
 def perfilusuario():
-    return render_template('usuario/perfil-user.html', id=session['idUsuario'] ,nome=session['usuario_nome'], email=session['usuario_email'], senha=session['usuario_senha'],contato=session['usuario_contato'], endereco=session['usuario_endereco']) 
+    cur = mysql.connection.cursor()
+    msg = ''
+    if request.method == "POST":
+        if str(request.form['senha']) == str(request.form['csenha']):
+            cur.execute('UPDATE Usuarios SET usuario_nome = %s, usuario_email = %s, usuario_contato = %s, usuario_endereco = %s, usuario_senha = %s WHERE idUsuario = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], request.form['senha'], session['idUsuario']))
+            cur.connection.commit()
+            cur.close()
+            return redirect('logout')
+        else:
+            msg = 'Senhas não conferem!'
+    return render_template('usuario/perfil-user.html', id=session['idUsuario'],nome=session['usuario_nome'], email=session['usuario_email'], senha=session['usuario_senha'],contato=session['usuario_contato'], endereco=session['usuario_endereco'], msg = msg) 
     
 
 @app.route('/solicitar', methods=['POST', 'GET'])
@@ -193,9 +202,19 @@ def indexexecutor():
     return render_template('executor/index-executor.html')
 
 
-@app.route('/perfil-exec')
+@app.route('/perfil-exec', methods=['GET', 'POST'])
 def perfilexecutor():
-    return render_template('executor/perfil-exec.html')
+    cur = mysql.connection.cursor()
+    msg = ''
+    if request.method == "POST":
+        if str(request.form['senha']) == str(request.form['csenha'] and request.form['senha'] != ''):
+            cur.execute('UPDATE Executores SET executor_nome = %s, executor_email = %s, executor_contato = %s, executor_endereco = %s, executor_senha = %s WHERE idExecutor = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], request.form['senha'], session['idExecutor']))
+            cur.connection.commit()
+            cur.close()
+            return redirect('logout')
+        else:
+            msg = 'Senhas não conferem!'
+    return render_template('executor/perfil-exec.html', id=session['idExecutor'],nome=session['executor_nome'], email=session['executor_email'], senha=session['executor_senha'],contato=session['executor_contato'], endereco=session['executor_endereco'], msg = msg) 
 
 
 @app.route('/solic-act/<idChamado>', methods=['POST','GET'])
