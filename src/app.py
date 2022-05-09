@@ -184,6 +184,7 @@ def respondidas():
     else:
         return render_template('usuario/solicitacoes-r.html')
 
+
 #----------------------------Executor--------------------------#
 
 
@@ -219,8 +220,7 @@ def execAceitar(idChamado):
             return render_template('executor/solic-act.html', Chamados=i)
 
 
-
-@app.route('/solic-act/<idChamado>', methods=['POST','GET'])
+@app.route('/solic-rec/<idChamado>', methods=['POST','GET'])
 def execRecusar(idChamado):
 
     cur = mysql.connection.cursor()
