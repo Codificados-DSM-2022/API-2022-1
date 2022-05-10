@@ -28,11 +28,11 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 > **Status do Projeto: Desenvolvendo**
 
 ### Entregas de Sprints
-| Sprint | Previsão | Status | 
-|:--:|:----------:|:----------------|
-| 01 | 14/04/2022 | ✔️ Concluída    | 
-| 02 | 15/05/2022 | 🕤 Em andamento | 
-| 03 | 05/06/2022 | 🛑 Não iniciada | 
+| Sprint | Previsão | Status | tag |
+|:--:|:----------:|:----------------| :---------: |
+| 01 | 14/04/2022 | ✔️ Concluída    | [Tag01](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.0) |
+| 02 | 15/05/2022 | 🕤 Em andamento | -- |
+| 03 | 05/06/2022 | 🛑 Não iniciada | -- |
 
 <span id="executar">
  
