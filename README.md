@@ -90,8 +90,8 @@ flask run
 | RFN 03 | Utilizar HTML 5 para arquitetura da informação da aplicação |10|
 | RFN 04 | Utilizar  CSS  3para  especificação  do  layout  e  demais  características  de  renderização  da interface com o usuário.|10|
 | RFN 05 | Utilizar o GitHub para controle de versão dos artefatos de projeto.|11|
-| RFN 06 |  Interface com navegação intuitiva (e.g. acesso à informação com poucos “cliques”);|11|
-| RFN 07 | Sistema responsivo.|11|
+| RFN 06 |  Interface com navegação intuitiva (e.g. acesso à informação com poucos “cliques”);|10|
+| RFN 07 | Sistema responsivo.|10|
 | RFN 08 | Utilizar JavaScript no front end (obs: pode fazer uso de frameworks)|10|
     
  → [Voltar ao topo](#topo)
@@ -150,8 +150,10 @@ flask run
 
 
 <span id="prototipo">
-
-## :desktop_computer: Wireframe e protótipo
+      
+## ✔️ Entrega Primeira Sprint
+        
+### :desktop_computer: Wireframe e protótipo
 
 Antes de realmente desenvolver o projeto, foi idealizado um layout específico, aplicado em um wireframe. Primeiramente o wireframe não foi aprovado, mas com as resposta e a orientação do cliente podemos arrumar e ir direto para o desenvolvimento de um protótipo.
 
@@ -168,6 +170,8 @@ De acordo com o planejamento a primeira Sprint apresentará um sistema com a pá
 Área de executor:
 
 ![](/Readme/executor.gif)
+
+### 🎥 Vídeo de apresentação da Sprint 1
 
 Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
 
@@ -203,7 +207,7 @@ Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no q
 | Equipe de desenvolvimento | Pedro Antonio Rizzo Toledo | [GitHub](https://github.com/Pedro-Toledo) |
 | Equipe de desenvolvimento | Victor dos Santos Salles | [GitHub](https://github.com/VictorSantos18) |
       
- ## :busts_in_silhouette: Organização da Equipe
+ ## 📈 Organização da Equipe
       
  #### Sprint 1
  #### Sprint 2
