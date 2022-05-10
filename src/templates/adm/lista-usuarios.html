@@ -83,12 +83,13 @@
                     <div class="grid">
 
                         <div class="esquerda">
-                            <h1>Lista de Solicitantes</h1>
+                            <h1>Lista de Usuários</h1>
+                            {% for usuario in usuarios %}
                             <div class="box">
                                 <div class="image">
-                                    <img src="./perfil.png" alt="">
+                                    <img src="../static/image/perfil.png" alt="">
                                 </div>
-                                <div class="name_job">Victor dos Santos</div>
+                                <div class="name_job">{{usuario[3]}}</div>
                                 <p>Avaliação média</p>
                                 <div class="rating">
                                     <i class="far fa-star"></i>
@@ -97,49 +98,27 @@
                                     <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
                                 </div>
-                                <p><span>Email: </span>teste@gmail.com</p>
+                                <p><span>Email: </span>{{usuario[1]}}</p>
                                 <div class="grid-info">
-                                    <p><span>Endereço: </span>Rua Esmeralda</p>
-                                    <p><span>Telefone: </span>12 99999-9999</p>
+                                    <p><span>Endereço: </span>{{usuario[5]}}</p>
+                                    <p><span>Telefone: </span>{{usuarios[4]}}</p>
                                 </div>
                                 <div class="btns">
                                     <button>Alterar Cargo</button>
                                     <button>Excluir Conta</button>
                                 </div>
                             </div>
-
-                            <div class="box">
-                                <div class="image">
-                                    <img src="./perfil.png" alt="">
-                                </div>
-                                <div class="name_job">Victor dos Santos</div>
-                                <p>Avaliação média</p>
-                                <div class="rating">
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <p><span>Email: </span>teste@gmail.com</p>
-                                <div class="grid-info">
-                                    <p><span>Endereço: </span>Rua Esmeralda</p>
-                                    <p><span>Telefone: </span>12 99999-9999</p>
-                                </div>
-                                <div class="btns">
-                                    <button>Alterar Cargo</button>
-                                    <button>Excluir Conta</button>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
 
                         <div class="direita">
                             <h1>Lista de Executores</h1>
+                            {% for executor in executores %}
                             <div class="box">
                                 <div class="image">
-                                    <img src="./perfil.png" alt="">
+                                    <img src="../static/image/perfil-exe.png" alt="">
                                 </div>
-                                <div class="name_job">Victor dos Santos</div>
+                                <div class="name_job">{{executor[3]}}</div>
                                 <p>Avaliação média</p>
                                 <div class="rating">
                                     <i class="far fa-star"></i>
@@ -148,42 +127,21 @@
                                     <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
                                 </div>
-                                <p><span>Email: </span>teste@gmail.com</p>
+                                <p><span>Email: </span>{{executor[1]}}</p>
                                 <div class="grid-info">
-                                    <p><span>Endereço: </span>Rua Esmeralda</p>
-                                    <p><span>Telefone: </span>12 99999-9999</p>
+                                    <p><span>Endereço: </span>{{executor[5]}}</p>
+                                    <p><span>Telefone: </span>{{executor[4]}}</p>
                                 </div>
                                 <div class="btns">
                                     <button>Alterar Cargo</button>
                                     <button>Excluir Conta</button>
                                 </div>
                             </div>
-                            <div class="box">
-                                <div class="image">
-                                    <img src="./perfil.png" alt="">
-                                </div>
-                                <div class="name_job">Victor dos Santos</div>
-                                <p>Avaliação média</p>
-                                <div class="rating">
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <p><span>Email: </span>teste@gmail.com</p>
-                                <div class="grid-info">
-                                    <p><span>Endereço: </span>Rua Esmeralda</p>
-                                    <p><span>Telefone: </span>12 99999-9999</p>
-                                </div>
-                                <div class="btns">
-                                    <button>Alterar Cargo</button>
-                                    <button>Excluir Conta</button>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
 
     </main>

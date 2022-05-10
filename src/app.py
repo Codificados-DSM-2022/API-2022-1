@@ -17,7 +17,7 @@ mysql = MySQL(app)
 
 
 @app.route('/')
-def index():
+def index():   
     return redirect('login')
 
 
@@ -74,7 +74,7 @@ def login():
 
 
 @app.route('/logout')
-def logout():
+def logout(): 
     # Remove session data, this will log the user out
     session.pop('loggedin', None)
     session.pop('idUsuario', None)
@@ -97,7 +97,7 @@ def logout():
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])
-def cadastro():
+def cadastro(): 
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
@@ -141,22 +141,40 @@ def cadastro():
 
 #-------------------------------Administrador---------------------------#
 
+
 @app.route('/index-adm')
-def indexadm():
+def indexadm():  
     if not session.get('loggedin'):
         return redirect(url_for('login'))
     return render_template('adm/index-adm.html')
+
+
+@app.route('/lista-usuarios', methods=['GET', 'POST'])
+def listausuarios():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM usuarios")
+    usuarios = cur.fetchall()
+    cur.execute("SELECT * FROM executores")
+    executores = cur.fetchall()
+    return render_template('adm/lista-usuarios.html', usuarios=usuarios, executores=executores)
+
 
 #------------------------------Usuário-------------------------------#
 
 
 @app.route('/index-cliente')
 def indexcliente():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     return render_template('usuario/index-cliente.html', nome=session['usuario_nome'])
 
 
 @app.route('/perfil-user', methods=['GET', 'POST'])
 def perfilusuario():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     msg = ''
     if request.method == "POST":
@@ -177,6 +195,8 @@ def perfilusuario():
 
 @app.route('/solicitar', methods=['POST', 'GET'])
 def solicitar():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     if request.method == 'POST':
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
@@ -196,6 +216,8 @@ def solicitar():
     
 @app.route('/solicitacoes-p')
 def pendentes():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")
     if Values > 0:
@@ -207,6 +229,8 @@ def pendentes():
 
 @app.route('/solicitacoes-r')
 def respondidas():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")
     if Values > 0:
@@ -221,11 +245,15 @@ def respondidas():
 
 @app.route('/index-executor')
 def indexexecutor():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     return render_template('executor/index-executor.html')
 
 
 @app.route('/perfil-exec', methods=['GET', 'POST'])
 def perfilexecutor():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     msg = ''
     if request.method == "POST":
@@ -291,11 +319,15 @@ def execRecusar(idChamado):
 
 @app.route('/solic-executor')
 def execSolicitar():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     return render_template('executor/solic-executor.html')
 
 
 @app.route('/solicitarExec', methods=['POST'])
 def fazer_chamado_exec():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
     Chamado_data_entrega = '0'
     Chamado_titulo = request.form['Chamado_titulo']
@@ -314,6 +346,8 @@ def fazer_chamado_exec():
 
 @app.route('/solic-p-executor')
 def execPendentes():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")
     if Values > 0:
@@ -325,6 +359,8 @@ def execPendentes():
 
 @app.route('/solic-r-executor')
 def execRespondidas():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM chamado")
     if Values > 0:

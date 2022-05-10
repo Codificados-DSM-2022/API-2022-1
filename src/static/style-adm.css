@@ -9,7 +9,7 @@
 body {
     width: 100%;
     font-family: 'Roboto', sans-serif;
-    background: #E4E9F7;
+    background: #f7e4e4;
 }
 
 
@@ -149,7 +149,7 @@ body {
     align-items: center;
     text-decoration: none;
     transition: all 0.4s ease;
-    background: #11101D;
+    background: #300006;;
 }
 
 .sidebar li a:hover {
