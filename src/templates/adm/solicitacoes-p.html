@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" dir="ltr">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="../../static/style-adm.css">
-  <title>Início</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitações Pendentes</title>
 </head>
 
 <body>
@@ -76,13 +76,29 @@
     </ul>
 </div>
   <main>
-    <section class="inicio">
-      <div class="titulo">
-        <h1>Bem-Vindo!</h1>
-        <br>
-        <p>Você está cadastrado comoﾠ<b>Administrador!</b></p>
-        <p>Navegue através da barra lateral, para ter acesso à todas as funcionalidades disponíveis!</p>
-      </div>
+    <section class="home-section">
+      <div class="text">Solicitações Pendentes</div>
+      {% for chamado in Chamados %}
+        {% if chamado[8] == 0 %}
+          <details class="card">
+            <summary>
+              <h1>{{chamado[3]}}</h1>
+              <p>Pendente</p>
+            </summary>
+            <div class="conteudo">
+              <h1>Titulo:</h1>
+              <p>{{chamado[3]}}</p>
+              <h1>Tipo:</h1>
+              <p>{{chamado[4]}}</p>
+              <h1>Descrição:</h1>
+              <p>{{chamado[5]}}</p>
+              <h1>Data enviada:</h1>
+              <p>{{chamado[1]}}</p>
+              <br>
+            </div>
+          </details>
+        {% endif %}
+      {% endfor %}
     </section>
   </main>
   <script src="../static/script.js"></script>

@@ -58,6 +58,15 @@ def login():
             session['executor_endereco'] = executor[5]
             return redirect(url_for('indexexecutor'))
             # Account doesnt exist or username/password incorrect
+        cursor.execute('SELECT * FROM Administrador WHERE adm_email = %s AND adm_senha = %s', (email, senha))
+        adm = cursor.fetchone()
+        if adm:
+            session['loggedin'] = True
+            session['idAdm'] = adm[0]
+            session['adm_email'] = adm[1]
+            session['adm_senha'] = adm[2]
+            session['adm_exec_index'] = adm[3]
+            return redirect(url_for('indexadm'))
         else:
             msg = 'Senha ou email incorretos!'
     # Show the login form with message (if any)
@@ -130,6 +139,14 @@ def cadastro():
     # Show registration form with message (if any)
     return render_template('cadastro.html', msg=msg)
 
+#-------------------------------Administrador---------------------------#
+
+@app.route('/index-adm')
+def indexadm():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))
+    return render_template('adm/index-adm.html')
+
 #------------------------------Usuário-------------------------------#
 
 
@@ -143,8 +160,13 @@ def perfilusuario():
     cur = mysql.connection.cursor()
     msg = ''
     if request.method == "POST":
-        if str(request.form['senha']) == str(request.form['csenha']):
+        if str(request.form['senha']) == str(request.form['csenha']) and str(request.form['senha']) != '':
             cur.execute('UPDATE Usuarios SET usuario_nome = %s, usuario_email = %s, usuario_contato = %s, usuario_endereco = %s, usuario_senha = %s WHERE idUsuario = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], request.form['senha'], session['idUsuario']))
+            cur.connection.commit()
+            cur.close()
+            return redirect('logout')
+        if str(request.form['senha']) == '' and str(request.form['csenha']) == '':
+            cur.execute('UPDATE Usuarios SET usuario_nome = %s, usuario_email = %s, usuario_contato = %s, usuario_endereco = %s WHERE idUsuario = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], session['idUsuario']))
             cur.connection.commit()
             cur.close()
             return redirect('logout')
@@ -207,8 +229,13 @@ def perfilexecutor():
     cur = mysql.connection.cursor()
     msg = ''
     if request.method == "POST":
-        if str(request.form['senha']) == str(request.form['csenha'] and request.form['senha'] != ''):
+        if str(request.form['senha']) == str(request.form['csenha']) and str(request.form['senha']) != '':
             cur.execute('UPDATE Executores SET executor_nome = %s, executor_email = %s, executor_contato = %s, executor_endereco = %s, executor_senha = %s WHERE idExecutor = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], request.form['senha'], session['idExecutor']))
+            cur.connection.commit()
+            cur.close()
+            return redirect('logout')
+        elif str(request.form['senha']) == '' and str(request.form['csenha']) == '':
+            cur.execute('UPDATE Executores SET executor_nome = %s, executor_email = %s, executor_contato = %s, executor_endereco = %s WHERE idExecutor = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], session['idExecutor']))
             cur.connection.commit()
             cur.close()
             return redirect('logout')

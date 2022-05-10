@@ -21,7 +21,7 @@ body {
     top: 0;
     height: 100%;
     width: 78px;
-    background: #11101D;
+    background: #300006;
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;
@@ -428,3 +428,30 @@ main {
         grid-template-columns: 1fr
     }
 }
+
+/*INICIO*/
+.inicio {
+    margin-top: 300px;
+  }
+  
+  .inicio .titulo h1 {
+    font-size: 30px;
+    color: #11101D;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .inicio .titulo p {
+    font-size: 18px;
+    color: #11101D;
+    display: flex;
+    justify-content: center;
+  }
+  @media(max-width:889px){
+    .inicio .titulo h1{
+      font-size: 20px;
+    }
+    .inicio .titulo p{
+      font-size: 16px;
+    }
+  }

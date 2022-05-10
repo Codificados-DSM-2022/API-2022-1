@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" dir="ltr">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="../../static/style-adm.css">
-  <title>Início</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realizar Solicitação</title>
 </head>
 
 <body>
@@ -76,12 +77,33 @@
     </ul>
 </div>
   <main>
-    <section class="inicio">
-      <div class="titulo">
-        <h1>Bem-Vindo!</h1>
-        <br>
-        <p>Você está cadastrado comoﾠ<b>Administrador!</b></p>
-        <p>Navegue através da barra lateral, para ter acesso à todas as funcionalidades disponíveis!</p>
+    <section class="home-section">
+      <div class="text">Realizar Solicitações</div>
+      <div class="wrapper">
+        <header>Realizar Solicitação</header>
+        <form action="/solicitar" method="POST">
+          <div class="dbl-field">
+            <div class="field">
+              <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema">
+              <i class='fas fa-user'></i>
+            </div>
+            <div class="dropdown">
+              <select id="Chamado_tipo" name="Chamado_tipo">
+                <option value="Hardware">Hardware</option>
+                <option value="Software">Software</option>
+                <option value="Informação">Informação</option>
+              </select>
+            </div>
+          </div>
+          <div class="message">
+            <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao"></textarea>
+            <i class="material-icons"></i>
+          </div>
+          <input type="file" name="Chamado_imagem">
+          <div class="button-area">
+            <button type="submit">Enviar Solicitação</button>
+            <span></span>
+        </form>
       </div>
     </section>
   </main>
