@@ -1,3 +1,4 @@
+from os import curdir
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -154,12 +155,55 @@ def listausuarios():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM usuarios")
+    msg1 = msg2 = ''
+    usu = cur.execute("SELECT * FROM usuarios")
     usuarios = cur.fetchall()
-    cur.execute("SELECT * FROM executores")
+    exe = cur.execute("SELECT * FROM executores")
     executores = cur.fetchall()
-    return render_template('adm/lista-usuarios.html', usuarios=usuarios, executores=executores)
+    if usu == 0:
+        msg1 = 'Nenhum usuário cadastrado!'
+    if exe == 0:
+        msg2 = 'Nenhum executor cadastrado!'
 
+    return render_template('adm/lista-usuarios.html', usuarios=usuarios, executores=executores, msg1=msg1, msg2=msg2)
+
+
+@app.route('/tornar-executor/<id>', methods=['GET', 'POST'])
+def tornarexecutor(id):  
+    cur = mysql.connection.cursor()
+    cur.execute('INSERT INTO Executores (executor_email, executor_senha, executor_nome, executor_contato, executor_endereco) SELECT usuario_email, usuario_senha, usuario_nome, usuario_contato, usuario_endereco FROM usuarios WHERE idUsuario = %s', [id])
+    cur.execute('DELETE FROM usuarios WHERE idUsuario = %s', [id])
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('listausuarios'))
+
+
+@app.route('/tornar-usuario/<id>', methods=['GET', 'POST'])
+def tornarusuario(id):  
+    cur = mysql.connection.cursor()
+    cur.execute('INSERT INTO Usuarios (usuario_email, usuario_senha, usuario_nome, usuario_contato, usuario_endereco) SELECT executor_email, executor_senha, executor_nome, executor_contato, executor_endereco FROM executores WHERE idExecutor = %s', ([id]))
+    cur.execute('DELETE FROM executores WHERE idExecutor = %s', ([id]))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('listausuarios'))
+
+
+@app.route('/excluir-usuario/<id>', methods=['GET', 'POST'])
+def excluirusuario(id):
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM usuarios WHERE idUsuario = %s', [id])
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('listausuarios'))
+
+
+@app.route('/excluir-executor/<id>', methods=['GET', 'POST'])
+def excluirexecutor(id):
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM executores WHERE idExecutor = %s', [id])
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('listausuarios'))
 
 #------------------------------Usuário-------------------------------#
 
