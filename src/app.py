@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'tuca123'
+app.config['MYSQL_PASSWORD'] = 'fatec'
 app.config['MYSQL_DB'] = 'projeto'
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -205,6 +205,69 @@ def excluirexecutor(id):
     cur.close()
     return redirect(url_for('listausuarios'))
 
+
+@app.route('/relatorios')
+def relatorios():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM Chamado WHERE Chamado_avaliacao > 0')
+    Chamados = cur.fetchall()
+    for i in Chamados:
+        print (i)
+    mysql.connection.commit()
+    cur.close()
+    return render_template('/adm/relatorios.html')
+
+
+@app.route('/solicitacoes-p-adm')
+def pendentesadm():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
+    cur = mysql.connection.cursor()
+    Values = cur.execute("SELECT * FROM chamado WHERE Chamado_Respondido = 0")
+    if Values > 0:
+        Chamados = cur.fetchall()
+        return render_template('adm/solicitacoes-p.html', Chamados=Chamados)
+    else:
+        return render_template('adm/solicitacoes-p.html')
+
+
+@app.route('/solicitacoes-r-adm')
+def respondidasadm():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
+    cur = mysql.connection.cursor()
+    Values = cur.execute("SELECT * FROM chamado WHERE Chamado_respondido = 1")
+    if Values > 0:
+        Chamados = cur.fetchall()
+        return render_template('adm/solicitacoes-r.html', Chamados=Chamados)
+    else:
+        return render_template('adm/solicitacoes-r.html')
+
+
+@app.route('/solicitar-adm', methods=['POST', 'GET'])
+def solicitaradm():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))    
+    if request.method == 'POST':
+        Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
+        Chamado_data_entrega = '0'
+        Chamado_titulo = request.form['Chamado_titulo']
+        Chamado_tipo = request.form['Chamado_tipo']
+        Chamado_descricao = request.form['Chamado_descricao']
+        Chamado_Reposta = ''
+        #Chamado_avaliacao = 0
+        Chamado_respondido = '0'
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
+        mysql.connection.commit()
+        cur.close()
+        return redirect("/solicitacoes-p-adm")
+    return render_template('adm/solicitar.html')
+
+
 #------------------------------Usuário-------------------------------#
 
 
@@ -259,7 +322,7 @@ def solicitar():
     return render_template('usuario/solicitar.html')
     
 @app.route('/solicitacoes-p')
-def pendentes():
+def admpendentes():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
