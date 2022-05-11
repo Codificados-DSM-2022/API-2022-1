@@ -83,8 +83,8 @@ flask run
     
 #### Requisitos Não Funcionais
 
-| Código | Descrição | UserStories
-| :----: | :----------------------------------- | :------: |
+| Código | Descrição |
+| :----: | :----------------------------------- |
 | RFN 01 |  Desenvolver o back end com alinguagem Python 3+ e o microframework Flask; |08|
 | RFN 02 | Utilizar o sistema gerenciador de banco de dados MariaDB/MySQL|09|
 | RFN 03 | Utilizar HTML 5 para arquitetura da informação da aplicação |10|
