@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'fatec'
+app.config['MYSQL_PASSWORD'] = 'tuca123'
 app.config['MYSQL_DB'] = 'projeto'
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -140,7 +140,10 @@ def cadastro():
     # Show registration form with message (if any)
     return render_template('cadastro.html', msg=msg)
 
-#-------------------------------Administrador---------------------------#
+
+#-------------------------------------------------------------------------------------------------------------------#
+#---------------------------------------------------Administrador---------------------------------------------------#
+#-------------------------------------------------------------------------------------------------------------------#
 
 
 @app.route('/index-adm')
@@ -172,6 +175,7 @@ def listausuarios():
 def tornarexecutor(id):  
     cur = mysql.connection.cursor()
     cur.execute('INSERT INTO Executores (executor_email, executor_senha, executor_nome, executor_contato, executor_endereco) SELECT usuario_email, usuario_senha, usuario_nome, usuario_contato, usuario_endereco FROM usuarios WHERE idUsuario = %s', [id])
+    cur.execute('DELETE FROM Chamado WHERE idUsuario = %s', [id])
     cur.execute('DELETE FROM usuarios WHERE idUsuario = %s', [id])
     mysql.connection.commit()
     cur.close()
@@ -182,6 +186,7 @@ def tornarexecutor(id):
 def tornarusuario(id):  
     cur = mysql.connection.cursor()
     cur.execute('INSERT INTO Usuarios (usuario_email, usuario_senha, usuario_nome, usuario_contato, usuario_endereco) SELECT executor_email, executor_senha, executor_nome, executor_contato, executor_endereco FROM executores WHERE idExecutor = %s', ([id]))
+    cur.execute('DELETE FROM Chamado WHERE idExecutor = %s', ([id]))
     cur.execute('DELETE FROM executores WHERE idExecutor = %s', ([id]))
     mysql.connection.commit()
     cur.close()
@@ -191,6 +196,7 @@ def tornarusuario(id):
 @app.route('/excluir-usuario/<id>', methods=['GET', 'POST'])
 def excluirusuario(id):
     cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM Chamado WHERE idUsuario = %s', [id])
     cur.execute('DELETE FROM usuarios WHERE idUsuario = %s', [id])
     mysql.connection.commit()
     cur.close()
@@ -200,6 +206,7 @@ def excluirusuario(id):
 @app.route('/excluir-executor/<id>', methods=['GET', 'POST'])
 def excluirexecutor(id):
     cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM Chamado WHERE idExecutor = %s', [id])
     cur.execute('DELETE FROM executores WHERE idExecutor = %s', [id])
     mysql.connection.commit()
     cur.close()
@@ -261,14 +268,33 @@ def solicitaradm():
         Chamado_respondido = '0'
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
+
+        cur.execute("SELECT * FROM executores")
+        exe = cur.fetchall()
+        cur.execute("SELECT adm_exec_index from Administrador")
+        a = cur.fetchone()
+        for i in exe:
+            if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
+                idExecutor = exe[exe.index(i) + 1][0]
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idExecutor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idExecutor))
+                cur.execute("UPDATE administrador SET adm_exec_index = %s WHERE idAdm = 1" , (idExecutor,))
+                mysql.connection.commit()
+                cur.close()
+                return redirect("/solicitacoes-p-adm")
+
+        cur.execute("UPDATE administrador SET adm_exec_index = %s WHERE idAdm = 1" , (exe[0][0],))
+        cur.execute("SELECT adm_exec_index from Administrador")
+        a = cur.fetchone()
+        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idExecutor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, a))
         mysql.connection.commit()
         cur.close()
         return redirect("/solicitacoes-p-adm")
     return render_template('adm/solicitar.html')
 
 
-#------------------------------Usuário-------------------------------#
+#-------------------------------------------------------------------------------------------------------------#
+#---------------------------------------------------Usuario---------------------------------------------------#
+#-------------------------------------------------------------------------------------------------------------#
 
 
 @app.route('/index-cliente')
@@ -315,18 +341,36 @@ def solicitar():
         Chamado_respondido = '0'
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
+
+        cur.execute("SELECT * FROM executores")
+        exe = cur.fetchall()
+        cur.execute("SELECT adm_exec_index from Administrador")
+        a = cur.fetchone()
+        for i in exe:
+            if i[0] == a[0] and len(exe) > exe.index(i) + 1:
+                idExecutor = exe[exe.index(i) + 1][0]
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario, idExecutor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, session['idUsuario'], idExecutor))
+                cur.execute("UPDATE administrador SET adm_exec_index = %s WHERE idAdm = 1" , (idExecutor,))
+                mysql.connection.commit()
+                cur.close()
+                return redirect("/solicitacoes-p")
+
+        cur.execute("UPDATE administrador SET adm_exec_index = %s WHERE idAdm = 1" , (exe[0][0],))
+        cur.execute("SELECT adm_exec_index from Administrador")
+        a = cur.fetchone()
+        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario, idExecutor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, session['idUsuario'], a))
         mysql.connection.commit()
         cur.close()
         return redirect("/solicitacoes-p")
     return render_template('usuario/solicitar.html')
     
+
 @app.route('/solicitacoes-p')
 def admpendentes():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado")
+    Values = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '0'", [session['idUsuario']])
     if Values > 0:
         Chamados = cur.fetchall()
         return render_template('usuario/solicitacoes-p.html', Chamados=Chamados)
@@ -339,7 +383,7 @@ def respondidas():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado")
+    Values = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '1'", [session['idUsuario']])
     if Values > 0:
         Chamados = cur.fetchall()
         return render_template('usuario/solicitacoes-r.html', Chamados=Chamados)
@@ -347,7 +391,9 @@ def respondidas():
         return render_template('usuario/solicitacoes-r.html')
 
 
-#----------------------------Executor--------------------------#
+#--------------------------------------------------------------------------------------------------------------#
+#---------------------------------------------------Executor---------------------------------------------------#
+#--------------------------------------------------------------------------------------------------------------#
 
 
 @app.route('/index-executor')
@@ -435,20 +481,39 @@ def execSolicitar():
 def fazer_chamado_exec():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
-    Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
-    Chamado_data_entrega = '0'
-    Chamado_titulo = request.form['Chamado_titulo']
-    Chamado_tipo = request.form['Chamado_tipo']
-    Chamado_descricao = request.form['Chamado_descricao']
-    Chamado_Reposta = ''
-    #Chamado_avaliacao = 0
-    Chamado_respondido = '0'
+    if request.method == 'POST':
+        Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
+        Chamado_data_entrega = '0'
+        Chamado_titulo = request.form['Chamado_titulo']
+        Chamado_tipo = request.form['Chamado_tipo']
+        Chamado_descricao = request.form['Chamado_descricao']
+        Chamado_Reposta = ''
+        #Chamado_avaliacao = 0
+        Chamado_respondido = '0'
 
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido))
-    mysql.connection.commit()
-    cur.close()
-    return render_template('executor/solic-p-executor.html')
+        cur = mysql.connection.cursor()
+
+        cur.execute("SELECT * FROM executores")
+        exe = cur.fetchall()
+        cur.execute("SELECT adm_exec_index from Administrador")
+        a = cur.fetchone()
+        for i in exe:
+            if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
+                idExecutor = exe[exe.index(i) + 1][0]
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idExecutor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idExecutor))
+                cur.execute("UPDATE administrador SET adm_exec_index = %s WHERE idAdm = 1" , (idExecutor,))
+                mysql.connection.commit()
+                cur.close()
+                return redirect("/solic-p-executor")
+
+        cur.execute("UPDATE administrador SET adm_exec_index = %s WHERE idAdm = 1" , (exe[0][0],))
+        cur.execute("SELECT adm_exec_index from Administrador")
+        a = cur.fetchone()
+        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idExecutor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, a))
+        mysql.connection.commit()
+        cur.close()
+        return redirect("/solic-p-executor")
+    return render_template('executor/solic-executor.html')
 
 
 @app.route('/solic-p-executor')
@@ -456,7 +521,7 @@ def execPendentes():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado")
+    Values = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '0' and idExecutor = %s", (session['idExecutor'],))
     if Values > 0:
         Chamados = cur.fetchall()
         return render_template('executor/solic-p-executor.html', Chamados=Chamados)
@@ -478,4 +543,3 @@ def execRespondidas():
 
 if __name__ == "__main__":
     app.run(debug=True)
-

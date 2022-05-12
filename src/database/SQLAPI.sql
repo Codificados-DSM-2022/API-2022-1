@@ -31,6 +31,8 @@ CREATE TABLE Executores(
     primary key(idExecutor)
 );
 
+UPDATE Executores SET executor_senha = 'exe' WHERE idExecutor = 1;
+
 CREATE TABLE Chamado(
 	idChamado INT NOT NULL AUTO_INCREMENT,
     Chamado_data_criacao varchar(15) NOT NULL,
@@ -42,14 +44,11 @@ CREATE TABLE Chamado(
     Chamado_avaliacao int,
     Chamado_respondido bool, 
     Chamado_aceitar varchar(10),
-    primary key(idChamado)
-    
-    -- IdUsuario int,
-    -- idExecutor int
+    primary key(idChamado),
+    IdUsuario int,
+    idExecutor int
 );
 
--- Alter table Chamado ADD constraint fk_user FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUser);
--- Alter table Chamado ADD constraint fk_executor FOREIGN KEY (idExecutor) REFERENCES Usuarios(idUser);
-
-select * from Chamado;
+Alter table Chamado ADD constraint fk_user FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario);
+Alter table Chamado ADD constraint fk_executor FOREIGN KEY (idExecutor) REFERENCES Executores(idExecutor);
 
