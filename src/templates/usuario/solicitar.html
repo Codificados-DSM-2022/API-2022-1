@@ -67,7 +67,7 @@
       <div class="text">Realizar Solicitações</div>
       <div class="wrapper">
         <header>Realizar Solicitação</header>
-        <form action="/solicitar" method="POST">
+        <form method="POST">
           <div class="dbl-field">
             <div class="field">
               <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema">
@@ -86,9 +86,14 @@
             <i class="material-icons"></i>
           </div>
           <input type="file" name="Chamado_imagem">
+          <div class="text">{{msg}}</div>
+          {% if executores > 0 %}
           <div class="button-area">
             <button type="submit">Enviar Solicitação</button>
+          </div>
             <span></span>
+          {% endif %}
+          <br>
         </form>
       </div>
     </section>

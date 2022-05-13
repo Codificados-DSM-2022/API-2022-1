@@ -1,8 +1,6 @@
-from os import curdir
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
-import re
 from datetime import datetime
 
 app = Flask(__name__)
@@ -153,6 +151,28 @@ def indexadm():
     return render_template('adm/index-adm.html')
 
 
+@app.route('/perfil-adm', methods=['GET', 'POST'])
+def perfiladm():
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))
+    cur = mysql.connection.cursor()
+    msg = ''
+    if request.method == "POST":
+        if str(request.form['senha']) == str(request.form['csenha']) and str(request.form['senha']) != '':
+            cur.execute("UPDATE Administrador SET adm_email = %s, adm_senha = %s WHERE idAdm = 1", (request.form['email'], request.form['senha']))
+            cur.connection.commit()
+            cur.close()
+            return redirect('logout')
+        if str(request.form['senha']) == '' and str(request.form['csenha']) == '':
+            cur.execute('UPDATE Administrador SET adm_email = %s WHERE idAdm = 1', (request.form['email']))
+            cur.connection.commit()
+            cur.close()
+            return redirect('logout')
+        else:
+            msg = 'Senhas não conferem!'
+    return render_template('adm/perfil-adm.html', email=session['adm_email'], senha=session['adm_senha'], msg=msg)
+
+
 @app.route('/lista-usuarios', methods=['GET', 'POST'])
 def listausuarios():
     if not session.get('loggedin'):
@@ -215,16 +235,25 @@ def excluirexecutor(id):
 
 @app.route('/relatorios')
 def relatorios():
+    media = 0
     if not session.get('loggedin'):
         return redirect(url_for('login'))
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM Chamado WHERE Chamado_avaliacao > 0')
-    Chamados = cur.fetchall()
-    for i in Chamados:
-        print (i)
+    avaliacao = cur.fetchall()
+    valor = cur.execute('SELECT * FROM Chamado')
+    print(valor)
+    chamados = cur.fetchall()
+    if valor == 0:
+        valor = aberto = fechado = 0
+    else:
+        for i in chamados:
+            media += i[8]
+        fechado = round(media * 100 / valor,2)
+        aberto = 100 - fechado
     mysql.connection.commit()
     cur.close()
-    return render_template('/adm/relatorios.html')
+    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, avaliacao=avaliacao, valor=valor)
 
 
 @app.route('/solicitacoes-p-adm')
@@ -329,8 +358,18 @@ def perfilusuario():
 @app.route('/solicitar', methods=['POST', 'GET'])
 def solicitar():
     if not session.get('loggedin'):
-        return redirect(url_for('login'))    
-    if request.method == 'POST':
+        return redirect(url_for('login'))   
+    msg = ''
+    cur = mysql.connection.cursor()
+
+    executores = cur.execute("SELECT * FROM executores")
+    exe = cur.fetchall()
+    cur.execute("SELECT adm_exec_index from Administrador")
+    a = cur.fetchone()
+
+    if executores == 0:
+        msg = 'Não há executores cadastrados!'
+    if request.method == 'POST' and executores > 0:
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
         Chamado_titulo = request.form['Chamado_titulo']
@@ -339,13 +378,7 @@ def solicitar():
         Chamado_Reposta = ''
         #Chamado_avaliacao = 0
         Chamado_respondido = '0'
-
-        cur = mysql.connection.cursor()
-
-        cur.execute("SELECT * FROM executores")
-        exe = cur.fetchall()
-        cur.execute("SELECT adm_exec_index from Administrador")
-        a = cur.fetchone()
+        
         for i in exe:
             if i[0] == a[0] and len(exe) > exe.index(i) + 1:
                 idExecutor = exe[exe.index(i) + 1][0]
@@ -362,7 +395,7 @@ def solicitar():
         mysql.connection.commit()
         cur.close()
         return redirect("/solicitacoes-p")
-    return render_template('usuario/solicitar.html')
+    return render_template('usuario/solicitar.html', msg=msg, executores=executores)
     
 
 @app.route('/solicitacoes-p')

@@ -31,8 +31,6 @@ CREATE TABLE Executores(
     primary key(idExecutor)
 );
 
-UPDATE Executores SET executor_senha = 'exe' WHERE idExecutor = 1;
-
 CREATE TABLE Chamado(
 	idChamado INT NOT NULL AUTO_INCREMENT,
     Chamado_data_criacao varchar(15) NOT NULL,
