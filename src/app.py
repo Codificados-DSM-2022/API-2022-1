@@ -3,12 +3,14 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 from datetime import datetime
 
+
 app = Flask(__name__)
+
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'tuca123'
-app.config['MYSQL_DB'] = 'projeto'
+app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 
@@ -22,9 +24,8 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # Output message if something goes wrong...
     msg = ''
-    # Check if "username" and "password" POST requests exist (user submitted form)
+
     if request.method == 'POST' and 'email' in request.form and 'senha' in request.form:
 
         email = request.form['email']
@@ -43,7 +44,7 @@ def login():
             session['usuario_nome'] = usuarios[3]
             session['usuario_contato'] = usuarios[4]
             session['usuario_endereco'] = usuarios[5]
-            # Redirect to home page
+
             return redirect(url_for('indexcliente'))
         cursor.execute('SELECT * FROM Executores WHERE executor_email = %s AND executor_senha = %s', (email, senha))
         executor = cursor.fetchone()
@@ -56,7 +57,7 @@ def login():
             session['executor_contato'] = executor[4]
             session['executor_endereco'] = executor[5]
             return redirect(url_for('indexexecutor'))
-            # Account doesnt exist or username/password incorrect
+
         cursor.execute('SELECT * FROM Administrador WHERE adm_email = %s AND adm_senha = %s', (email, senha))
         adm = cursor.fetchone()
         if adm:
@@ -68,13 +69,13 @@ def login():
             return redirect(url_for('indexadm'))
         else:
             msg = 'Senha ou email incorretos!'
-    # Show the login form with message (if any)
+
     return render_template('login.html', msg=msg)
 
 
 @app.route('/logout')
 def logout(): 
-    # Remove session data, this will log the user out
+
     session.pop('loggedin', None)
     session.pop('idUsuario', None)
     session.pop('usuario_email', None)
@@ -90,37 +91,37 @@ def logout():
     session.pop('executor_contato', None)
     session.pop('executor_endereco', None)
 
-   # Redirect to login page
+
     return redirect(url_for('login'))
 
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro(): 
-    # Output message if something goes wrong...
+
     msg = ''
-    # Check if "username", "password" and "email" POST requests exist (user submitted form)
+
     if request.method == 'POST' and request.form['usuario_senha'] != request.form['usuario_csenha']:
 
         msg = 'Senhas não conferem!'
     elif request.method == 'POST' and 'usuario_email' in request.form and 'usuario_senha' in request.form and 'usuario_nome' in request.form and 'usuario_contato' in request.form and 'usuario_endereco' in request.form:
-        # Create variables for easy access
+
         usuario_email = request.form['usuario_email']
         usuario_senha = request.form['usuario_senha']
         usuario_nome = request.form['usuario_nome']
         usuario_contato = request.form['usuario_contato']
         usuario_endereco = request.form['usuario_endereco']
         
-        # Check if account exists using MySQL
+
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM usuarios WHERE usuario_email = %s AND usuario_senha = %s', (usuario_email, usuario_senha))
-        # Fetch one record and return result
+
         usuarios = cursor.fetchone()
-        # If account exists in accounts table in out database
+
 
         if not usuarios:
             cursor.execute('SELECT * FROM executores WHERE executor_email = %s AND executor_senha = %s', (usuario_email, usuario_senha))
-            # Fetch one record and return result
+
             executor = cursor.fetchone()
             if not executor:
                 cursor.execute('insert into usuarios (usuario_nome, usuario_email, usuario_contato, usuario_endereco, usuario_senha) values (%s, %s, %s, %s, %s)', (usuario_nome, usuario_email, usuario_contato, usuario_endereco, usuario_senha))
@@ -133,9 +134,9 @@ def cadastro():
             msg = 'Email já cadastrado!'
     
     elif request.method == 'POST':
-        # Form is empty... (no POST data)
+
         msg = 'Preencha todos os campos!'
-    # Show registration form with message (if any)
+
     return render_template('cadastro.html', msg=msg)
 
 

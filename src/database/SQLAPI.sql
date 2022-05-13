@@ -1,5 +1,5 @@
-create database projeto;
-use projeto;
+create database API_Codificados;
+use API_Codificados;
 
 CREATE TABLE Administrador(
     idAdm INT NOT NULL AUTO_INCREMENT,
@@ -42,9 +42,9 @@ CREATE TABLE Chamado(
     Chamado_avaliacao int,
     Chamado_respondido bool, 
     Chamado_aceitar varchar(10),
-    primary key(idChamado),
     IdUsuario int,
-    idExecutor int
+    idExecutor int,
+	primary key(idChamado)
 );
 
 Alter table Chamado ADD constraint fk_user FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario);
