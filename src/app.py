@@ -243,7 +243,6 @@ def relatorios():
     cur.execute('SELECT * FROM Chamado WHERE Chamado_avaliacao > 0')
     avaliacao = cur.fetchall()
     valor = cur.execute('SELECT * FROM Chamado')
-    print(valor)
     chamados = cur.fetchall()
     if valor == 0:
         valor = aberto = fechado = 0
@@ -434,7 +433,7 @@ def respondidas():
 def indexexecutor():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
-    return render_template('executor/index-executor.html')
+    return render_template('executor/index-executor.html', nome=session['executor_nome'])
 
 
 @app.route('/perfil-exec', methods=['GET', 'POST'])

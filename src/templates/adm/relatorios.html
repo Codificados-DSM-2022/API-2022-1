@@ -3,14 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="../../static/style-adm.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript">
+        function loadingVariables() {
+            var r = document.querySelector(':root');
+            var solR = {{fechado}} * 3.6;
+            var solP = 360 - solR;
+            if (solR > solP) {
+                r.style.setProperty('--secondSliceColor', '#58d3f7');
+                var v1 = 180;
+                var v2 = solR - 180;
+                var v3 = 360 - solR;
+            } else {
+                r.style.setProperty('--secondSliceColor', '#f7d358');
+                var v1 = 360 - solP;
+                var v2 = solP - 180;
+                var v3 = 180;
+            }
+            var b2 = v1 + 'deg';
+            var b3 = (v1 + v2) + 'deg';
+            var s1 = v1 + 'deg';
+            var s2 = v2 + 'deg';
+            var s3 = v3 + 'deg';
+
+            r.style.setProperty('--firstSlice', s1);
+            r.style.setProperty('--beforeSSlice', b2);
+            r.style.setProperty('--secondSlice', s2);
+            r.style.setProperty('--beforeTSlice', b3);
+            r.style.setProperty('--thirdSlice', s3);
+        }
+    </script>
     <title>Relatórios</title>
 </head>
 
-<body>
+<body onload="loadingVariables()">
     <div class="sidebar">
         <div class="logo-details">
             <div class="logo_name">API</div>
@@ -75,11 +106,39 @@
             </li>
         </ul>
     </div>
+
     <main>
-    <h1>Solicitações realizadas: {{valor}}</h1>
-    <h1>Solicitaçoes abertas: {{aberto}}%</h1>
-    <h1>Solicitações fechadas: {{fechado}}%</h1>
-</main>
+        <h1>Relatorios</h1><br>
+        <div class="graficos">
+            <div class="pieContainer">
+                <div class="pieBackground"></div>
+                <div id="pieSlice1" class="hold">
+                    <div class="pie"></div>
+                </div>
+                <div id="pieSlice2" class="hold">
+                    <div class="pie"></div>
+                </div>
+                <div id="pieSlice3" class="hold">
+                    <div class="pie"></div>
+                </div>
+            </div><br>
+            <div class="legenda">
+                <ul>
+                    <li><span style='background:#58d3f7;'></span>{{fechado}}Solicitações fechadas</li>
+                    <li><span style='background:#f7d358;'></span>{{aberto}}Solitações abertas</li>
+                </ul><br><br>
+            </div>
+            <h4>percentual de chamadas abertas e fechadas</h4>
+        </div>
+        <div class="estrelas">
+            <h3>avaliação media do sistema</h3>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+        </div>
+    </main>
 </body>
 
 </html>

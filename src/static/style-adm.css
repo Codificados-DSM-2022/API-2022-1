@@ -919,3 +919,106 @@ summary img {
   }
 
 }
+
+.graficos {
+  margin: 0 auto;
+}
+
+body {
+  text-align: center;
+  padding-top: 50px
+}
+
+.estrelas {
+  margin-top: 17%
+}
+
+.pieContainer {
+  height: 250px;
+  margin-left: 39%;
+}
+
+.pieBackground {
+  background-color: grey;
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 125px;
+  box-shadow: -1px 1px 3px #000;
+}
+
+.pie {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 125px;
+  clip: rect(0px, 125px, 250px, 0px);
+}
+
+.hold {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 125px;
+  clip: rect(0px, 250px, 250px, 125px);
+}
+
+#pieSlice1 .pie {
+  background-color: var(--firstSliceColor);
+  transform: rotate(var(--firstSlice));
+}
+
+#pieSlice2 {
+  transform: rotate(var(--beforeSSlice));
+}
+
+#pieSlice2 .pie {
+  background-color: var(--secondSliceColor);
+  transform: rotate(var(--secondSlice));
+}
+
+#pieSlice3 {
+  transform: rotate(var(--beforeTSlice));
+}
+
+#pieSlice3 .pie {
+  background-color: var(--thirdSliceColor);
+  transform: rotate(var(--thirdSlice));
+}
+
+.legenda ul {
+  margin-left: 42%;
+  margin-bottom: 5px;
+  padding: 0;
+  float: left;
+  list-style: none;
+}
+
+.legenda ul li {
+  font-size: 80%;
+  list-style: none;
+  margin-left: 0;
+  line-height: 18px;
+  margin-bottom: 2px;
+}
+
+.legenda ul li span {
+  display: block;
+  float: left;
+  height: 16px;
+  width: 30px;
+  margin-right: 5px;
+  margin-left: 0;
+  border: 1px solid #999;
+}
+
+:root {
+  --firstSlice: 0;
+  --beforeSSlice: 0;
+  --secondSlice: 0;
+  --beforeTSlice: 0;
+  --thirdSlice: 0;
+  --firstSliceColor: #58d3f7;
+  --secondSliceColor: #000000;
+  --thirdSliceColor: #f7d358;
+}
