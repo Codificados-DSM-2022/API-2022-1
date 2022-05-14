@@ -13,42 +13,45 @@
     <div class="center">
         <h1>Cadastre-se</h1>
         <form method="POST">
-            <div class="left-side">
-                <div class="txt_field">
-                    <input type="text" name="usuario_nome" required>
-                    <span></span>
-                    <label>Nome</label>
-                </div>
-                <div class="txt_field">
-                    <input type="password" name="usuario_senha" required>
-                    <span></span>
-                    <label>Senha</label>
-                </div>
-                <div class="txt_field">
-                    <input type="text" name="usuario_endereco" required>
-                    <span></span>
-                    <label>Endereço</label>
-                </div>
+            <div class="grid">
+                <div class="left-side">
+                    <div class="txt_field">
+                        <input type="text" name="usuario_nome" required>
+                        <span></span>
+                        <label>Nome</label>
+                    </div>
+                    <div class="txt_field">
+                        <input type="password" name="usuario_senha" required>
+                        <span></span>
+                        <label>Senha</label>
+                    </div>
+                    <div class="txt_field">
+                        <input type="text" name="usuario_endereco" required>
+                        <span></span>
+                        <label>Endereço</label>
+                    </div>
 
+                </div>
+                <div class="right-side">
+                    <div class="txt_field">
+                        <input type="text" name="usuario_email" required>
+                        <span></span>
+                        <label>Email</label>
+                    </div>
+                    <div class="txt_field">
+                        <input type="password" name="usuario_csenha" required>
+                        <span></span>
+                        <label>Confirmar Senha</label>
+                    </div>
+                    <div class="txt_field">
+                        <input type="text" maxlength="11" name="usuario_contato" required>
+                        <span></span>
+                        <label>Telefone</label>
+                    </div>
+                </div>
             </div>
-            <div class="right-side">
-                <div class="txt_field">
-                    <input type="text" name="usuario_email" required>
-                    <span></span>
-                    <label>Email</label>
-                </div>
-                <div class="txt_field">
-                    <input type="password" name="usuario_csenha" required>
-                    <span></span>
-                    <label>Confirmar Senha</label>
-                </div>
-                <div class="txt_field">
-                    <input type="text" maxlength="11" name="usuario_contato" required>
-                    <span></span>
-                    <label>Telefone</label>
-                </div>
-            </div>
-            <p>{{msg}}</p>
+            <div class="left-side"><input type="checkbox">Concordo em armazenar meus dados</div><br>
+            <p>{{msg}}</p><br>
             <input type="submit" value="Cadastrar">
         </form>
         <div class="signup_link">
