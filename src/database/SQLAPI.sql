@@ -5,11 +5,11 @@ CREATE TABLE Administrador(
     idAdm INT NOT NULL AUTO_INCREMENT,
     adm_email VARCHAR(100) NOT NULL,
     adm_senha VARCHAR(50) NOT NULL,
-    adm_exec_index INT NOT NULL,
+    adm_tecnico_index INT NOT NULL,
     primary key(idAdm)
 );
 
-INSERT INTO Administrador(adm_email, adm_senha, adm_exec_index) VALUES('admin', 'admin', 1);
+INSERT INTO Administrador(adm_email, adm_senha, adm_tecnico_index) VALUES('admin', 'admin', 1);
 
 CREATE TABLE Usuarios(
 	idUsuario INT NOT NULL AUTO_INCREMENT,
@@ -21,14 +21,14 @@ CREATE TABLE Usuarios(
     primary key(idUsuario)
     );
 
-CREATE TABLE Executores(
-	idExecutor INT NOT NULL AUTO_INCREMENT,
-    executor_email varchar(150) NOT NULL,
-    executor_senha varchar(50) NOT NULL,
-    executor_nome varchar(150) NOT NULL,
-	executor_contato varchar(12) not null,
-    executor_endereco varchar(250) NOT NULL,
-    primary key(idExecutor)
+CREATE TABLE tecnicos(
+	idtecnico INT NOT NULL AUTO_INCREMENT,
+    tecnico_email varchar(150) NOT NULL,
+    tecnico_senha varchar(50) NOT NULL,
+    tecnico_nome varchar(150) NOT NULL,
+	tecnico_contato varchar(12) not null,
+    tecnico_endereco varchar(250) NOT NULL,
+    primary key(idtecnico)
 );
 
 CREATE TABLE Chamado(
@@ -43,10 +43,10 @@ CREATE TABLE Chamado(
     Chamado_respondido bool, 
     Chamado_aceitar varchar(10),
     IdUsuario int,
-    idExecutor int,
+    idtecnico int,
 	primary key(idChamado)
 );
 
 Alter table Chamado ADD constraint fk_user FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario);
-Alter table Chamado ADD constraint fk_executor FOREIGN KEY (idExecutor) REFERENCES Executores(idExecutor);
+Alter table Chamado ADD constraint fk_tecnico FOREIGN KEY (idtecnico) REFERENCES tecnicos(idtecnico);
 

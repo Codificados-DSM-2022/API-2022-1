@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../static/style-tecnico.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitações Respondidas</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <div class="logo_name">API</div>
+      <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="index-tecnico">
+          <i class='bx bx-home'></i>
+          <span class="links_name">Perfil</span>
+        </a>
+        <span class="tooltip">Perfil</span>
+      </li>
+      <li>
+        <a href="./perfil-tecnico">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Perfil</span>
+        </a>
+        <span class="tooltip">Perfil</span>
+      </li>
+      <li>
+        <a href="solic-tecnico">
+          <i class='bx bx-message-add'></i>
+          <span class="links_name">Solicitar</span>
+        </a>
+        <span class="tooltip">Solicitar</span>
+      </li>
+      <li>
+        <a href="solic-p-tecnico">
+          <i class='bx bx-message-dots'></i>
+          <span class="links_name">Solicitaçoes pendentes</span>
+        </a>
+        <span class="tooltip">Solicitaçoes pendentes</span>
+      </li>
+      <li>
+        <a href="solic-r-tecnico">
+          <i class='bx bx-message-check'></i>
+          <span class="links_name">Solicitaçoes respondidas</span>
+        </a>
+        <span class="tooltip">Solicitaçoes respondidas</span>
+      </li>
+      <li>
+        <a href="logout">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Sair</span>
+        </a>
+        <span class="tooltip">Sair</span>
+      </li>
+    </ul>
+  </div>
+
+  <main>
+    <section class="home-section">
+      <div class="text">Solicitações Respondidas</div>
+      {% for chamado in Chamados %}
+        {% if chamado[8] == 1 %}
+          <details class="card">
+            <summary>
+              <h1>{{chamado[3]}}</h1>
+              <p>{{chamado[9]}}</p>
+            </summary>
+            <div class="conteudo">
+              <h1>Titulo:</h1>
+              <p>{{chamado[3]}}</p>
+              <h1>Tipo:</h1>
+              <p>{{chamado[4]}}</p>
+              <h1>Descrição:</h1>
+              <p>{{chamado[5]}}</p>
+              <h1>Data recebida:</h1>
+              <p>{{chamado[1]}}</p>
+              <hr>
+              <h1>Resposta enviada:</h1>
+              <p>{{chamado[6]}}</p>
+              <h1>Data enviada:</h1>
+              <p>{{chamado[2]}}</p>
+            </div>
+          </details>
+        </section>
+      {% endif %}
+    {% endfor %}
+  </main>
+  <script src="../static/script.js"></script>
+</body>
+
+</html>
