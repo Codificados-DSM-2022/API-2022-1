@@ -206,11 +206,11 @@ Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no q
       
  #### Sprint 1
       
-      ![](/Readme/tabela1.png)
+ ![](/Readme/tabela01.png)
       
  #### Sprint 2
       
-      ![](/Readme/tabela2.png)
+ ![](/Readme/tabela02.png)
       
  #### Sprint 3
 
