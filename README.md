@@ -202,9 +202,16 @@ Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no q
 | Equipe de desenvolvimento | Victor dos Santos Salles | [GitHub](https://github.com/VictorSantos18) |
       
  ## 📈 Organização da Equipe
+      Para melhor organização do projeto, foi levantado as habilidades técnicas da equipe, dividindo provisoriamente os integrantes em dois times principais: Frontend e Backend, cada um com responsabilidades de acordo com a área destinada mas sempre em comunicação.
       
  #### Sprint 1
+      
+      ![](/Readme/tabela1.png)
+      
  #### Sprint 2
+      
+      ![](/Readme/tabela2.png)
+      
  #### Sprint 3
 
 → [Voltar ao topo](#topo)
