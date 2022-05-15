@@ -39,7 +39,7 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 ## :computer: Executando a aplicação
 
 **Executar o banco de dados:** Para executar o banco de dados precisa inserir a sua senha e usuário do root do MySQL Workbench no arquivo app.py como mostrado no vídeo abaixo:
-<br><br>![](/doc/vsenha.gif.gif)
+<br><br>![](/doc/vsenha.gif)
 <br><br> Também precisa executar o script SQL no Workbench, para efetuar essa tarefa basta abrir o script no sistema do MySQL Workbench, no qual se encontra com o nome de SQLAPI.sql no diretório database no src, como mostrado no vídeo abaixo: 
 <br><br>![](/doc/vmysql.gif)
       
