@@ -25,23 +25,29 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 <h4>O projeto tem como objetivo desenvolver um sistema que controlar a prestação de serviços de TI, tanto sob o ponto de vista do cliente como do executor</h4>
 
 > _Projeto baseado na metodologia ágil SCRUM_ <br><br>
-> **Status do Projeto: Desenvolvendo**
+> **Status do Projeto: Em andamento**
 
-### Entregas de Sprints
+## Entregas de Sprints
 | Sprint | Previsão | Status | tag |
 |:--:|:----------:|:----------------| :---------: |
 | 01 | 14/04/2022 | ✔️ Concluída    | [Tag01](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.0) |
 | 02 | 15/05/2022 | 🕤 Em andamento | -- |
 | 03 | 05/06/2022 | 🛑 Não iniciada | -- |
 
+## 📁 Configuração das pastas
+
+* 📂 `doc`: Pasta com Documentos relacionadas ao projeto, na qual encontra as imagens e os gif do arquivo readme e os modelo conceitual e lógico do banco de dados do sistema.
+* 📂 `src`: Pasta com os códigos e o modelo físico do sistema. 
+
+      
 <span id="executar">
  
 ## :computer: Executando a aplicação
 
 **Executar o banco de dados:** Para executar o banco de dados precisa inserir a sua senha e usuário do root do MySQL Workbench no arquivo app.py como mostrado no vídeo abaixo:
-<br><br>![](/Readme/senha.gif.gif)
+<br><br>![](/doc/vsenha.gif)
 <br><br> Também precisa executar o script SQL no Workbench, para efetuar essa tarefa basta abrir o script no sistema do MySQL Workbench, no qual se encontra com o nome de SQLAPI.sql no diretório database no src, como mostrado no vídeo abaixo: 
-<br><br>![](/Readme/mysql.gif)
+<br><br>![](/doc/vmysql.gif)
       
 Depois de baixar o [python](https://www.pyth.org/download/) e clonar o projeto (ou baixá-lo):
 
@@ -151,7 +157,7 @@ flask run
 
 Antes de realmente desenvolver o projeto, foi idealizado um layout específico, aplicado em um wireframe. Primeiramente o wireframe não foi aprovado, mas com as resposta e a orientação do cliente podemos arrumar e ir direto para o desenvolvimento de um protótipo.
 
-![](/Readme/Wireframe.jpg) 
+![](/doc/Wireframe.jpg) 
 
  Depois, foi desenvolvido o sistema de acordo com as tecnologias pedidas e o planejamento do backlog.
  
@@ -159,15 +165,27 @@ De acordo com o planejamento a primeira Sprint apresentará um sistema com a pá
 
 Área de cliente:
 
-![](/Readme/cliente.gif)
+![](/doc/cliente.gif)
 
 Área de executor:
 
-![](/Readme/executor.gif)
+![](/doc/executor.gif)
 
 ### 🎥 Vídeo de apresentação da Sprint 1
 
 Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
+      
+## ✔️ Entrega Segunda Sprint
+      
+### :desktop_computer: Páginas desenvolvindas nessa sprint
+      
+Área Login/Registro:
+Área Perfil:
+Área Administrador:
+      
+### 🎥 Vídeo de apresentação da Sprint 2
+
+Clique [aqui] para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
 
 <span id="tecnologias">
 
@@ -203,8 +221,16 @@ Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no q
       
  ## 📈 Organização da Equipe
       
+Para melhor organização do projeto, foi levantado as habilidades técnicas da equipe, dividindo provisoriamente os integrantes em dois times principais: Frontend e Backend, cada um com responsabilidades de acordo com a área destinada mas sempre em comunicação.
+      
  #### Sprint 1
+      
+ ![](/doc/tabela01.png)
+      
  #### Sprint 2
+      
+ ![](/doc/tabela02.png)
+      
  #### Sprint 3
 
 → [Voltar ao topo](#topo)
