@@ -25,15 +25,21 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 <h4>O projeto tem como objetivo desenvolver um sistema que controlar a prestação de serviços de TI, tanto sob o ponto de vista do cliente como do executor</h4>
 
 > _Projeto baseado na metodologia ágil SCRUM_ <br><br>
-> **Status do Projeto: Desenvolvendo**
+> **Status do Projeto: Em andamento**
 
-### Entregas de Sprints
+## Entregas de Sprints
 | Sprint | Previsão | Status | tag |
 |:--:|:----------:|:----------------| :---------: |
 | 01 | 14/04/2022 | ✔️ Concluída    | [Tag01](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.0) |
 | 02 | 15/05/2022 | 🕤 Em andamento | -- |
 | 03 | 05/06/2022 | 🛑 Não iniciada | -- |
 
+## 📁 Configuração das pastas
+
+* 📂 `doc`: Pasta com Documentos relacionadas ao projeto, na qual encontra as imagens e os gif do arquivo readme e os modelo conceitual e lógico do banco de dados do sistema.
+* 📂 `src`: Pasta com os códigos e o modelo físico do sistema. 
+
+      
 <span id="executar">
  
 ## :computer: Executando a aplicação
@@ -169,7 +175,7 @@ De acordo com o planejamento a primeira Sprint apresentará um sistema com a pá
 
 Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
       
-## ✔️ Entrega Primeira Sprint
+## ✔️ Entrega Segunda Sprint
       
 ### :desktop_computer: Páginas desenvolvindas nessa sprint
       
@@ -214,7 +220,8 @@ Clique [aqui] para acessar o vídeo técnico, no qual apresenta uma demonstraç�
 | Equipe de desenvolvimento | Victor dos Santos Salles | [GitHub](https://github.com/VictorSantos18) |
       
  ## 📈 Organização da Equipe
-      Para melhor organização do projeto, foi levantado as habilidades técnicas da equipe, dividindo provisoriamente os integrantes em dois times principais: Frontend e Backend, cada um com responsabilidades de acordo com a área destinada mas sempre em comunicação.
+      
+Para melhor organização do projeto, foi levantado as habilidades técnicas da equipe, dividindo provisoriamente os integrantes em dois times principais: Frontend e Backend, cada um com responsabilidades de acordo com a área destinada mas sempre em comunicação.
       
  #### Sprint 1
       
