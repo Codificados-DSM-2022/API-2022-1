@@ -47,9 +47,9 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 ## :computer: Executando a aplicação
 
 **Executar o banco de dados:** Para executar o banco de dados precisa inserir a sua senha e usuário do root do MySQL Workbench no arquivo app.py como mostrado no vídeo abaixo:
-<br><br>![](/doc/vsenha.gif)
+<br><br>![](/doc/Readme/vsenha.gif)
 <br><br> Também precisa executar o script SQL no Workbench, para efetuar essa tarefa basta abrir o script no sistema do MySQL Workbench, no qual se encontra com o nome de SQLAPI.sql no diretório database no src, como mostrado no vídeo abaixo: 
-<br><br>![](/doc/vmysql.gif)
+<br><br>![](/doc/Readme/vmysql.gif)
       
 Depois de baixar o [python](https://www.pyth.org/download/) e clonar o projeto (ou baixá-lo):
 
@@ -160,7 +160,7 @@ flask run
 
 Antes de realmente desenvolver o projeto, foi idealizado um layout específico, aplicado em um wireframe. Primeiramente o wireframe não foi aprovado, mas com as resposta e a orientação do cliente podemos arrumar e ir direto para o desenvolvimento de um protótipo.
 
-![](/doc/Wireframe.jpg) 
+![](/doc/Readme/Wireframe.jpg) 
 
  Depois, foi desenvolvido o sistema de acordo com as tecnologias pedidas e o planejamento do backlog.
  
@@ -168,11 +168,11 @@ De acordo com o planejamento a primeira Sprint apresentará um sistema com a pá
 
 Área de cliente:
 
-![](/doc/cliente.gif)
+![](/doc/Readme/cliente.gif)
 
 Área do técnico:
 
-![](/doc/executor.gif)
+![](/doc/Readme/executor.gif)
 
 ### 🎥 Vídeo de apresentação da Sprint 1
 
@@ -230,11 +230,11 @@ Para melhor organização do projeto, foi levantado as habilidades técnicas da 
       
  #### Sprint 1
       
- ![](/doc/tabela-s1.png)
+ ![](/doc/Readme/tabela-s1.png)
       
  #### Sprint 2
       
- ![](/doc/tabela-s2.png)
+ ![](/doc/Readme/tabela-s2.png)
       
  #### Sprint 3
 
