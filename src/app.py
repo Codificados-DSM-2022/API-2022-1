@@ -9,7 +9,9 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'tuca123'
+
+app.config['MYSQL_PASSWORD'] = 'tuca123' # <- Coloque aqui sua senha do MySQL
+
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -236,14 +238,24 @@ def excluirexecutor(id):
 
 @app.route('/relatorios')
 def relatorios():
+    mediaNota = 0
     media = 0
     if not session.get('loggedin'):
         return redirect(url_for('login'))
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM Chamado WHERE Chamado_avaliacao > 0')
+
+    ava = cur.execute('SELECT Chamado_avaliacao FROM Chamado WHERE Chamado_avaliacao > 0')
     avaliacao = cur.fetchall()
+    if ava > 0:
+        for i in avaliacao:
+            mediaNota += i[0]
+        mediaNota = mediaNota/ava
+    else:
+        mediaNota = 0
+
     valor = cur.execute('SELECT * FROM Chamado')
     chamados = cur.fetchall()
+
     if valor == 0:
         valor = aberto = fechado = 0
     else:
@@ -251,9 +263,11 @@ def relatorios():
             media += i[8]
         fechado = round(media * 100 / valor,2)
         aberto = 100 - fechado
+
     mysql.connection.commit()
     cur.close()
-    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, avaliacao=avaliacao, valor=valor)
+
+    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, avaliacao=avaliacao, valor=valor, mediaNota=mediaNota)
 
 
 @app.route('/solicitacoes-p-adm')
@@ -267,6 +281,41 @@ def pendentesadm():
         return render_template('adm/solicitacoes-p.html', Chamados=Chamados)
     else:
         return render_template('adm/solicitacoes-p.html')
+
+@app.route('/responderadm/<aceitar>/<idChamado>', methods=['POST','GET'])
+def responderadm(aceitar, idChamado):
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM chamado WHERE idChamado = %s", [idChamado])
+    chamado = cur.fetchone()
+    if request.method == "POST":
+        Chamado_resposta = request.form["resposta"]
+        Chamado_respondido = True
+        Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
+        if aceitar == '1':
+            Chamado_aceitar = "Atendido"
+        else:
+            Chamado_aceitar = "Recusado"
+
+        cur.execute("UPDATE chamado SET Chamado_resposta=%s, Chamado_respondido=%s, Chamado_data_entrega=%s, Chamado_aceitar=%s WHERE idChamado=%s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar, idChamado))
+        cur.connection.commit()
+        cur.close()
+        return redirect("/solicitacoes-r-adm")
+    return render_template('adm/responder.html', aceitar=aceitar, chamado=chamado)
+
+@app.route('/avaliaradm/<id>', methods=['POST', 'GET'])
+def avaliaradm(id):
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT chamado_resposta FROM chamado WHERE idChamado = %s", [id])
+    resposta = cur.fetchone()
+    if request.method == 'POST':
+        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (request.form['nota'], id))
+        cur.connection.commit()
+        cur.close()
+        return redirect('/solicitacoes-r-adm')
+    return render_template('adm/avaliar.html', resposta=resposta[0])
 
 
 @app.route('/solicitacoes-r-adm')
@@ -286,7 +335,17 @@ def respondidasadm():
 def solicitaradm():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
-    if request.method == 'POST':
+
+    cur = mysql.connection.cursor()
+    executores = cur.execute("SELECT * FROM executores")
+    exe = cur.fetchall()
+    cur.execute("SELECT adm_exec_index from Administrador")
+    a = cur.fetchone()
+    msg = ''
+
+    if executores == 0:
+        msg = 'Não existem executores cadastrados'
+    if request.method == 'POST' and executores > 0:
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
         Chamado_titulo = request.form['Chamado_titulo']
@@ -296,12 +355,7 @@ def solicitaradm():
         #Chamado_avaliacao = 0
         Chamado_respondido = '0'
 
-        cur = mysql.connection.cursor()
 
-        cur.execute("SELECT * FROM executores")
-        exe = cur.fetchall()
-        cur.execute("SELECT adm_exec_index from Administrador")
-        a = cur.fetchone()
         for i in exe:
             if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
                 idExecutor = exe[exe.index(i) + 1][0]
@@ -318,7 +372,7 @@ def solicitaradm():
         mysql.connection.commit()
         cur.close()
         return redirect("/solicitacoes-p-adm")
-    return render_template('adm/solicitar.html')
+    return render_template('adm/solicitar.html', msg=msg, executores=executores)
 
 
 #-------------------------------------------------------------------------------------------------------------#
@@ -422,6 +476,20 @@ def respondidas():
         return render_template('usuario/solicitacoes-r.html', Chamados=Chamados)
     else:
         return render_template('usuario/solicitacoes-r.html')
+
+@app.route('/avaliar/<id>', methods=['POST', 'GET'])
+def avaliar(id):
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT chamado_resposta FROM chamado WHERE idChamado = %s", [id])
+    resposta = cur.fetchone()
+    if request.method == 'POST':
+        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (request.form['nota'], id))
+        cur.connection.commit()
+        cur.close()
+        return redirect('/solicitacoes-r')
+    return render_template('usuario/avaliar.html', resposta=resposta[0])
 
 
 #--------------------------------------------------------------------------------------------------------------#

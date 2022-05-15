@@ -12,30 +12,30 @@
     <script type="text/javascript">
         function loadingVariables() {
             var r = document.querySelector(':root');
-            var solR = {{fechado}} * 3.6;
-            var solP = 360 - solR;
-            if (solR > solP) {
-                r.style.setProperty('--secondSliceColor', '#58d3f7');
-                var v1 = 180;
-                var v2 = solR - 180;
-                var v3 = 360 - solR;
-            } else {
-                r.style.setProperty('--secondSliceColor', '#f7d358');
-                var v1 = 360 - solP;
-                var v2 = solP - 180;
-                var v3 = 180;
-            }
-            var b2 = v1 + 'deg';
-            var b3 = (v1 + v2) + 'deg';
-            var s1 = v1 + 'deg';
-            var s2 = v2 + 'deg';
-            var s3 = v3 + 'deg';
+            var solR = {{ fechado }} * 3.6;
+        var solP = 360 - solR;
+        if (solR > solP) {
+            r.style.setProperty('--secondSliceColor', '#58d3f7');
+            var v1 = 180;
+            var v2 = solR - 180;
+            var v3 = 360 - solR;
+        } else {
+            r.style.setProperty('--secondSliceColor', '#f7d358');
+            var v1 = 360 - solP;
+            var v2 = solP - 180;
+            var v3 = 180;
+        }
+        var b2 = v1 + 'deg';
+        var b3 = (v1 + v2) + 'deg';
+        var s1 = v1 + 'deg';
+        var s2 = v2 + 'deg';
+        var s3 = v3 + 'deg';
 
-            r.style.setProperty('--firstSlice', s1);
-            r.style.setProperty('--beforeSSlice', b2);
-            r.style.setProperty('--secondSlice', s2);
-            r.style.setProperty('--beforeTSlice', b3);
-            r.style.setProperty('--thirdSlice', s3);
+        r.style.setProperty('--firstSlice', s1);
+        r.style.setProperty('--beforeSSlice', b2);
+        r.style.setProperty('--secondSlice', s2);
+        r.style.setProperty('--beforeTSlice', b3);
+        r.style.setProperty('--thirdSlice', s3);
         }
     </script>
     <title>Relatórios</title>
@@ -110,6 +110,8 @@
     <main>
         <h1>Relatorios</h1><br>
         <div class="graficos">
+            <h3>Percentual de chamadas abertas e fechadas</h3>
+            <br>
             <div class="pieContainer">
                 <div class="pieBackground"></div>
                 <div id="pieSlice1" class="hold">
@@ -126,17 +128,78 @@
                 <ul>
                     <li><span style='background:#58d3f7;'></span>{{fechado}}% Solicitações fechadas</li>
                     <li><span style='background:#f7d358;'></span>{{aberto}}% Solitações abertas</li>
+                    <li>{{valor}} Solicitações realizadas</li>
                 </ul><br><br>
             </div>
-            <h4>percentual de chamadas abertas e fechadas</h4>
-        </div>
-        <div class="estrelas">
-            <h3>avaliação media do sistema</h3>
-            <i class='bx bxs-star'></i>
-            <i class='bx bxs-star'></i>
-            <i class='bx bxs-star'></i>
-            <i class='bx bxs-star'></i>
-            <i class='bx bxs-star'></i>
+            <br>
+            <h3>Evolução diária da quantidade de solicitações abertas e fechadas</h3>
+            <img src="../../static/image/grafico.png"
+                alt="Gráfico de exemplo para evolução diária da quantidade de solicitações abertas e fechadas">
+            <div class="rating-css">
+                <br>
+                <h3>Avaliação media do sistema: {{mediaNota}}</h3>
+                <div class="rating-css">
+                    <div class="star-icon">
+                        {% if mediaNota == 0 %}
+                        <i class='bx bx-star'></i>
+                        <i class='bx bx-star'></i>
+                        <i class='bx bx-star'></i>
+                        <i class='bx bx-star'></i>
+                        <i class='bx bx-star'></i>
+                        {% elif mediaNota <= 0.5 %} <i class='bx bxs-star-half'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            {% elif mediaNota <= 1 %} <i class='bx bxs-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                {% elif mediaNota <= 1.5 %} <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star-half'></i>
+                                    <i class='bx bx-star'></i>
+                                    <i class='bx bx-star'></i>
+                                    <i class='bx bx-star'></i>
+                                    {% elif mediaNota <= 2 %} <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bx-star'></i>
+                                        <i class='bx bx-star'></i>
+                                        <i class='bx bx-star'></i>
+                                        {% elif mediaNota <= 2.5 %} <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star-half'></i>
+                                            <i class='bx bx-star'></i>
+                                            <i class='bx bx-star'></i>
+                                            {% elif mediaNota <= 3 %} <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star'></i>
+                                                <i class='bx bx-star'></i>
+                                                <i class='bx bx-star'></i>
+                                                {% elif mediaNota <= 3.5 %} <i class='bx bxs-star'></i>
+                                                    <i class='bx bxs-star'></i>
+                                                    <i class='bx bxs-star'></i>
+                                                    <i class='bx bxs-star-half'></i>
+                                                    <i class='bx bx-star'></i>
+                                                    {% elif mediaNota <= 4 %} <i class='bx bxs-star'></i>
+                                                        <i class='bx bxs-star'></i>
+                                                        <i class='bx bxs-star'></i>
+                                                        <i class='bx bxs-star'></i>
+                                                        <i class='bx bx-star'></i>
+                                                        {% elif mediaNota <= 4.5 %} <i class='bx bxs-star'></i>
+                                                            <i class='bx bxs-star'></i>
+                                                            <i class='bx bxs-star'></i>
+                                                            <i class='bx bxs-star'></i>
+                                                            <i class='bx bxs-star-half'></i>
+                                                            {% elif mediaNota <= 5 %} <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </body>

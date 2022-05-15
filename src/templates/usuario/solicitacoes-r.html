@@ -80,12 +80,47 @@
           <h1>Data enviada:</h1>
           <p>{{chamado[1]}}</p>
           <br>
+          <hr>
           <h1>Resposta recebida:</h1>
           <p>{{chamado[6]}}</p>
           <h1>Data recebida:</h1>
           <p>{{chamado[2]}}</p>
-
-        </div>
+          <br>
+          <hr><br>
+          <div class="rating-css">
+            <div class="star-icon">
+              {% if chamado[7] == 1 %}
+              <h1>Avaliação enviada:</h1>
+              <i class='bx bxs-star'></i>
+              {% elif chamado[7] == 2 %}
+              <h1>Avaliação enviada:</h1>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              {% elif chamado[7] == 3 %}
+              <h1>Avaliação enviada:</h1>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              {% elif chamado[7] == 4 %}
+              <h1>Avaliação enviada:</h1>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              {% elif chamado[7] == 5 %}
+              <h1>Avaliação enviada:</h1>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+              <i class='bx bxs-star'></i>
+            </div>
+          </div>
+          {% else %}
+          <div class="button-area">
+            <a href="/avaliar/{{chamado[0]}}"><button>Avaliar atendimento</button></a>
+          </div>
+          {% endif %}
       </details>
       {% endfor %}
     </section>

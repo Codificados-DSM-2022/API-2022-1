@@ -7,7 +7,7 @@
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solicitações Pendentes</title>
+  <title>Avaliar atendimento</title>
 </head>
 
 <body>
@@ -76,30 +76,38 @@
     </ul>
   </div>
   <main>
-    <section class="home-section">
-      <div class="text">Solicitações Pendentes</div>
-      {% for chamado in Chamados %}
-      <details class="card">
-        <summary>
-          <h1>{{chamado[3]}}</h1>
-          <p>Pendente</p>
-        </summary>
-        <div class="conteudo">
-          <h1>Titulo:</h1>
-          <p>{{chamado[3]}}</p>
-          <h1>Tipo:</h1>
-          <p>{{chamado[4]}}</p>
-          <h1>Descrição:</h1>
-          <p>{{chamado[5]}}</p>
-          <h1>Data enviada:</h1>
-          <p>{{chamado[1]}}</p>
-          <br>
-          <a href="/responderadm/1/{{chamado[0]}}" class="btnact">Aceitar</a>
-          <a href="/responderadm/0/{{chamado[0]}}" class="btnrec">Recusar</a>
-          <br><br>
+    <section>
+      <div class="responder">
+        <div class="title">
+          Avaliar Atendimento
         </div>
-      </details>
-      {% endfor %}
+        <form method="POST">
+          <div class="form">
+            <div class="inputfield">
+              <label>Reposta</label>
+              <p>{{resposta}}</p>
+            </div><br>
+            <label>Nota</label>
+            <div class="rating-css">
+              <div class="star-icon">
+                <input type="radio" name="nota" value="1">
+                <label for="1" class="bx bxs-star"></label>
+                <input type="radio" name="nota" value="2">
+                <label for="2" class="bx bxs-star"></label>
+                <input type="radio" name="nota" value="3">
+                <label for="3" class="bx bxs-star"></label>
+                <input type="radio" name="nota" value="4">
+                <label for="4" class="bx bxs-star"></label>
+                <input type="radio" name="nota" value="5">
+                <label for="5" class="bx bxs-star"></label>
+              </div>
+            </div><br>
+            <div class="inputfield">
+              <input type="submit" value="Enviar Resposta" class="btn">
+            </div>
+          </div>
+        </form>
+      </div>
     </section>
   </main>
   <script src="../static/script.js"></script>

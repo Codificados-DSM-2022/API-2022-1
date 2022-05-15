@@ -1022,3 +1022,197 @@ body {
   --secondSliceColor: #000000;
   --thirdSliceColor: #f7d358;
 }
+
+/* ESTRELINHA */
+
+.rating-css div {
+  color: #ff8800;
+  font-size: 30px;
+}
+
+.rating-css div:hover {
+  color: #ff8800;
+  cursor: pointer;
+}
+
+.rating-css input+label {
+  cursor: pointer;
+  font-size: 30px;
+  text-shadow: 1px 1px 0 #ffe400;
+}
+
+.rating-css input:checked+label~label {
+  color: #838383;
+}
+
+.rating-css label:active {
+  transform: scale(0.8);
+  transition: 0.3s ease;
+}
+
+
+.btnact {
+  text-decoration: none;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 16px;
+  color: #fff;
+  background-color: #006700;
+}
+
+.btnrec {
+  text-decoration: none;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 16px;
+  color: #fff;
+  background-color: #B60000;
+}
+
+.responder {
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  margin: 100px auto;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.125);
+  padding: 30px;
+}
+
+.responder .title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #11101D;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.responder .form {
+  width: 100%;
+}
+
+.responder .form .inputfield {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.responder .form .inputfield label {
+  width: 200px;
+  color: #757575;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.responder .form .inputfield .input,
+.responder .form .inputfield .textarea {
+  width: 100%;
+  outline: none;
+  border: 1px solid #d5dbd9;
+  font-size: 15px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.responder .form .inputfield .textarea {
+  width: 100%;
+  height: 125px;
+  resize: none;
+}
+
+.responder .form .inputfield .custom_select {
+  position: relative;
+  width: 100%;
+  height: 37px;
+}
+
+.responder .form .inputfield .custom_select:before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  border: 8px solid;
+  border-color: #d5dbd9 transparent transparent transparent;
+  pointer-events: none;
+}
+
+.responder .form .inputfield .custom_select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 1px solid #d5dbd9;
+  border-radius: 3px;
+}
+
+
+.responder .form .inputfield .input:focus,
+.responder .form .inputfield .textarea:focus,
+.responder .form .inputfield .custom_select select:focus {
+  border: 1px solid #fec107;
+}
+
+.responder .form .inputfield p {
+  font-size: 14px;
+  color: #757575;
+}
+
+.responder .form .inputfield .check {
+  width: 15px;
+  height: 15px;
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.responder .form .inputfield .check input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.responder .form .inputfield .btn {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 0px;
+  background: #11101D;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}
+
+.responder .form .inputfield .btn:hover {
+  background: #2b2942;
+}
+
+.responder .form .inputfield:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width:420px) {
+  .responder .form .inputfield {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .responder .form .inputfield label {
+    margin-bottom: 5px;
+  }
+
+  .responder .form .inputfield.terms {
+    flex-direction: row;
+  }
+}

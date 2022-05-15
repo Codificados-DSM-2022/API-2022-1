@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../../static/style-adm.css">
+  <link rel="stylesheet" href="../static/style.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -19,49 +19,35 @@
     </div>
     <ul class="nav-list">
       <li>
-        <a href="./index-adm">
+        <a href="index-cliente">
           <i class='bx bx-home'></i>
           <span class="links_name">Início</span>
         </a>
         <span class="tooltip">Início</span>
       </li>
       <li>
-        <a href="./perfil-adm">
+        <a href="./perfil-user">
           <i class='bx bx-user'></i>
           <span class="links_name">Perfil</span>
         </a>
         <span class="tooltip">Perfil</span>
       </li>
       <li>
-        <a href="./lista-usuarios">
-          <i class='bx bx-list-ul'></i>
-          <span class="links_name">Lista de usuários</span>
-        </a>
-        <span class="tooltip">Lista de usuários</span>
-      </li>
-      <li>
-        <a href="./relatorios">
-          <i class='bx bx-line-chart'></i>
-          <span class="links_name">Relatórios</span>
-        </a>
-        <span class="tooltip">Relatórios</span>
-      </li>
-      <li>
-        <a href="./solicitar-adm">
+        <a href="./solicitar">
           <i class='bx bx-message-add'></i>
           <span class="links_name">Solicitar</span>
         </a>
         <span class="tooltip">Solicitar</span>
       </li>
       <li>
-        <a href="./solicitacoes-p-adm">
+        <a href="./solicitacoes-p">
           <i class='bx bx-message-dots'></i>
           <span class="links_name">Solicitaçoes pendentes</span>
         </a>
         <span class="tooltip">Solicitaçoes pendentes</span>
       </li>
       <li>
-        <a href="./solicitacoes-r-adm">
+        <a href="./solicitacoes-r">
           <i class='bx bx-message-check'></i>
           <span class="links_name">Solicitaçoes respondidas</span>
         </a>
@@ -77,37 +63,38 @@
     </ul>
   </div>
   <main>
-    <section class="home-section">
-      <div class="text">Realizar Solicitações</div>
-      <div class="wrapper">
-        <header>Realizar Solicitação</header>
-        <form action="/solicitar-adm" method="POST">
-          <div class="dbl-field">
-            <div class="field">
-              <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema">
-              <i class='fas fa-user'></i>
+    <section>
+      <div class="responder">
+        <div class="title">
+          Avaliar Atendimento
+        </div>
+        <form method="POST">
+          <div class="form">
+            <div class="inputfield">
+              <label>Reposta</label>
+              <P>{{resposta}}</P>
             </div>
-            <div class="dropdown">
-              <select id="Chamado_tipo" name="Chamado_tipo">
-                <option value="Hardware">Hardware</option>
-                <option value="Software">Software</option>
-                <option value="Informação">Informação</option>
-              </select>
+
+            <label>Nota</label>
+            <br>
+            <div class="rating-css">
+              <div class="star-icon">
+                <input type="radio" name="nota" value="1">
+                <label for="1" class="bx bxs-star"></label>
+                <input type="radio" name="nota" value="2">
+                <label for="2" class="bx bxs-star"></label>
+                <input type="radio" name="nota" value="3">
+                <label for="3" class="bx bxs-star"></label>
+                <input type="radio" name="nota" value="4">
+                <label for="4" class="bx bxs-star"></label>
+                <input type="radio" name="nota" value="5">
+                <label for="5" class="bx bxs-star"></label>
+              </div>
+            </div><br>
+            <div class="inputfield">
+              <input type="submit" value="Enviar Resposta" class="btn">
             </div>
           </div>
-          <div class="message">
-            <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao"></textarea>
-            <i class="bx bxs-edit"></i>
-          </div>
-          <input type="file" name="Chamado_imagem">
-          <div class="text">{{msg}}</div>
-          {% if executores > 0 %}
-          <div class="button-area">
-            <button type="submit">Enviar Solicitação</button>
-          </div>
-          <span></span>
-          {% endif %}
-          <br>
         </form>
       </div>
     </section>
