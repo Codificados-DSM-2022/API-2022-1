@@ -190,7 +190,7 @@ Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no q
       
 ### 🎥 Vídeo de apresentação da Sprint 2
 
-Clique [aqui] para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
+Clique [aqui](https://youtu.be/JMtoR40EMvQ) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
 
 <span id="tecnologias">
 
