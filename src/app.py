@@ -106,6 +106,10 @@ def cadastro():
     if request.method == 'POST' and request.form['usuario_senha'] != request.form['usuario_csenha']:
 
         msg = 'Senhas não conferem!'
+
+    elif request.form.get('check') != 'on':
+        msg = 'Você deve aceitar o armazenamento de seus dados'
+
     elif request.method == 'POST' and 'usuario_email' in request.form and 'usuario_senha' in request.form and 'usuario_nome' in request.form and 'usuario_contato' in request.form and 'usuario_endereco' in request.form:
 
         usuario_email = request.form['usuario_email']
