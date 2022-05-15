@@ -229,7 +229,7 @@ Para melhor organização do projeto, foi levantado as habilidades técnicas da 
       
  #### Sprint 2
       
- ![](/doc/tabela02.png)
+ ![](/doc/tabela-s2.png)
       
  #### Sprint 3
 
