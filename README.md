@@ -10,9 +10,11 @@
 
 <p align="center">
     <a href="#sobre">Sobre</a> |
-    <a href="#backlogs">Backlogs</a> |
     <a href="#executar">Executando uma aplicação</a> |
-    <a href="#prototipo">Protótipo</a> |
+    <a href="#backlogs">Backlogs</a> |
+    <a href="#userstories">UserStories</a> |
+    <a href="#sprint1">Entrega da Primeira Sprint</a> |
+    <a href="#sprint2">Entrega da Segunda Sprint</a> |
     <a href="#tecnologias">Tecnologias</a> |
     <a href="#equipe">Equipe</a> |
 </p>
@@ -134,9 +136,10 @@ flask run
 | :----: | :----------------------------------------------------------------------------- | :------: | :-----: |
 | RF 09 | O sistema deve prover relatórios que mostrem: a)A quantidade percentual de solicitações abertas e fechadas em um determinado intervalo de  tempo (uma espécie de “instantâneo” considerando um dia, uma semana ou um mês específico). b)A evolução diária da quantidade de solicitações abertas e fechadas, considerando intervalos de tempo especificados (1 semana, 15 dias, etc., utilizando datas de início e término para especificar tal intervalo). c) A avaliação média de cada executor de solicitação. d)A  avaliação  média  global  do  sistema,  tendo  como  base  a  nota  atribuída  a  todos  os chamados. |06 e 07|🛑|
        
+ 
+<span id="userstories">      
 
 ## :mag: User Stories
-       
        
  | Código | Título | História | Prioridade | Requisitos | Sprint |
 | :----: | :--------- | :----------------------------------------------------------------------------- | :----------- | :-----------: | :------: |
@@ -149,7 +152,7 @@ flask run
 |07| Página avaliações| Como usuário quero que possa avaliar o serviço do executor, como executor quero que ao terminar o serviço o usuário responda uma avaliação e como administrador quero que eu possa ver as avaliações feitas pelos usuários, para ver se o serviço foi bem executado. | baixa | RF 09 | 3 |
        
 
-<span id="prototipo">
+<span id="sprint1">
       
 ## ✔️ Entrega Primeira Sprint
         
@@ -174,6 +177,8 @@ De acordo com o planejamento a primeira Sprint apresentará um sistema com a pá
 ### 🎥 Vídeo de apresentação da Sprint 1
 
 Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
+      
+<span id="sprint2">
       
 ## ✔️ Entrega Segunda Sprint
       
