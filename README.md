@@ -164,13 +164,13 @@ Antes de realmente desenvolver o projeto, foi idealizado um layout específico, 
 
  Depois, foi desenvolvido o sistema de acordo com as tecnologias pedidas e o planejamento do backlog.
  
-De acordo com o planejamento a primeira Sprint apresentará um sistema com a página de solicitação, do executor e a página de visualização do usuário, abaixo consegue observar o resultado dela: 
+De acordo com o planejamento a primeira Sprint apresentará um sistema com a página de solicitação, do técnico e a página de visualização do usuário, abaixo consegue observar o resultado dela: 
 
 Área de cliente:
 
 ![](/doc/cliente.gif)
 
-Área de executor:
+Área do técnico:
 
 ![](/doc/executor.gif)
 
