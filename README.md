@@ -168,6 +168,18 @@ De acordo com o planejamento a primeira Sprint apresentará um sistema com a pá
 ### 🎥 Vídeo de apresentação da Sprint 1
 
 Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
+      
+## ✔️ Entrega Primeira Sprint
+      
+### :desktop_computer: Páginas desenvolvindas nessa sprint
+      
+Área Login/Registro:
+Área Perfil:
+Área Administrador:
+      
+### 🎥 Vídeo de apresentação da Sprint 2
+
+Clique [aqui] para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
 
 <span id="tecnologias">
 
