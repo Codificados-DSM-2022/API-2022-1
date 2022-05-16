@@ -208,8 +208,8 @@ Clique [aqui](https://youtu.be/JMtoR40EMvQ) para acessar o vídeo técnico, no q
 | [Visual Studio Code](https://code.visualstudio.com/) | Codificação |
 | [Slack](https://slack.com/) | Comunicação com o cliente |
 | [Discord](https://discord.com/)|  Comunicação com a equipe |
-| [Trello](https://trello.com/pt-BR) | Ferramenta para organização |
-| [GitHub](https://github.com/) | Compatilhamento e documentação |
+| [Trello](https://trello.com/pt-BR) | Método Kanban |
+| [GitHub](https://github.com/) | Compartilhamento e versionamento |
 
 <span id="equipe">
 
