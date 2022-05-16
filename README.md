@@ -32,8 +32,8 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 ## Entregas de Sprints
 | Sprint | Previsão | Status | tag |
 |:--:|:----------:|:----------------| :---------: |
-| 01 | 14/04/2022 | ✔️ Concluída    | [Tag01](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.0) |
-| 02 | 15/05/2022 | 🕤 Em andamento | -- |
+| 01 | 14/04/2022 | ✔️ Concluída    | [Tag v1.0](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.0) |
+| 02 | 15/05/2022 | ✔️ Concluída | [Tag v1.1](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.1) |
 | 03 | 05/06/2022 | 🛑 Não iniciada | -- |
 
 ## 📁 Configuração das pastas
