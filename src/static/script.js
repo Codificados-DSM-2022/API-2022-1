@@ -1,22 +1,31 @@
-let sidebar = document.querySelector(".sidebar");
-let closeBtn = document.querySelector("#btn");
-let searchBtn = document.querySelector(".bx-search");
+var header = document.getElementById('header');
+var navigationHeader = document.getElementById('navigation_header');
+var content = document.getElementById('content');
+var showSidebar = false;
 
-closeBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
-  menuBtnChange();//calling the function(optional)
-});
-
-searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
-  sidebar.classList.toggle("open");
-  menuBtnChange(); //calling the function(optional)
-});
-
-// following are the code to change sidebar button(optional)
-function menuBtnChange() {
-  if (sidebar.classList.contains("open")) {
-    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-  } else {
-    closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
-  }
+function toggleSidebar() {
+    showSidebar = !showSidebar;
+    if (showSidebar) {
+        navigationHeader.style.marginLeft = '-10vw';
+        navigationHeader.style.animationName = 'showSidebar';
+        content.style.filter = 'blur(2px)';
+    } else {
+        navigationHeader.style.marginLeft = '-100vw';
+        navigationHeader.style.animationName = '';
+        content.style.filter = '';
+    }
 }
+
+function closeSidebar() {
+    if (showSidebar) {
+        showSidebar = true;
+        toggleSidebar();
+    }
+}
+
+window.addEventListener('resize', function(event) {
+    if (window.innerWidth > 768 && showSidebar) {
+        showSidebar = true;
+        toggleSidebar();
+    }
+});

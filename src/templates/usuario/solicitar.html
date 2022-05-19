@@ -1,103 +1,93 @@
 <!DOCTYPE html>
-<html lang="pt-br" dir="ltr">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../static/style.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Realizar Solicitação</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../static/style.css">
+  <title>Início</title>
 </head>
 
 <body>
-  <div class="sidebar">
-    <div class="logo-details">
-      <div class="logo_name">API</div>
-      <i class='bx bx-menu' id="btn"></i>
+  <div class="header" id="header">
+    <button onclick="toggleSidebar()" class="btn_icon_header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+      </svg>
+    </button>
+    <div class="info_header">
+     
+      <a href="./perfil-user">
+        <i class='bx bx-user'></i>
+        <span class="links_name">Perfil</span>
+      </a>
+      <a href="logout">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name">Sair</span>
+      </a>
     </div>
-    <ul class="nav-list">
-      <li>
-        <a href="index-cliente">
-          <i class='bx bx-home'></i>
-          <span class="links_name">Início</span>
-        </a>
-        <span class="tooltip">Início</span>
-      </li>
-      <li>
-        <a href="./perfil-user">
-          <i class='bx bx-user'></i>
-          <span class="links_name">Perfil</span>
-        </a>
-        <span class="tooltip">Perfil</span>
-      </li>
-      <li>
-        <a href="./solicitar">
-          <i class='bx bx-message-add'></i>
-          <span class="links_name">Solicitar</span>
-        </a>
-        <span class="tooltip">Solicitar</span>
-      </li>
-      <li>
-        <a href="./solicitacoes-p">
-          <i class='bx bx-message-dots'></i>
-          <span class="links_name">Solicitaçoes pendentes</span>
-        </a>
-        <span class="tooltip">Solicitaçoes pendentes</span>
-      </li>
-      <li>
-        <a href="./solicitacoes-r">
-          <i class='bx bx-message-check'></i>
-          <span class="links_name">Solicitaçoes respondidas</span>
-        </a>
-        <span class="tooltip">Solicitaçoes respondidas</span>
-      </li>
-      <li>
-        <a href="logout">
-          <i class='bx bx-log-out'></i>
-          <span class="links_name">Sair</span>
-        </a>
-        <span class="tooltip">Sair</span>
-      </li>
-    </ul>
+
+    <div class="navigation_header" id="navigation_header">
+      <button onclick="toggleSidebar()" class="btn_icon_header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+          viewBox="0 0 16 16">
+          <path
+            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </button>
+      <a href="./index-cliente">
+        <i class='bx bx-home'></i>Início</a>
+      <a href="./solicitar">
+        <i class='bx bx-message-add'></i>Solicitar</a>
+      <a href="./solicitacoes-p">
+        <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
+      <a href="./solicitacoes-r">
+        <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
+    </div>
   </div>
-  <main>
-    <section class="home-section">
-      <div class="text">Realizar Solicitações</div>
-      <div class="wrapper">
-        <header>Realizar Solicitação</header>
-        <form method="POST">
-          <div class="dbl-field">
-            <div class="field">
-              <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema">
-              <i class='fas fa-user'></i>
+
+  <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
+    <main>
+      <section class="home-section">
+     
+        <div class="wrapper">
+          <header>Realizar Solicitação</header>
+          <form method="POST">
+            <div class="dbl-field">
+              <div class="field">
+                <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema">
+                <i class='fas fa-user'></i>
+              </div>
+              <div class="dropdown">
+                <select id="Chamado_tipo" name="Chamado_tipo">
+                  <option value="Hardware">Hardware</option>
+                  <option value="Software">Software</option>
+                  <option value="Informação">Informação</option>
+                </select>
+              </div>
             </div>
-            <div class="dropdown">
-              <select id="Chamado_tipo" name="Chamado_tipo">
-                <option value="Hardware">Hardware</option>
-                <option value="Software">Software</option>
-                <option value="Informação">Informação</option>
-              </select>
+            <div class="message">
+              <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao"></textarea>
+              <i class="material-icons"></i>
             </div>
-          </div>
-          <div class="message">
-            <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao"></textarea>
-            <i class="material-icons"></i>
-          </div>
-          <input type="file" name="Chamado_imagem">
-          <div class="text">{{msg}}</div>
-          {% if tecnicos > 0 %}
-          <div class="button-area">
-            <button type="submit">Enviar Solicitação</button>
-          </div>
-            <span></span>
-          {% endif %}
-          <br>
-        </form>
-      </div>
-    </section>
-  </main>
+            <input type="file" name="Chamado_imagem">
+            <div class="text">{{msg}}</div>
+            {% if tecnicos > 0 %}
+            <div class="button-area">
+              <button type="submit">Enviar Solicitação</button>
+            </div>
+              <span></span>
+            {% endif %}
+            <br>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
   <script src="../static/script.js"></script>
 </body>
 
