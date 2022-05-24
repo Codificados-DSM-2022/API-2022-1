@@ -34,7 +34,7 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 |:--:|:----------:|:----------------| :---------: |
 | 01 | 14/04/2022 | ✔️ Concluída    | [Tag v1.0](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.0) |
 | 02 | 15/05/2022 | ✔️ Concluída | [Tag v1.1](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.1) |
-| 03 | 05/06/2022 | 🛑 Não iniciada | -- |
+| 03 | 05/06/2022 | 🕤 Em andamento | -- |
 
 ## 📁 Configuração das pastas
 
@@ -121,20 +121,20 @@ flask run
 
 | Código | Descrição | UserStories | |
 | :----: | :----------------------------------------------------------------------------- | :------: | :-----: |
-| RF 03 | Um Executor  de  Serviço (o  sistema  pode  ter  um  ou  vários  executores),  deve  ser  capaz  de atender  a  uma  solicitação  podendo:  a)  atender a  um  serviço  demandado (ao  final  o  chamado  é fechado e o serviço executado é descrito), b) rejeitar um serviço (o chamado é fechado mas uma justificativa para a rejeição deve ser apresentada). | 02 |🕤|
-| RF 04 | Um Usuário Comum (o sistema pode ter um ou muitos usuários) deve ser capaz de abrir uma solicitação de  serviço,  visualizar  o  estado  de  todas  as  suas  solicitações,  da  mais  recente  à  mais antiga, e atribuir uma nota (de 0 a 10) à execução de uma de suas solicitações que foi fechada pelo executor. |03|🕤|
-| RF 05 | Uma  solicitação  de  serviço,  ao  ser  criada, deve  ser atribuída  automaticamente  a  um  dos executores de serviço cadastrados no sistema. |04|🕤|
-| RF 06 | A  atribuição  da  solicitação  deve  seguir  um  esquema  de  distribuição cíclico/  sequencial  de acordo com o número atual de executores (ex. Se há 3 executores cadastrados (A,B,C) e são criadas 7 solicitações, sequencialmente (da 1ª à 7ª ), então os operadores A,B,C receberão as atribuições das solicitações A =[1ª , 4ª , 7ª ] , B= [2ª , 5ª ] , C= [3ª , 6ª ]. |04|🕤|
-| RF 07 | Ao  ser  criada, uma  solicitação/chamado deve  ser  atrelada ao  seu  criador  e  atribuída a  um executor. |03|🕤|
-| RF 08 | Uma solicitação deve possuir: a)data/hora de criação(obrigatório). b)data/hora de fechamento(obrigatório). c)tipo: Problema de Hardware, Problema de Software ou Esclarecimento/Informação. d)uma descrição de abertura(obrigatório). e)uma imagem/arquivo (opcional). f)uma resposta ou justificativa para o fechamento(obrigatório). g)uma avaliação atribuída pelo usuário que a originou, após o fechamento (opcional). |05|🕤|
+| RF 03 | Um Executor  de  Serviço (o  sistema  pode  ter  um  ou  vários  executores),  deve  ser  capaz  de atender  a  uma  solicitação  podendo:  a)  atender a  um  serviço  demandado (ao  final  o  chamado  é fechado e o serviço executado é descrito), b) rejeitar um serviço (o chamado é fechado mas uma justificativa para a rejeição deve ser apresentada). | 02 |✔️|
+| RF 04 | Um Usuário Comum (o sistema pode ter um ou muitos usuários) deve ser capaz de abrir uma solicitação de  serviço,  visualizar  o  estado  de  todas  as  suas  solicitações,  da  mais  recente  à  mais antiga, e atribuir uma nota (de 0 a 10) à execução de uma de suas solicitações que foi fechada pelo executor. |03|✔️|
+| RF 05 | Uma  solicitação  de  serviço,  ao  ser  criada, deve  ser atribuída  automaticamente  a  um  dos executores de serviço cadastrados no sistema. |04|✔️|
+| RF 06 | A  atribuição  da  solicitação  deve  seguir  um  esquema  de  distribuição cíclico/  sequencial  de acordo com o número atual de executores (ex. Se há 3 executores cadastrados (A,B,C) e são criadas 7 solicitações, sequencialmente (da 1ª à 7ª ), então os operadores A,B,C receberão as atribuições das solicitações A =[1ª , 4ª , 7ª ] , B= [2ª , 5ª ] , C= [3ª , 6ª ]. |04|✔️|
+| RF 07 | Ao  ser  criada, uma  solicitação/chamado deve  ser  atrelada ao  seu  criador  e  atribuída a  um executor. |03|✔️|
+| RF 08 | Uma solicitação deve possuir: a)data/hora de criação(obrigatório). b)data/hora de fechamento(obrigatório). c)tipo: Problema de Hardware, Problema de Software ou Esclarecimento/Informação. d)uma descrição de abertura(obrigatório). e)uma imagem/arquivo (opcional). f)uma resposta ou justificativa para o fechamento(obrigatório). g)uma avaliação atribuída pelo usuário que a originou, após o fechamento (opcional). |05|✔️|
 | RF 01 | O  sistema  só  deve  ser  acessado  por  pessoas  devidamente  cadastradas,  de  acordo  com  a natureza das operações a serem executadas pelo mesmo.|01|🕤|
-| RF 02 | O Administrador do sistema, um único usuário,deve possuir acesso total às funcionalidades do sistema. |01|🕤|
+| RF 02 | O Administrador do sistema, um único usuário,deve possuir acesso total às funcionalidades do sistema. |01|✔️|
  
 #### Sprint 3
 
 | Código | Descrição | UserStories | |
 | :----: | :----------------------------------------------------------------------------- | :------: | :-----: |
-| RF 09 | O sistema deve prover relatórios que mostrem: a)A quantidade percentual de solicitações abertas e fechadas em um determinado intervalo de  tempo (uma espécie de “instantâneo” considerando um dia, uma semana ou um mês específico). b)A evolução diária da quantidade de solicitações abertas e fechadas, considerando intervalos de tempo especificados (1 semana, 15 dias, etc., utilizando datas de início e término para especificar tal intervalo). c) A avaliação média de cada executor de solicitação. d)A  avaliação  média  global  do  sistema,  tendo  como  base  a  nota  atribuída  a  todos  os chamados. |06 e 07|🛑|
+| RF 09 | O sistema deve prover relatórios que mostrem: a)A quantidade percentual de solicitações abertas e fechadas em um determinado intervalo de  tempo (uma espécie de “instantâneo” considerando um dia, uma semana ou um mês específico). b)A evolução diária da quantidade de solicitações abertas e fechadas, considerando intervalos de tempo especificados (1 semana, 15 dias, etc., utilizando datas de início e término para especificar tal intervalo). c) A avaliação média de cada executor de solicitação. d)A  avaliação  média  global  do  sistema,  tendo  como  base  a  nota  atribuída  a  todos  os chamados. |06 e 07|🕤|
        
  
 <span id="userstories">      
