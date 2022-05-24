@@ -127,7 +127,7 @@ flask run
 | RF 06 | A  atribuição  da  solicitação  deve  seguir  um  esquema  de  distribuição cíclico/  sequencial  de acordo com o número atual de executores (ex. Se há 3 executores cadastrados (A,B,C) e são criadas 7 solicitações, sequencialmente (da 1ª à 7ª ), então os operadores A,B,C receberão as atribuições das solicitações A =[1ª , 4ª , 7ª ] , B= [2ª , 5ª ] , C= [3ª , 6ª ]. |04|✔️|
 | RF 07 | Ao  ser  criada, uma  solicitação/chamado deve  ser  atrelada ao  seu  criador  e  atribuída a  um executor. |03|✔️|
 | RF 08 | Uma solicitação deve possuir: a)data/hora de criação(obrigatório). b)data/hora de fechamento(obrigatório). c)tipo: Problema de Hardware, Problema de Software ou Esclarecimento/Informação. d)uma descrição de abertura(obrigatório). e)uma imagem/arquivo (opcional). f)uma resposta ou justificativa para o fechamento(obrigatório). g)uma avaliação atribuída pelo usuário que a originou, após o fechamento (opcional). |05|✔️|
-| RF 01 | O  sistema  só  deve  ser  acessado  por  pessoas  devidamente  cadastradas,  de  acordo  com  a natureza das operações a serem executadas pelo mesmo.|01|🕤|
+| RF 01 | O  sistema  só  deve  ser  acessado  por  pessoas  devidamente  cadastradas,  de  acordo  com  a natureza das operações a serem executadas pelo mesmo.|01|✔️|
 | RF 02 | O Administrador do sistema, um único usuário,deve possuir acesso total às funcionalidades do sistema. |01|✔️|
  
 #### Sprint 3
