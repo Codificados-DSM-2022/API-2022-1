@@ -68,6 +68,7 @@ flask run
 
 # O site estará disponível através do link: http://localhost:5000/ ou http://127.0.0.1:5000/
 ```
+ → [Voltar ao topo](#topo)
       
  <span id="backlogs">
 
@@ -136,6 +137,7 @@ flask run
 | :----: | :----------------------------------------------------------------------------- | :------: | :-----: |
 | RF 09 | O sistema deve prover relatórios que mostrem: a)A quantidade percentual de solicitações abertas e fechadas em um determinado intervalo de  tempo (uma espécie de “instantâneo” considerando um dia, uma semana ou um mês específico). b)A evolução diária da quantidade de solicitações abertas e fechadas, considerando intervalos de tempo especificados (1 semana, 15 dias, etc., utilizando datas de início e término para especificar tal intervalo). c) A avaliação média de cada executor de solicitação. d)A  avaliação  média  global  do  sistema,  tendo  como  base  a  nota  atribuída  a  todos  os chamados. |06 e 07|🕤|
        
+ → [Voltar ao topo](#topo)
  
 <span id="userstories">      
 
@@ -150,7 +152,8 @@ flask run
 |05| Página solicitação| Como técnico quero que a solicitação requisita as informações de título, qual é o tipo de problema (Problema de Hardware, Problema de Software ou Esclarecimento/Informação), uma descrição do problema e caso o usuário tenha, uma imagem ou um arquivo que possa ajudar o técnico a entender melhor o problema , e também que o sistema mostre a data e hora de criação e de fechamento para que consiga ter todas as informações necessárias para realizar o serviço. | alta | RF 08 | 1 e 2 |
 |06| Página relatórios| Como administrador quero que o sistema gere relatórios que mostram a quantidade percentual de solicitações abertas e fechadas em um determinado tempo, a evolução diária da quantidade de solicitações abertas e fechadas, a avaliação média de cada técnico e a avaliação média global do sistema para que consiga observar a evolução do sistema. | baixa | RF 09 | 3 |
 |07| Página avaliações| Como usuário quero que possa avaliar o serviço do técnico, como técnico quero que ao terminar o serviço o usuário responda uma avaliação e como administrador quero que eu possa ver as avaliações feitas pelos usuários, para ver se o serviço foi bem executado. | baixa | RF 09 | 3 |
-       
+
+ → [Voltar ao topo](#topo)
 
 <span id="sprint1">
       
@@ -173,10 +176,12 @@ De acordo com o planejamento a primeira Sprint apresentará um sistema com a pá
 Área do técnico:
 
 ![](/doc/Readme/executor.gif)
-
+     
 ### 🎥 Vídeo de apresentação da Sprint 1
 
 Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
+      
+ → [Voltar ao topo](#topo)
       
 <span id="sprint2">
       
@@ -191,6 +196,8 @@ Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no q
 ### 🎥 Vídeo de apresentação da Sprint 2
 
 Clique [aqui](https://youtu.be/JMtoR40EMvQ) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
+      
+ → [Voltar ao topo](#topo)
 
 <span id="tecnologias">
 
@@ -210,6 +217,8 @@ Clique [aqui](https://youtu.be/JMtoR40EMvQ) para acessar o vídeo técnico, no q
 | [Discord](https://discord.com/)|  Comunicação com a equipe |
 | [Trello](https://trello.com/pt-BR) | Método Kanban |
 | [GitHub](https://github.com/) | Compartilhamento e versionamento |
+      
+ → [Voltar ao topo](#topo)
 
 <span id="equipe">
 
