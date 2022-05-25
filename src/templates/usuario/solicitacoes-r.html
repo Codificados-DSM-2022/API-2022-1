@@ -18,13 +18,13 @@
         <path fill-rule="evenodd"
           d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
       </svg>
-      
+
     </button>
-    
-     
+
+
     <div class="info_header">
-    
-    </a>
+
+      </a>
       <a href="./perfil-user">
         <i class='bx bx-user'></i>
         <span class="links_name">Perfil</span>
@@ -42,7 +42,7 @@
           <path
             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
         </svg>
-        
+
       </button>
       <a href="./index-cliente">
         <i class='bx bx-home'></i>Início</a>
@@ -72,7 +72,7 @@
           <h1>Descrição:</h1>
           <p>{{chamado[5]}}</p>
           <h1>Data enviada:</h1>
-          <p>{{cha    mado[1]}}</p>
+          <p>{{chamado[1]}}</p>
           <br>
           <hr>
           <h1>Resposta recebida:</h1>
@@ -81,35 +81,34 @@
           <p>{{chamado[2]}}</p>
           <br>
           <hr><br>
-          <div class="rating-css">
-            <div class="star-icon">
-              {% if chamado[7] == 1 %}
-              <h1>Avaliação enviada:</h1>
-              <i class='bx bxs-star'></i>
-              {% elif chamado[7] == 2 %}
-              <h1>Avaliação enviada:</h1>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              {% elif chamado[7] == 3 %}
-              <h1>Avaliação enviada:</h1>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              {% elif chamado[7] == 4 %}
-              <h1>Avaliação enviada:</h1>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              {% elif chamado[7] == 5 %}
-              <h1>Avaliação enviada:</h1>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-              <i class='bx bxs-star'></i>
-            </div>
+          <div class="estrelas">
+            {% if chamado[7] == 1 %}
+            <h1>Avaliação enviada:</h1>
+            <i class='bx bxs-star'></i>
+            {% elif chamado[7] == 2 %}
+            <h1>Avaliação enviada:</h1>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            {% elif chamado[7] == 3 %}
+            <h1>Avaliação enviada:</h1>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            {% elif chamado[7] == 4 %}
+            <h1>Avaliação enviada:</h1>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            {% elif chamado[7] == 5 %}
+            <h1>Avaliação enviada:</h1>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
           </div>
+
           {% else %}
           <div class="button-area">
             <a href="/avaliar/{{chamado[0]}}"><button>Avaliar atendimento</button></a>

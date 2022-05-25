@@ -1,154 +1,129 @@
 <!DOCTYPE html>
-<html lang="pt-br" dir="ltr">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/style-tecnico.css">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../static/style-tecnico.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Início</title>
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo-details">
-            <div class="logo_name">API</div>
-            <i class='bx bx-menu' id="btn"></i>
-        </div>
-        <ul class="nav-list">
-            <li>
-                <a href="./index-tecnico">
-                    <i class='bx bx-home'></i>
-                    <span class="links_name">Início</span>
-                </a>
-                <span class="tooltip">Início</span>
-            </li>
-            <li>
-                <a href="./perfil-tecnico">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Perfil</span>
-                </a>
-                <span class="tooltip">Perfil</span>
-            </li>
-            <li>
-                <a href="solic-tecnico">
-                    <i class='bx bx-message-add'></i>
-                    <span class="links_name">Solicitar</span>
-                </a>
-                <span class="tooltip">Solicitar</span>
-            </li>
-            <li>
-                <a href="solic-p-tecnico">
-                    <i class='bx bx-message-dots'></i>
-                    <span class="links_name">Solicitaçoes pendentes</span>
-                </a>
-                <span class="tooltip">Solicitaçoes pendentes</span>
-            </li>
-            <li>
-                <a href="solic-r-tecnico">
-                    <i class='bx bx-message-check'></i>
-                    <span class="links_name">Solicitaçoes respondidas</span>
-                </a>
-                <span class="tooltip">Solicitaçoes respondidas</span>
-            </li>
-            <li>
-                <a href="logout">
-                    <i class='bx bx-log-out'></i>
-                    <span class="links_name">Sair</span>
-                </a>
-                <span class="tooltip">Sair</span>
-            </li>
-        </ul>
+  <div class="header" id="header">
+    <button onclick="toggleSidebar()" class="btn_icon_header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+      </svg>
+    </button>
+    <div class="info_header">
+     
+      <a href="./perfil-tecnico">
+        <i class='bx bx-user'></i>
+        <span class="links_name">Perfil</span>
+      </a>
+      <a href="logout">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name">Sair</span>
+      </a>
     </div>
 
-    <main>
-        <section class="home-section">
-            <div class="text">Perfil</div>
-            <div class="container">
+    <div class="navigation_header" id="navigation_header">
+      <button onclick="toggleSidebar()" class="btn_icon_header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+          viewBox="0 0 16 16">
+          <path
+            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </button>
+      <a href="./index-tecnico">
+        <i class='bx bx-home'></i>Início</a>
+      <a href="./solic-tecnico">
+        <i class='bx bx-message-add'></i>Solicitar</a>
+      <a href="./solic-p-tecnico">
+        <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
+      <a href="./solic-r-tecnico">
+        <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
+    </div>
+  </div>
 
+  <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
+    <section class="home-section">
+        <div class="text">Perfil</div>
+        <div class="container">
+
+            <div class="right-side">
                 <div class="right-side">
-                    <div class="right-side">
-                        <div class="profile">
-                            <div class="img-sett">
-                                <img src="../static/image/perfil.png" alt="">
-                            </div>
-                            <div class="texto">
-                                <h4>{{nome}}</h4>
-                                <h5>Nome: {{nome}}</h5>
-                                <h5>Endereço: {{endereco}}</h5>
-                                <h5>Telefone: {{contato}}</h5>
-                                <h5>Email: {{email}}</h5>
-                            </div>
+                    <div class="profile">
+                        <div class="img-sett">
+                            <img src="../static/image/perfil.png" alt="">
+                        </div>
+                        <div class="texto">
+                            <h4>{{nome}}</h4>
+                            <h5>Nome: {{nome}}</h5>
+                            <h5>Endereço: {{endereco}}</h5>
+                            <h5>Telefone: {{contato}}</h5>
+                            <h5>Email: {{email}}</h5>
+                        </div>
 
-                            <button class="BtnExc">Excluir conta</button>
+                        <button class="BtnExc">Excluir conta</button>
 
-                            <div class="popup">
-                                <div class="popup-content">
-                                    <i class="bx bxs-x-square"></i>
-                                    <p>Deseja excluir sua conta?</p>
-                                    <div class="inputfield">
-                                        <input type="submit" value="Sim" class="btn">
-                                        <input type="submit" value="Não" class="btn">
-                                    </div>
+                        <div class="popup">
+                            <div class="popup-content">
+                                <i class="bx bxs-x-square"></i>
+                                <p>Deseja excluir sua conta?</p>
+                                <div class="inputfield">
+                                    <input type="submit" value="Sim" class="btn">
+                                    <input type="submit" value="Não" class="btn">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="left-side">
                 <div class="left-side">
-                    <div class="left-side">
-                        <div class="left-items">
-                            <h1 class="title"></h1>
-                            <div class="formBx">
-                                <div class="form signupForm">
-                                    <form method="POST">
-                                        <h3>Atualize suas Informações</h3>
-                                        <h4>Nome:</h4>
-                                        <textarea class="textarea" name="nome">{{nome}}</textarea>
-                                        <h4>Endereço:</h4>
-                                        <textarea class="textarea" name="endereco">{{endereco}}</textarea>
-                                        <h4>Telefone:</h4>
-                                        <textarea class="textarea" name="contato">{{contato}}</textarea>
-                                        <h4>Email:</h4>
-                                        <textarea class="textarea" name="email">{{email}}</textarea>
-                                        <h4>Nova senha:</h4>
-                                        <input type="password" name="senha">
-                                        <h4>Confirmar senha:</h4>
-                                        <input type="password" name="csenha">
-                                        <h3>{{msg}}</h3>
-                                        <input type="submit" value="Atualizar">
-                                    </form>
-                                </div>
-
+                    <div class="left-items">
+                        <h1 class="title"></h1>
+                        <div class="formBx">
+                            <div class="form signupForm">
+                                <form method="POST">
+                                    <h3>Atualize suas Informações</h3>
+                                    <h4>Nome:</h4>
+                                    <textarea class="textarea" name="nome">{{nome}}</textarea>
+                                    <h4>Endereço:</h4>
+                                    <textarea class="textarea" name="endereco">{{endereco}}</textarea>
+                                    <h4>Telefone:</h4>
+                                    <textarea class="textarea" name="contato">{{contato}}</textarea>
+                                    <h4>Email:</h4>
+                                    <textarea class="textarea" name="email">{{email}}</textarea>
+                                    <h4>Nova senha:</h4>
+                                    <input type="password" name="senha">
+                                    <h4>Confirmar senha:</h4>
+                                    <input type="password" name="csenha">
+                                    <h3>{{msg}}</h3>
+                                    <input type="submit" value="Atualizar">
+                                </form>
                             </div>
+
                         </div>
                     </div>
                 </div>
-
-            </div>
             </div>
 
-            </div>
+        </div>
+</div>
 
-        </section>
+</div>
 
-        <script>
-            const button = document.querySelector('.BtnExc');
-            const popup = document.querySelector('.popup');
-            const closebtn = document.querySelector('.bx bxs-x-square');
-
-            button.addEventListener('click', () => {
-                popup.style.display = 'flex'
-            })
-            closebtn.addEventListener('click', () => {
-                popup.style.display = 'none'
-            })
-
-        </script>
-    </main>
-    <script src="script.js"></script>
+</section>
+  </div>
+  
+  <script src="../static/script.js"></script>
 </body>
 
 </html>
