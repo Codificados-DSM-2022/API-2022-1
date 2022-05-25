@@ -24,7 +24,7 @@ body {
 }
 
 .info_header i {
-  color: var(--color-white);
+  color: var(--color-main);
   height: 60px;
   min-width: 50px;
   font-size: 20px;
@@ -34,7 +34,7 @@ body {
 
 .info_header span {
   text-decoration: none;
-  color: var(--color-white);
+  color: var(--color-main);
   transition: 1s;
   font-size: 17px;
 }
@@ -47,7 +47,7 @@ body {
 }
 
 .header {
-  background-color: var(--color-main);
+  background-color: var(--color-white);
   justify-content: space-between;
   padding: 0 10%;
   height: 3.5em;
@@ -60,7 +60,7 @@ body {
   position: absolute;
   flex-direction: column !important;
   top: 0;
-  background: var(--color-main);
+  background: var(--color-white);
   height: 100%;
   padding: 1em;
   animation-duration: 0.4s;
@@ -74,14 +74,15 @@ body {
 
 .navigation_header a {
   width: 100%;
+  padding: 10px;
   text-decoration: none;
   display: flex;
-  color: var(--color-main2);
-  transition: 1s;
+  color: var(--color-main);
+  transition: 0.7s;
   font-weight: bold;
   border-radius: 20px;
   text-align: center;
-  font-size: 13px;
+  font-size: 17px;
 }
 .navigation_header i{
   margin-right: 10px;
@@ -94,16 +95,18 @@ body {
 .btn_icon_header {
   background: transparent;
   border: none;
-  color: var(--color-white);
+  color: var(--color-main);
   cursor: pointer;
   display: block;
 }
 
 .text {
   margin-bottom: 50px;
-}
+} <div class="meio">
+<p>Solicitaçoes Respondidas</p>
+</div>
 .meio p{
-  color: var(--color-main);
+  color: var(--color-white);
   margin: 50px;
 }
 
@@ -127,6 +130,7 @@ body {
 }
 
 /*INICIO*/
+
 .inicio {
   margin-top: 300px;
 }

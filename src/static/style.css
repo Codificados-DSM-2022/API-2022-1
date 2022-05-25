@@ -39,6 +39,7 @@ body {
   color: var(--color-white);
   transition: 1s;
   font-size: 17px;
+  font-weight: 600;
 }
 
 .header,
@@ -76,14 +77,15 @@ body {
 
 .navigation_header a {
   width: 100%;
+  padding: 10px;
   text-decoration: none;
   display: flex;
   color: var(--color-main2);
-  transition: 1s;
+  transition: 0.7s;
   font-weight: bold;
   border-radius: 20px;
   text-align: center;
-  font-size: 13px;
+  font-size: 17px;
 }
 .navigation_header i{
   margin-right: 10px;
