@@ -1,90 +1,90 @@
 <!DOCTYPE html>
-<html lang="pt-br" dir="ltr">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../../static/style-adm.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solicitações Pendentes</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../../static/style-adm.css">
+  <title>Início</title>
 </head>
 
 <body>
   <div class="header" id="header">
     <button onclick="toggleSidebar()" class="btn_icon_header">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
-            viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-        </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+      </svg>
     </button>
     <div class="info_header">
 
-        <a href="./perfil-user">
-            <i class='bx bx-user'></i>
-            <span class="links_name">Perfil</span>
-        </a>
-        <a href="logout">
-            <i class='bx bx-log-out'></i>
-            <span class="links_name">Sair</span>
-        </a>
+      <a href="./perfil-adm">
+        <i class='bx bx-user'></i>
+        <span class="links_name">Perfil</span>
+      </a>
+      <a href="logout">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name">Sair</span>
+      </a>
     </div>
     <div class="navigation_header" id="navigation_header">
-        <button onclick="toggleSidebar()" class="btn_icon_header">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
-                viewBox="0 0 16 16">
-                <path
-                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-            </svg>
-        </button>
-        <a href="./index-adm">
-            <i class='bx bx-home'></i>Início</a>
-        <a href="./perfil-adm">
-            <i class='bx bx-message-add'></i>Perfil</a>
-        <a href="./lista-usuarios">
-            <i class='bx bx-message-dots'></i>Lista de Usuários</a>
-        <a href="./relatorios">
-            <i class='bx bx-message-check'></i>Relatórios</a>
-        <a href="./solicitar-adm">
-            <i class='bx bx-message-check'></i>Solicitar</a>
-        <a href="./solicitacoes-p-adm">
-            <i class='bx bx-message-check'></i>Solicitações Pendentes</a>
-        <a href="./solicitacoes-r-adm">
-            <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
+      <button onclick="toggleSidebar()" class="btn_icon_header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+          viewBox="0 0 16 16">
+          <path
+            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </button>
+      <a href="./index-adm">
+        <i class='bx bx-home'></i>Início</a>
+      <a href="./perfil-adm">
+        <i class='bx bx-user'></i>Perfil</a>
+      <a href="./lista-usuarios">
+        <i class='bx bx-list-ul'></i>Lista de Usuários</a>
+      <a href="./relatorios">
+        <i class='bx bx-line-chart'></i>Relatórios</a>
+      <a href="./solicitar-adm">
+        <i class='bx bx-message-add'></i>Solicitar</a>
+      <a href="./solicitacoes-p-adm">
+        <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
+      <a href="./solicitacoes-r">
+        <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
     </div>
-</div>
+  </div>
 
-<div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
-  <section class="home-section">
-    <div class="meio">
+  <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
+    <section class="home-section">
+      <div class="meio">
         <p>Solicitaçoes Pendentes</p>
       </div>
-    {% for chamado in Chamados %}
-    <details class="card">
-      <summary>
-        <h1>{{chamado[3]}}</h1>
-        <p>Pendente</p>
-      </summary>
-      <div class="conteudo">
-        <h1>Titulo:</h1>
-        <p>{{chamado[3]}}</p>
-        <h1>Tipo:</h1>
-        <p>{{chamado[4]}}</p>
-        <h1>Descrição:</h1>
-        <p>{{chamado[5]}}</p>
-        <h1>Data enviada:</h1>
-        <p>{{chamado[1]}}</p>
-        <br>
-        <a href="/responderadm/1/{{chamado[0]}}" class="btnact">Aceitar</a>
-        <a href="/responderadm/0/{{chamado[0]}}" class="btnrec">Recusar</a>
-        <br><br>
-      </div>
-    </details>
-    {% endfor %}
-  </section>
-</main>
-<script src="../static/script.js"></script>
+      {% for chamado in Chamados %}
+      <details class="card">
+        <summary>
+          <h1>{{chamado[0]}}</h1>
+          <p>Pendente</p>
+        </summary>
+        <div class="conteudo">
+          <h1>Titulo:</h1>
+          <p>{{chamado[0]}}</p>
+          <h1>Tipo:</h1>
+          <p>{{chamado[1]}}</p>
+          <h1>Descrição:</h1>
+          <p>{{chamado[2]}}</p>
+          <h1>Data enviada:</h1>
+          <p>{{chamado}}</p>
+          <br>
+          <a href="/responderadm/1/{{chamado[0]}}" class="btnact">Aceitar</a>
+          <a href="/responderadm/0/{{chamado[0]}}" class="btnrec">Recusar</a>
+          <br><br>
+        </div>
+      </details>
+      {% endfor %}
+    </section>
+    </main>
+    <script src="../static/script.js"></script>
 </body>
 
 </html>

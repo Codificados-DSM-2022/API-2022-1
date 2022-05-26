@@ -12,21 +12,20 @@ CREATE TABLE Usuarios(
     primary key(idUsuario)
     );
 
+INSERT INTO Usuarios VALUES(0,'admin','admin','Administrador','admin','admin','administrador');
+
 CREATE TABLE Chamado(
 	idChamado INT NOT NULL AUTO_INCREMENT,
     Chamado_data_criacao varchar(15) NOT NULL,
     Chamado_data_entrega varchar(15) NOT NULL,
-    Chamado_titulo varchar(100) NOT NULL,
-    Chamado_tipo varchar(50) NOT NULL,
-	Chamado_descricao varchar(2000) NOT NULL,
+    Chamado_mensagem varchar(2000) NOT NULL,
     Chamado_resposta varchar(2000) NOT NULL,
     Chamado_avaliacao int,
     Chamado_respondido bool, 
-    Chamado_aceitar varchar(10),
     IdUsuario int,
-    idtecnico int,
+    idTecnico int,
 	primary key(idChamado)
 );
 
-Alter table Chamado ADD constraint fk_user FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario);
-Alter table Chamado ADD constraint fk_tecnico FOREIGN KEY (idtecnico) REFERENCES tecnicos(idtecnico);
+Alter table Chamado ADD constraint fk_usuario FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario);
+Alter table Chamado ADD constraint fk_tecnico FOREIGN KEY (idTecnico) REFERENCES Usuarios(idUsuario);
