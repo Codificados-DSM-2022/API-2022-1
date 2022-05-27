@@ -6,8 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../static/style-tecnico.css">
-  <title>Solicitação Aceita</title>
+  <link rel="stylesheet" href="../../static/style-tecnico.css">
+  <title> {% if aceitar == "1" %}
+    Aceitar Chamado
+    {% else %}
+    Rejeitar Chamado
+    {% endif %}</title>
 </head>
 
 <body>
@@ -21,11 +25,11 @@
     </button>
     <div class="info_header">
 
-      <a href="./perfil-tecnico">
+      <a href="/perfil-tecnico">
         <i class='bx bx-user'></i>
         <span class="links_name">Perfil</span>
       </a>
-      <a href="logout">
+      <a href="/logout">
         <i class='bx bx-log-out'></i>
         <span class="links_name">Sair</span>
       </a>
@@ -39,33 +43,37 @@
             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
         </svg>
       </button>
-      <a href="./index-tecnico">
+      <a href="/index-tecnico">
         <i class='bx bx-home'></i>Início</a>
-      <a href="./solic-tecnico">
+      <a href="/solic-tecnico">
         <i class='bx bx-message-add'></i>Solicitar</a>
-      <a href="./solic-p-tecnico">
+      <a href="/solic-p-tecnico">
         <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
-      <a href="./solic-r-tecnico">
+      <a href="/solic-r-tecnico">
         <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
     </div>
   </div>
   <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
 
     <div class="wrapper">
-      <header>Responder Solicitação</header>
+      <header> {% if aceitar == "1" %}
+        Aceitar Chamado
+        {% else %}
+        Rejeitar Chamado
+        {% endif %}</header>
       <form method="POST">
         <div class="dbl-field">
           <div class="field">
             <label>Titulo:</label><br>
-            <P>{{Chamados[3]}}</P>
+            <P>{{chamado[3]}}</P>
           </div>
           <div class="field">
-            <label>Titulo:</label>
-            <p>{{Chamados[4]}}</p>
+            <label>Tipo:</label>
+            <p>{{chamado[4]}}</p>
           </div>
           <div class="field">
-            <label>Titulo:</label>
-            <p>{{Chamados[5]}}</p>
+            <label>Descricao:</label>
+            <p>{{chamado[5]}}</p>
           </div>
         </div>
         <div class="message">

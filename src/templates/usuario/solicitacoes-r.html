@@ -64,7 +64,11 @@
       <details class="card">
         <summary>
           <h1>{{chamado[3]}}</h1>
-          <p>{{chamado[9]}}</p>
+          {% if chamado[9] == 0 %}
+          <p>Recusado</p>
+          {% else %}
+          <p>Aceito</p>
+          {% endif %}
         </summary>
         <div class="conteudo">
           <h1>Titulo:</h1>

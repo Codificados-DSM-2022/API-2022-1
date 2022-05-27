@@ -50,7 +50,7 @@
                 <i class='bx bx-message-add'></i>Solicitar</a>
             <a href="./solicitacoes-p-adm">
                 <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
-            <a href="./solicitacoes-r">
+            <a href="./solicitacoes-r-adm">
                 <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
         </div>
     </div>
@@ -59,7 +59,7 @@
         <section class="home-section">
             <div class="meio">
                 <p>Perfil</p>
-              </div>
+            </div>
             <div class="perfil">
 
                 <div class="left-side">
@@ -69,6 +69,13 @@
                             <div class="formBx">
                                 <div class="form signupForm">
                                     <form method="POST">
+                                        <h3>Atualize suas Informações</h3>
+                                        <h4>Nome: {{nome}}</h4>
+                                        <textarea class="textarea" name="nome">{{nome}}</textarea>
+                                        <h4>Endereço:</h4>
+                                        <textarea class="textarea" name="endereco">{{endereco}}</textarea>
+                                        <h4>Telefone:</h4>
+                                        <textarea class="textarea" name="contato">{{contato}}</textarea>
                                         <h4>Email:</h4>
                                         <textarea class="textarea" name="email">{{email}}</textarea>
                                         <h4>Nova senha:</h4>
@@ -92,21 +99,8 @@
                                 <img src="../static/image/perfil.png" alt="">
                             </div>
                             <div class="texto">
-                                <h4>Administrador</h4>
+                                <h4>{{nome}}</h4>
                                 <h5>Email: {{email}}</h5>
-                            </div>
-
-                            <button class="BtnExc">Excluir conta</button>
-
-                            <div class="popup">
-                                <div class="popup-content">
-                                    <i class="bx bxs-x-square"></i>
-                                    <p>Deseja excluir sua conta?</p>
-                                    <div class="inputfield">
-                                        <input type="submit" value="Sim" class="btn">
-                                        <input type="submit" value="Não" class="btn">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,12 +108,12 @@
 
                 </div>
             </div>
-            </div>
+    </div>
 
-            </div>
+    </div>
 
-        </section>
-        
+    </section>
+
     </div>
     <script src="../static/script.js"></script>
 </body>

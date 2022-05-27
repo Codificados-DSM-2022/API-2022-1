@@ -246,15 +246,9 @@ def pendentesadm():
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     Values = cur.execute("SELECT * FROM Chamado WHERE Chamado_Respondido = 0")
+    Chamados = cur.fetchall()
     if Values > 0:
-        Chamados = cur.fetchall()
-        C = list(Chamados)
-        print (C)
-        for i in range(len(C)):
-            print(C[i])
-            C[i][3] = str(C[i][3]).replace("'","").strip('][').split(', ')
-#--------------------------------------------------------------------------------------------
-        return render_template('adm/solicitacoes-p.html', Chamados=tuple(C))
+        return render_template('adm/solicitacoes-p.html', Chamados=Chamados)
     else:
         return render_template('adm/solicitacoes-p.html')
 
@@ -269,11 +263,11 @@ def responderadm(aceitar, idChamado):
         Chamado_respondido = True
         Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
         if aceitar == '1':
-            Chamado_aceitar = "Atendido"
+            Chamado_aceitar = 1
         else:
-            Chamado_aceitar = "Recusado"
+            Chamado_aceitar = 0
 
-        cur.execute("UPDATE chamado SET Chamado_resposta=%s, Chamado_respondido=%s, Chamado_data_entrega=%s, Chamado_aceitar=%s WHERE idChamado=%s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar, idChamado))
+        cur.execute("UPDATE chamado SET Chamado_resposta=%s, Chamado_respondido=%s, Chamado_data_entrega=%s, Chamado_aceitar=%s WHERE idChamado=%s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar,idChamado))
         cur.connection.commit()
         cur.close()
         return redirect("/solicitacoes-r-adm")
@@ -317,6 +311,10 @@ def solicitaradm():
     exe = cur.fetchall()
     cur.execute("SELECT idTecnico FROM Chamado ORDER BY idChamado DESC LIMIT 1")
     a = cur.fetchone()
+
+    cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
+    ultimo = cur.fetchone()
+
     msg = ''
 
     if tecnicos == 0:
@@ -324,7 +322,9 @@ def solicitaradm():
     if request.method == 'POST' and tecnicos > 0:
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
-        Chamado_mensagem = [request.form['Chamado_titulo'],request.form['Chamado_tipo'],request.form['Chamado_descricao']]
+        Chamado_titulo = request.form['Chamado_titulo']
+        Chamado_tipo = request.form['Chamado_tipo']
+        Chamado_descricao = request.form['Chamado_descricao']
         Chamado_Reposta = ''
         #Chamado_avaliacao = 0
         Chamado_respondido = '0'
@@ -333,17 +333,24 @@ def solicitaradm():
         cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario LIMIT 1")
         primeiro = cur.fetchone()
 
-        for i in exe:
-            if (i[0] == a[0] and len(exe) > exe.index(i) + 1) and str(a) != 'None':
-                idtecnico = exe[exe.index(i) + 1][0]
-                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_mensagem, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, str(Chamado_mensagem), Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico))
+        if a is not None:
+            if a[0] == ultimo[0]:
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
                 mysql.connection.commit()
                 cur.close()
                 return redirect("/solicitacoes-p-adm")
-        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_mensagem, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, str(Chamado_mensagem), Chamado_Reposta, Chamado_respondido, idUsuario,primeiro))
-        mysql.connection.commit()
-        cur.close()
-        return redirect("/solicitacoes-p-adm")
+            for i in exe:
+                if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
+                    idtecnico = exe[exe.index(i) + 1][0]
+                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico))
+                    mysql.connection.commit()
+                    cur.close()
+                    return redirect("/solicitacoes-p-adm")
+        else:
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+            mysql.connection.commit()
+            cur.close()
+            return redirect("/solicitacoes-p-adm")
     return render_template('adm/solicitar.html', msg=msg, tecnicos=tecnicos)
 
 
@@ -384,17 +391,21 @@ def perfilusuario():
 @app.route('/solicitar', methods=['POST', 'GET'])
 def solicitar():
     if not session.get('loggedin'):
-        return redirect(url_for('login'))   
-    msg = ''
-    cur = mysql.connection.cursor()
+        return redirect(url_for('login'))    
 
-    tecnicos = cur.execute("SELECT * FROM tecnicos")
+    cur = mysql.connection.cursor()
+    tecnicos = cur.execute("SELECT * FROM usuarios WHERE usuario_cargo = 'tecnico'")
     exe = cur.fetchall()
-    cur.execute("SELECT adm_tecnico_index from Administrador")
+    cur.execute("SELECT idTecnico FROM Chamado ORDER BY idChamado DESC LIMIT 1")
     a = cur.fetchone()
 
+    cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
+    ultimo = cur.fetchone()
+
+    msg = ''
+
     if tecnicos == 0:
-        msg = 'Não há tecnicos cadastrados!'
+        msg = 'Não existem tecnicos cadastrados'
     if request.method == 'POST' and tecnicos > 0:
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
@@ -404,23 +415,29 @@ def solicitar():
         Chamado_Reposta = ''
         #Chamado_avaliacao = 0
         Chamado_respondido = '0'
-        
-        for i in exe:
-            if i[0] == a[0] and len(exe) > exe.index(i) + 1:
-                idtecnico = exe[exe.index(i) + 1][0]
-                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario, idtecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, session['idUsuario'], idtecnico))
-                cur.execute("UPDATE administrador SET adm_tecnico_index = %s WHERE idAdm = 1" , (idtecnico,))
+        idUsuario = session['idUsuario']
+
+        cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario LIMIT 1")
+        primeiro = cur.fetchone()
+
+        if a is not None:
+            if a[0] == ultimo[0]:
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
                 mysql.connection.commit()
                 cur.close()
                 return redirect("/solicitacoes-p")
-
-        cur.execute("UPDATE administrador SET adm_tecnico_index = %s WHERE idAdm = 1" , (exe[0][0],))
-        cur.execute("SELECT adm_tecnico_index from Administrador")
-        a = cur.fetchone()
-        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario, idtecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, session['idUsuario'], a))
-        mysql.connection.commit()
-        cur.close()
-        return redirect("/solicitacoes-p")
+            for i in exe:
+                if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
+                    idtecnico = exe[exe.index(i) + 1][0]
+                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico))
+                    mysql.connection.commit()
+                    cur.close()
+                    return redirect("/solicitacoes-p")
+        else:
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+            mysql.connection.commit()
+            cur.close()
+            return redirect("/solicitacoes-p")
     return render_template('usuario/solicitar.html', msg=msg, tecnicos=tecnicos)
     
 
@@ -429,7 +446,7 @@ def admpendentes():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT Chamado_mensagem FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '0'", [session['idUsuario']])
+    Values = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '0'", [session['idUsuario']])
     if Values > 0:
         Chamados = cur.fetchall()
         return render_template('usuario/solicitacoes-p.html', Chamados=Chamados)
@@ -473,7 +490,7 @@ def avaliar(id):
 def indextecnico():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
-    return render_template('tecnico/index-tecnico.html', nome=session['tecnico_nome'])
+    return render_template('tecnico/index-tecnico.html', nome=session['usuario_nome'])
 
 
 @app.route('/perfil-tecnico', methods=['GET', 'POST'])
@@ -484,77 +501,60 @@ def perfiltecnico():
     msg = ''
     if request.method == "POST":
         if str(request.form['senha']) == str(request.form['csenha']) and str(request.form['senha']) != '':
-            cur.execute('UPDATE tecnicos SET tecnico_nome = %s, tecnico_email = %s, tecnico_contato = %s, tecnico_endereco = %s, tecnico_senha = %s WHERE idtecnico = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], request.form['senha'], session['idtecnico']))
+            cur.execute('UPDATE Usuarios SET usuario_nome = %s, usuario_email = %s, usuario_contato = %s, usuario_endereco = %s, usuario_senha = %s WHERE idUsuario = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], request.form['senha'], session['idUsuario']))
             cur.connection.commit()
             cur.close()
             return redirect('logout')
-        elif str(request.form['senha']) == '' and str(request.form['csenha']) == '':
-            cur.execute('UPDATE tecnicos SET tecnico_nome = %s, tecnico_email = %s, tecnico_contato = %s, tecnico_endereco = %s WHERE idtecnico = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], session['idtecnico']))
+        if str(request.form['senha']) == '' and str(request.form['csenha']) == '':
+            cur.execute('UPDATE Usuarios SET usuario_nome = %s, usuario_email = %s, usuario_contato = %s, usuario_endereco = %s WHERE idUsuario = %s', (request.form['nome'], request.form['email'], request.form['contato'], request.form['endereco'], session['idUsuario']))
             cur.connection.commit()
             cur.close()
             return redirect('logout')
         else:
             msg = 'Senhas não conferem!'
-    return render_template('tecnico/perfil-tecnico.html', id=session['idtecnico'],nome=session['tecnico_nome'], email=session['tecnico_email'], senha=session['tecnico_senha'],contato=session['tecnico_contato'], endereco=session['tecnico_endereco'], msg = msg) 
+    return render_template('tecnico/perfil-tecnico.html', id=session['idUsuario'],nome=session['usuario_nome'], email=session['usuario_email'], senha=session['usuario_senha'],contato=session['usuario_contato'], endereco=session['usuario_endereco'], msg = msg) 
 
 
-@app.route('/solic-act/<idChamado>', methods=['POST','GET'])
-def tecnicoAceitar(idChamado):
+@app.route('/respondertecnico/<aceitar>/<idChamado>', methods=['POST','GET'])
+def responderTecnico(idChamado, aceitar):
 
     cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM chamado WHERE idChamado = %s", [idChamado])
+    chamado = cur.fetchone()
     if request.method == "POST":
         Chamado_resposta = request.form["resposta"]
         Chamado_respondido = True
         Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
-        Chamado_aceitar = "Atendido"
+        if aceitar == '1':
+            Chamado_aceitar = 1
+        else:
+            Chamado_aceitar = 0
 
-        cur.execute("UPDATE chamado SET Chamado_resposta = %s, Chamado_respondido = %s, Chamado_data_entrega = %s, Chamado_aceitar = %s WHERE idChamado = %s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar, idChamado))
+        cur.execute("UPDATE chamado SET Chamado_resposta=%s, Chamado_respondido=%s, Chamado_data_entrega=%s, Chamado_aceitar=%s WHERE idChamado=%s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar,idChamado))
         cur.connection.commit()
         cur.close()
         return redirect("/solic-r-tecnico")
+    return render_template('tecnico/responder.html', aceitar=aceitar, chamado=chamado)
 
-    Values = cur.execute("SELECT * FROM chamado")
-    Chamados = cur.fetchall()
-    for i in Chamados:
-        if int(i[0]) == int(idChamado):
-            return render_template('tecnico/solic-act.html', Chamados=i)
-
-
-@app.route('/solic-rec/<idChamado>', methods=['POST','GET'])
-def tecnicoRecusar(idChamado):
-
-    cur = mysql.connection.cursor()
-
-    if request.method == "POST":
-        Chamado_resposta = request.form["resposta"]
-        Chamado_respondido = True
-        Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
-        Chamado_aceitar = "Recusado"
-
-        cur.execute("UPDATE chamado SET Chamado_resposta=%s, Chamado_respondido=%s, Chamado_data_entrega=%s, Chamado_aceitar=%s WHERE idChamado=%s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar, idChamado))
-        cur.connection.commit()
-        cur.close()
-        return redirect("/solic-r-tecnico")
-
-    Values = cur.execute("SELECT * FROM chamado")
-    Chamados = cur.fetchall()
-    for i in Chamados:
-        if int(i[0]) == int(idChamado):
-            return render_template('tecnico/solic-act.html', Chamados=i)
-
-
-@app.route('/solic-tecnico')
+@app.route('/solic-tecnico', methods=['GET', 'POST'])
 def tecnicoSolicitar():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
-    return render_template('tecnico/solic-tecnico.html')
 
+    cur = mysql.connection.cursor()
+    tecnicos = cur.execute("SELECT * FROM usuarios WHERE usuario_cargo = 'tecnico'")
+    exe = cur.fetchall()
+    cur.execute("SELECT idTecnico FROM Chamado ORDER BY idChamado DESC LIMIT 1")
+    a = cur.fetchone()
 
-@app.route('/solicitartecnico', methods=['POST'])
-def fazer_chamado_tecnico():
-    if not session.get('loggedin'):
-        return redirect(url_for('login'))    
-    if request.method == 'POST':
+    cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
+    ultimo = cur.fetchone()
+
+    msg = ''
+
+    if tecnicos == 0:
+        msg = 'Não existem tecnicos cadastrados'
+    if request.method == 'POST' and tecnicos > 0:
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
         Chamado_titulo = request.form['Chamado_titulo']
@@ -563,30 +563,30 @@ def fazer_chamado_tecnico():
         Chamado_Reposta = ''
         #Chamado_avaliacao = 0
         Chamado_respondido = '0'
+        idUsuario = session['idUsuario']
 
-        cur = mysql.connection.cursor()
+        cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario LIMIT 1")
+        primeiro = cur.fetchone()
 
-        cur.execute("SELECT * FROM tecnicos")
-        exe = cur.fetchall()
-        cur.execute("SELECT adm_tecnico_index from Administrador")
-        a = cur.fetchone()
-        for i in exe:
-            if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
-                idtecnico = exe[exe.index(i) + 1][0]
-                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idtecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idtecnico))
-                cur.execute("UPDATE administrador SET adm_tecnico_index = %s WHERE idAdm = 1" , (idtecnico,))
+        if a is not None:
+            if a[0] == ultimo[0]:
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
                 mysql.connection.commit()
                 cur.close()
                 return redirect("/solic-p-tecnico")
-
-        cur.execute("UPDATE administrador SET adm_tecnico_index = %s WHERE idAdm = 1" , (exe[0][0],))
-        cur.execute("SELECT adm_tecnico_index from Administrador")
-        a = cur.fetchone()
-        cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idtecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, a))
-        mysql.connection.commit()
-        cur.close()
-        return redirect("/solic-p-tecnico")
-    return render_template('tecnico/solic-tecnico.html')
+            for i in exe:
+                if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
+                    idtecnico = exe[exe.index(i) + 1][0]
+                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico))
+                    mysql.connection.commit()
+                    cur.close()
+                    return redirect("/solic-p-tecnico")
+        else:
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+            mysql.connection.commit()
+            cur.close()
+            return redirect("/solic-p-tecnico")
+    return render_template('tecnico/solicitar.html', msg=msg, tecnicos=tecnicos)
 
 
 @app.route('/solic-p-tecnico')
@@ -594,7 +594,7 @@ def tecnicoPendentes():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '0' and idtecnico = %s", (session['idtecnico'],))
+    Values = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '0' and idtecnico = %s", (session['idUsuario'],))
     if Values > 0:
         Chamados = cur.fetchall()
         return render_template('tecnico/solic-p-tecnico.html', Chamados=Chamados)
@@ -607,7 +607,7 @@ def tecnicoRespondidas():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado")
+    Values = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '1' and idtecnico = %s", (session['idUsuario'],))
     if Values > 0:
         Chamados = cur.fetchall()
         return render_template('tecnico/solic-r-tecnico.html', Chamados=Chamados)

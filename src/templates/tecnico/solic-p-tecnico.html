@@ -70,8 +70,8 @@
           <h1>Data enviada:</h1>
           <p>{{chamado[1]}}</p>
           <br>
-          <a href="{{ url_for('tecnicoAceitar', idChamado=chamado[0]) }}" class="btnact">Aceitar</a>
-          <a href="{{ url_for('tecnicoRecusar', idChamado=chamado[0]) }}" class="btnrec">Recusar</a>
+          <a href="/respondertecnico/1/{{chamado[0]}}" class="btnact">Aceitar</a>
+          <a href="/respondertecnico/0/{{chamado[0]}}" class="btnrec">Recusar</a>
           <br><br>
         </div>
       </details>

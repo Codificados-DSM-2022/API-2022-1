@@ -50,7 +50,7 @@
                 <i class='bx bx-message-add'></i>Solicitar</a>
             <a href="./solicitacoes-p-adm">
                 <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
-            <a href="./solicitacoes-r">
+            <a href="./solicitacoes-r-adm">
                 <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
         </div>
     </div>
@@ -59,12 +59,16 @@
         <section class="home-section">
             <div class="meio">
                 <p>Solicitaçoes Respondidas</p>
-              </div>
+            </div>
             {% for chamado in Chamados %}
             <details class="card">
                 <summary>
                     <h1>{{chamado[3]}}</h1>
-                    <p>{{chamado[9]}}</p>
+                    {% if chamado[9] == 0 %}
+                    <p>Recusado</p>
+                    {% else %}
+                    <p>Aceito</p>
+                    {% endif %}
                 </summary>
                 <div class="conteudo">
                     <h1>Titulo:</h1>
@@ -129,8 +133,8 @@
             </details>
             {% endfor %}
         </section>
-    </main>
-    <script src="../static/script.js"></script>
+        </main>
+        <script src="../static/script.js"></script>
 </body>
 
 </html>
