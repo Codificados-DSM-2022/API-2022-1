@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 
-app.config['MYSQL_PASSWORD'] = 'fatec' # <- Coloque aqui sua senha do MySQL
+app.config['MYSQL_PASSWORD'] = 'tuca123' # <- Coloque aqui sua senha do MySQL
 
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
@@ -446,12 +446,10 @@ def admpendentes():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '0'", [session['idUsuario']])
-    if Values > 0:
-        Chamados = cur.fetchall()
-        return render_template('usuario/solicitacoes-p.html', Chamados=Chamados)
-    else:
-        return render_template('usuario/solicitacoes-p.html')
+    msg = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '0'", [session['idUsuario']])
+    Chamados = cur.fetchall()
+    return render_template('usuario/solicitacoes-p.html', Chamados=Chamados, msg=msg)
+
 
 
 @app.route('/solicitacoes-r')
@@ -459,12 +457,10 @@ def respondidas():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '1'", [session['idUsuario']])
-    if Values > 0:
-        Chamados = cur.fetchall()
-        return render_template('usuario/solicitacoes-r.html', Chamados=Chamados)
-    else:
-        return render_template('usuario/solicitacoes-r.html')
+    msg = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '1'", [session['idUsuario']])
+    Chamados = cur.fetchall()
+    return render_template('usuario/solicitacoes-r.html', Chamados=Chamados, msg=msg)
+
 
 @app.route('/avaliar/<id>', methods=['POST', 'GET'])
 def avaliar(id):
@@ -594,25 +590,38 @@ def tecnicoPendentes():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '0' and idtecnico = %s", (session['idUsuario'],))
-    if Values > 0:
-        Chamados = cur.fetchall()
-        return render_template('tecnico/solic-p-tecnico.html', Chamados=Chamados)
-    else:
-        return render_template('tecnico/solic-p-tecnico.html')
+    msg1 = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '0' and idtecnico = %s", (session['idUsuario'],))
+    Chamados = cur.fetchall()
+    msg2 = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '0' and idUsuario = %s", (session['idUsuario'],))
+    Chamados2 = cur.fetchall()
+    return render_template('tecnico/solic-p-tecnico.html', Chamados=Chamados, msg1=msg1, Chamados2=Chamados2, msg2=msg2)
+
 
 
 @app.route('/solic-r-tecnico')
 def tecnicoRespondidas():
     if not session.get('loggedin'):
-        return redirect(url_for('login'))    
+        return redirect(url_for('login'))
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '1' and idtecnico = %s", (session['idUsuario'],))
-    if Values > 0:
-        Chamados = cur.fetchall()
-        return render_template('tecnico/solic-r-tecnico.html', Chamados=Chamados)
-    else:
-        return render_template('tecnico/solic-r-tecnico.html')
+    msg1 = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '1' and idtecnico = %s", (session['idUsuario'],))
+    Chamados = cur.fetchall()
+    msg2 = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '1' and idUsuario = %s", (session['idUsuario'],))
+    Chamados2 = cur.fetchall()
+    return render_template('tecnico/solic-r-tecnico.html', Chamados=Chamados, msg1=msg1, Chamados2=Chamados2, msg2=msg2)
+
+@app.route('/avaliartec/<id>', methods=['POST', 'GET'])
+def avaliartec(id):
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT chamado_resposta FROM chamado WHERE idChamado = %s", [id])
+    resposta = cur.fetchone()
+    if request.method == 'POST':
+        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (request.form['nota'], id))
+        cur.connection.commit()
+        cur.close()
+        return redirect('/solic-r-tecnico')
+    return render_template('tecnico/avaliartec.html', resposta=resposta[0])
 
 if __name__ == "__main__":
     app.run(debug=True)

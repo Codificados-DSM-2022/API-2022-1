@@ -58,7 +58,12 @@
   <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
     <section class="home-section">
       <div class="meio">
-        <p>Solicitaçoes Respondidas</p>
+        <b>
+          <p>Solicitaçoes Respondidas</p>
+        </b>
+        {% if msg == 0 %}
+        <p>Não há solicitações respondidas recebidas</p>
+        {% endif %}
       </div>
       {% for chamado in Chamados %}
       <details class="card">
@@ -127,7 +132,7 @@
 
           {% else %}
           <div class="button-area">
-            <a href="/avaliar/{{chamado[0]}}"><button>Avaliar atendimento</button></a>
+            <a href="/avaliartec/{{chamado[0]}}"><button>Avaliar atendimento</button></a>
           </div>
           {% endif %}
       </details>

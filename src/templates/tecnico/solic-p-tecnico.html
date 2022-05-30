@@ -20,7 +20,7 @@
       </svg>
     </button>
     <div class="info_header">
-     
+
       <a href="./perfil-tecnico">
         <i class='bx bx-user'></i>
         <span class="links_name">Perfil</span>
@@ -52,7 +52,10 @@
   <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
     <section class="home-section">
       <div class="meio">
-        <p>Solicitaçoes Pendentes</p>
+        <p>Solicitaçoes <b>recebidas</b> pendentes</p>
+        {% if msg1 == 0 %}
+        <p>Não há solicitação recebida pendente</p>
+        {% endif %}
       </div>
       {% for chamado in Chamados %}
       <details class="card">
@@ -75,6 +78,34 @@
           <br><br>
         </div>
       </details>
+
+      {% endfor %}
+      <br><br>
+      <hr>
+      <div class="meio">
+        <p>Solicitaçoes <b>enviadas</b> pendentes</p>
+        {% if msg2 == 0 %}
+        <p>Não há solicitação enviada pendente</p>
+        {% endif %}
+      </div>
+      {% for chamado in Chamados2 %}
+      <details class="card">
+        <summary>
+          <h1>{{chamado[3]}}</h1>
+          <p>Pendente</p>
+        </summary>
+        <div class="conteudo">
+          <h1>Titulo:</h1>
+          <p>{{chamado[3]}}</p>
+          <h1>Tipo:</h1>
+          <p>{{chamado[4]}}</p>
+          <h1>Descrição:</h1>
+          <p>{{chamado[5]}}</p>
+          <h1>Data enviada:</h1>
+          <p>{{chamado[1]}}</p>
+        </div>
+      </details>
+
       {% endfor %}
     </section>
   </div>
