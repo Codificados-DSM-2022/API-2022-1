@@ -144,12 +144,13 @@ p{
     text-decoration: underline;
 }
 
-@media(max-width:991px) {
+@media(max-width:768px) {
     .grid{
         grid-template-columns: 1fr;
     }
     .center {
         height: 900px;
+        width: 100%;
     }
 
     .center form {
@@ -166,8 +167,3 @@ p{
     }
 }
 
-@media(max-width:776px) {
-    .center {
-        width: 70%;
-    }
-}

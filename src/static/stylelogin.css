@@ -132,8 +132,10 @@ input[type="submit"]:hover {
   text-decoration: underline;
 }
 
-@media(max-width:991px) {
+@media(max-width:768px) {
   .center {
-    width: 600px;
+    width: 100%;
+    height: 100%;
   }
+
 }

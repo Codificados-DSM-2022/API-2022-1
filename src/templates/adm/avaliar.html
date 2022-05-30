@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="../../static/style-adm.css">
   <title>Início</title>
@@ -21,11 +23,11 @@
     </button>
     <div class="info_header">
 
-      <a href="./perfil-adm">
+      <a href="/perfil-adm">
         <i class='bx bx-user'></i>
         <span class="links_name">Perfil</span>
       </a>
-      <a href="logout">
+      <a href="/logout">
         <i class='bx bx-log-out'></i>
         <span class="links_name">Sair</span>
       </a>
@@ -38,23 +40,22 @@
             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
         </svg>
       </button>
-      <a href="./index-adm">
+      <a href="/index-adm">
         <i class='bx bx-home'></i>Início</a>
-      <a href="./perfil-adm">
+      <a href="/perfil-adm">
         <i class='bx bx-user'></i>Perfil</a>
-      <a href="./lista-usuarios">
+      <a href="/lista-usuarios">
         <i class='bx bx-list-ul'></i>Lista de Usuários</a>
-      <a href="./relatorios">
+      <a href="/relatorios">
         <i class='bx bx-line-chart'></i>Relatórios</a>
-      <a href="./solicitar-adm">
+      <a href="/solicitar-adm">
         <i class='bx bx-message-add'></i>Solicitar</a>
-      <a href="./solicitacoes-p-adm">
+      <a href="/solicitacoes-p-adm">
         <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
-      <a href="./solicitacoes-r-adm">
+      <a href="/solicitacoes-r-adm">
         <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
     </div>
   </div>
-  <main>
     <section>
       <div class="responder">
         <div class="title">
@@ -67,20 +68,19 @@
               <p>{{resposta}}</p>
             </div><br>
             <label>Nota</label>
-            <div class="rating-css">
-              <div class="star-icon">
-                <input type="radio" name="nota" value="1">
-                <label for="1" class="bx bxs-star"></label>
-                <input type="radio" name="nota" value="2">
-                <label for="2" class="bx bxs-star"></label>
-                <input type="radio" name="nota" value="3">
-                <label for="3" class="bx bxs-star"></label>
-                <input type="radio" name="nota" value="4">
-                <label for="4" class="bx bxs-star"></label>
-                <input type="radio" name="nota" value="5">
-                <label for="5" class="bx bxs-star"></label>
-              </div>
-            </div><br>
+            <div class="estrelas">
+              <input type="radio" id="cm_star-empty" name="nota" value="" checked/>
+              <label for="cm_star-1"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-1" name="nota" value="1"/>
+              <label for="cm_star-2"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-2" name="nota" value="2"/>
+              <label for="cm_star-3"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-3" name="nota" value="3"/>
+              <label for="cm_star-4"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-4" name="nota" value="4"/>
+              <label for="cm_star-5"><i class="fa"></i></label>
+              <input type="radio" id="cm_star-5" name="nota" value="5"/>
+            </div>
             <div class="inputfield">
               <input type="submit" value="Enviar Resposta" class="btn">
             </div>
@@ -88,7 +88,6 @@
         </form>
       </div>
     </section>
-  </main>
   <script src="../static/script.js"></script>
 </body>
 
