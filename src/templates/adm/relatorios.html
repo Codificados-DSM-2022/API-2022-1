@@ -8,6 +8,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script type="text/javascript">
         function loadingVariables()
@@ -143,10 +144,58 @@
                     <li>{{valor}} Solicitações realizadas</li>
                 </ul><br><br>
             </div>
-            <br>
+            <br><br>
             <h3>Evolução diária da quantidade de solicitações abertas e fechadas</h3>
-            <img src="../../static/image/grafico.png"
-                alt="Gráfico de exemplo para evolução diária da quantidade de solicitações abertas e fechadas">
+            <br>
+            <div class="chartbox">
+                <canvas id="myChart" width="500px" height="250px"></canvas>
+                <script>
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Tri 1', 'Tri 2', 'Tri 3', 'Tri 4', 'Tri 5', 'Tri 6', 'Tri 7'],
+                        datasets: [{
+                            label: 'Solicitações Abertas',
+                            data: [12, 19, 3, 5, 2, 3, 15],
+                            backgroundColor: [
+                                'rgba(131, 56, 236, 0.2)',
+                                'rgba(131, 56, 236, 0.2)',
+                                'rgba(131, 56, 236, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(131, 56, 236, 1)',
+                                'rgba(131, 56, 236, 1)',
+                                'rgba(131, 56, 236, 1)',
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Solicitações Fechadas',
+                            data: [5, 8, 7, 1, 4, 6, 9],
+                            backgroundColor: [
+                                'rgba(255, 0, 110, 0.2)',
+                                'rgba(255, 0, 110, 0.2)',
+                                'rgba(255, 0, 110, 0.2)',
+                                ],
+                            borderColor: [
+                                'rgba(255, 0, 110, 1)',
+                                'rgba(255, 0, 110, 1)',
+                                'rgba(255, 0, 110, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+                </div>
             <div class="rating-css">
                 <br>
                 <h3>Avaliação media do sistema: {{mediaNota}}</h3>
