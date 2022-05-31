@@ -642,6 +642,13 @@ p {
 .estrelas input[type=radio] {
   display: none;
 }
+
+.estrelas i{
+  font-size: 2.5em;
+  content:'\f005';
+  color: #FC0;
+}
+
 .estrelas label i.fa{
   font-size: 2.5em
 }
