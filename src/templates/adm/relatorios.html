@@ -10,32 +10,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script type="text/javascript">
-        function loadingVariables() {
+        function loadingVariables()
+        {
             var r = document.querySelector(':root');
             var solR = {{ fechado }} * 3.6;
-        var solP = 360 - solR;
-        if (solR > solP) {
-            r.style.setProperty('--secondSliceColor', '#58d3f7');
-            var v1 = 180;
-            var v2 = solR - 180;
-            var v3 = 360 - solR;
-        } else {
-            r.style.setProperty('--secondSliceColor', '#f7d358');
-            var v1 = 360 - solP;
-            var v2 = solP - 180;
-            var v3 = 180;
-        }
-        var b2 = v1 + 'deg';
-        var b3 = (v1 + v2) + 'deg';
-        var s1 = v1 + 'deg';
-        var s2 = v2 + 'deg';
-        var s3 = v3 + 'deg';
+            var solD = {{ rejeitado }} * 3.6;
+            var solP = 360 - solR - solD;
+            if (solR > solP && solR > solD) {
+                r.style.setProperty('--secondSliceColor','#0078BE');
+                r.style.setProperty('--thirdSliceColor','#D27800');
+                if (solR > 180) {
+                    var v1 = 180;
+                } else {
+                    var v1 = 60;
+                }
+                var v2 = solR - v1;
+                var v3 = 360 - solR - solD;
+                var v4 = 360 - solR - solP;
+            } else if (solP > solR && solP > solD) {
+                r.style.setProperty('--secondSliceColor','#D27800');
+                r.style.setProperty('--thirdSliceColor','#D27800');
+                if (solP > 180) {
+                    var v2 = 180;
+                } else {
+                    var v2 = 60;
+                }
+                var v1 = 360 - solP - solD;
+                var v3 = solP - v2;
+                var v4 = 360 - solR - solP;
+            } else {
+                r.style.setProperty('--secondSliceColor','#D27800');
+                r.style.setProperty('--thirdSliceColor','#DC140A');
+                if (solD > 180) {
+                    var v3 = 180;
+                } else {
+                    var v3 = 60;
+                }
+                var v1 = 360 - solP - solD;
+                var v2 = 360 - solR - solD;
+                var v4 = solD - v3;
+            }
+            var b2 = v1 + 'deg';
+            var b3 = (v1 + v2) + 'deg';
+            var b4 = (v1 + v2 + v3) + 'deg';
+            var s1 = v1 + 'deg';
+            var s2 = v2 + 'deg';
+            var s3 = v3 + 'deg';
+            var s4 = v4 + 'deg';
 
-        r.style.setProperty('--firstSlice', s1);
-        r.style.setProperty('--beforeSSlice', b2);
-        r.style.setProperty('--secondSlice', s2);
-        r.style.setProperty('--beforeTSlice', b3);
-        r.style.setProperty('--thirdSlice', s3);
+            r.style.setProperty('--firstSlice',s1);
+            r.style.setProperty('--beforeSSlice',b2);
+            r.style.setProperty('--secondSlice',s2);
+            r.style.setProperty('--beforeTSlice',b3);
+            r.style.setProperty('--thirdSlice',s3);
+            r.style.setProperty('--beforeFSlice',b4);
+            r.style.setProperty('--fourthSlice',s4);
         }
     </script>
     <title>Relatórios</title>
@@ -102,11 +131,15 @@
                 <div id="pieSlice3" class="hold">
                     <div class="pie"></div>
                 </div>
+                <div id="pieSlice4" class="hold">
+                    <div class="pie"></div>
+                </div>
             </div><br>
             <div class="legenda">
                 <ul>
-                    <li><span style='background:#58d3f7;'></span>{{fechado}}% Solicitações fechadas</li>
-                    <li><span style='background:#f7d358;'></span>{{aberto}}% Solitações abertas</li>
+                    <li><span style='background:#0078BE;'></span>{{fechado}}% Solicitações aceitas</li>
+                    <li><span style='background:#DC140A;'></span>{{rejeitado}}% Solicitações rejeitadas</li>
+                    <li><span style='background:#D27800;'></span>{{aberto}}% Solitações abertas</li>
                     <li>{{valor}} Solicitações realizadas</li>
                 </ul><br><br>
             </div>

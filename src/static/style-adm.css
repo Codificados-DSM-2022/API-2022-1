@@ -850,6 +850,17 @@ body {
   transform: rotate(var(--thirdSlice));
 }
 
+#pieSlice4
+{
+    transform: rotate(var(--beforeFSlice));
+}
+
+#pieSlice4 .pie
+{
+    background-color: var(--fourthSliceColor);
+    transform: rotate(var(--fourthSlice));
+}
+
 .legenda ul {
   margin-left: 42%;
   margin-bottom: 5px;
@@ -882,9 +893,12 @@ body {
   --secondSlice: 0;
   --beforeTSlice: 0;
   --thirdSlice: 0;
-  --firstSliceColor: #58d3f7;
+  --beforeFSlice: 0;
+  --fourthSlice: 0;
+  --firstSliceColor: #0078BE;
   --secondSliceColor: #000000;
-  --thirdSliceColor: #f7d358;
+  --thirdSliceColor: #000000;
+  --fourthSliceColor: #DC140A;
 }
 
 /* ESTRELINHA */
