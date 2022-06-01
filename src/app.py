@@ -207,6 +207,10 @@ def relatorios():
     cur = mysql.connection.cursor()
 
     # ----- PORCENTAGEM ABERTOS E FECHADOS ----- #
+
+    valor = cur.execute('SELECT * FROM Chamado')
+    chamados = cur.fetchall()
+
     if valor == 0:
         valor = aberto = fechado = rejeitado = 0
     else:
@@ -228,6 +232,7 @@ def relatorios():
     # ---- # ---- #
 
     # ----- AVALIAÇÃO MÉDIA ----- #
+
     ava = cur.execute('SELECT Chamado_avaliacao FROM Chamado WHERE Chamado_avaliacao > 0')
     avaliacao = cur.fetchall()
     if ava > 0:
@@ -237,8 +242,6 @@ def relatorios():
     else:
         mediaNota = 0
 
-    valor = cur.execute('SELECT * FROM Chamado')
-    chamados = cur.fetchall()
     # ----- # ----- #
 
     mysql.connection.commit()
