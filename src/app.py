@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 
-app.config['MYSQL_PASSWORD'] = 'tuca123' # <- Coloque aqui sua senha do MySQL
+app.config['MYSQL_PASSWORD'] = '1234' # <- Coloque aqui sua senha do MySQL
 
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
@@ -201,27 +201,24 @@ def excluirusuario(id):
 def relatorios():
     mediaNota = 0
     media = 0
-    aceitos = 0
     if not session.get('loggedin'):
         return redirect(url_for('login'))
     cur = mysql.connection.cursor()
 
-    # ----- PORCENTAGEM ABERTOS E FECHADOS ----- #
+    # ----- PORCENTAGEM ABERTOS ----- #
+    valor = cur.execute('SELECT * FROM Chamado')
+    chamados = cur.fetchall()
     if valor == 0:
-        valor = aberto = fechado = rejeitado = 0
+        valor = aberto = fechado = 0
     else:
         for i in chamados:
-            if i[9] == 1 or i[9] == 0:
-                media += 1
-                if i[9] == 1:
-                    aceitos += 1
-        fechado = round(aceitos * 100 / valor,2)
-        rejeitado = round((media - aceitos) * 100 / valor,2)
-        aberto = 100 - fechado - rejeitado
+            media += i[8]
+        fechado = round(media * 100 / valor,2)
+        aberto = 100 - fechado
 
     # ----- # ----- #
 
-    # ---- EVOLUÇÃO DIÁRIA DE CHAMADOS ABERTOS E FECHADOS ----- #
+    # ---- EVOLUÇÃO DIÁRIA DE CHAMADOS ABERTOS ----- #
 
     hoje = datetime.today().strftime('%d-%m-%Y')
 
@@ -236,15 +233,13 @@ def relatorios():
         mediaNota = mediaNota/ava
     else:
         mediaNota = 0
-
-    valor = cur.execute('SELECT * FROM Chamado')
-    chamados = cur.fetchall()
+        
     # ----- # ----- #
 
     mysql.connection.commit()
     cur.close()
 
-    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, rejeitado=rejeitado, avaliacao=avaliacao, valor=valor, mediaNota=mediaNota)
+    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, avaliacao=avaliacao, valor=valor, mediaNota=mediaNota)
 
 
 @app.route('/solicitacoes-p-adm')

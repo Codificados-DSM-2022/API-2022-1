@@ -827,6 +827,17 @@ body {
   clip: rect(0px, 250px, 250px, 125px);
 }
 
+:root {
+  --firstSlice: 0;
+  --beforeSSlice: 0;
+  --secondSlice: 0;
+  --beforeTSlice: 0;
+  --thirdSlice: 0;
+  --firstSliceColor: #0078BE;
+  --secondSliceColor: #000000;
+  --thirdSliceColor: #DC140A;
+}
+
 #pieSlice1 .pie {
   background-color: var(--firstSliceColor);
   transform: rotate(var(--firstSlice));
@@ -848,17 +859,6 @@ body {
 #pieSlice3 .pie {
   background-color: var(--thirdSliceColor);
   transform: rotate(var(--thirdSlice));
-}
-
-#pieSlice4
-{
-    transform: rotate(var(--beforeFSlice));
-}
-
-#pieSlice4 .pie
-{
-    background-color: var(--fourthSliceColor);
-    transform: rotate(var(--fourthSlice));
 }
 
 .legenda ul {
@@ -885,20 +885,6 @@ body {
   margin-right: 5px;
   margin-left: 0;
   border: 1px solid #999;
-}
-
-:root {
-  --firstSlice: 0;
-  --beforeSSlice: 0;
-  --secondSlice: 0;
-  --beforeTSlice: 0;
-  --thirdSlice: 0;
-  --beforeFSlice: 0;
-  --fourthSlice: 0;
-  --firstSliceColor: #0078BE;
-  --secondSliceColor: #000000;
-  --thirdSliceColor: #000000;
-  --fourthSliceColor: #DC140A;
 }
 
 /* ESTRELINHA */
