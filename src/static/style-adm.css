@@ -10,7 +10,7 @@
 body {
   width: 100%;
   font-family: 'Roboto', sans-serif;
-  background: #ffffff;
+  background: #cacaca;
 }
 
 
@@ -20,8 +20,9 @@ body {
   --color-white: #fff;
   --color-main: #300006;
   --color-main2: #E4E9F7;
-  --color-main3:  orange;
+  --color-main3: orange;
 }
+
 .info_header {
   align-items: center;
 }
@@ -87,9 +88,11 @@ body {
   text-align: center;
   font-size: 17px;
 }
-.navigation_header i{
+
+.navigation_header i {
   margin-right: 10px;
 }
+
 .navigation_header a:hover {
   color: var(--color-white);
   background: var(--color-main3);
@@ -106,7 +109,8 @@ body {
 .text {
   margin-bottom: 50px;
 }
-.meio p{
+
+.meio p {
   color: var(--color-main);
   margin: 50px;
 }
@@ -114,21 +118,26 @@ body {
 
 @keyframes showSidebar {
   from {
-      margin-left: -100vw;
+    margin-left: -100vw;
   }
+
   to {
-      margin-left: -10vw;
+    margin-left: -10vw;
   }
 }
+
 .inicio {
   margin-top: 250px;
 }
-.inicio .titulo h1{
+
+.inicio .titulo h1 {
   font-size: 25px;
 }
-.inicio .titulo p{
+
+.inicio .titulo p {
   font-size: 19px;
 }
+
 .fundo {
   display: grid;
   height: 100%;
@@ -179,7 +188,16 @@ body {
   grid-gap: 15px
 }
 
-.container .box .image {
+.image {
+  margin: 10px 0;
+  height: 150px;
+  width: 150px;
+  background: #11101D;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+.fotinha{
   margin: 10px 0;
   height: 150px;
   width: 150px;
@@ -200,7 +218,7 @@ body {
   align-items: center;
 }
 
-.box .image img {
+.image img {
   height: 100%;
   width: 100%;
   border-radius: 50%;
@@ -286,7 +304,7 @@ body {
   .esquerda h1 {
     font-size: 18px;
   }
-  
+
 }
 
 @media (max-width:710px) {
@@ -303,7 +321,7 @@ body {
   .box .grid-info {
     grid-template-columns: 1fr
   }
- 
+
 }
 
 /*INICIO*/
@@ -773,6 +791,7 @@ summary img {
   .perfil {
     grid-template-columns: 1fr;
   }
+
   .formBx .form {
     padding: 5px;
   }
@@ -781,7 +800,8 @@ summary img {
     padding: 5px;
     font-size: 14px;
   }
-  .container .box .image{
+
+  .image {
     width: 100px;
     height: 100px;
   }
@@ -827,6 +847,17 @@ body {
   clip: rect(0px, 250px, 250px, 125px);
 }
 
+:root {
+  --firstSlice: 0;
+  --beforeSSlice: 0;
+  --secondSlice: 0;
+  --beforeTSlice: 0;
+  --thirdSlice: 0;
+  --firstSliceColor: #0078BE;
+  --secondSliceColor: #000000;
+  --thirdSliceColor: #DC140A;
+}
+
 #pieSlice1 .pie {
   background-color: var(--firstSliceColor);
   transform: rotate(var(--firstSlice));
@@ -848,17 +879,6 @@ body {
 #pieSlice3 .pie {
   background-color: var(--thirdSliceColor);
   transform: rotate(var(--thirdSlice));
-}
-
-#pieSlice4
-{
-    transform: rotate(var(--beforeFSlice));
-}
-
-#pieSlice4 .pie
-{
-    background-color: var(--fourthSliceColor);
-    transform: rotate(var(--fourthSlice));
 }
 
 .legenda ul {
@@ -887,44 +907,33 @@ body {
   border: 1px solid #999;
 }
 
-:root {
-  --firstSlice: 0;
-  --beforeSSlice: 0;
-  --secondSlice: 0;
-  --beforeTSlice: 0;
-  --thirdSlice: 0;
-  --beforeFSlice: 0;
-  --fourthSlice: 0;
-  --firstSliceColor: #0078BE;
-  --secondSliceColor: #000000;
-  --thirdSliceColor: #000000;
-  --fourthSliceColor: #DC140A;
-}
-
 /* ESTRELINHA */
 
 /*ESTRELINHA*/
-.estrelas{
-  padding: 30px 0 ;
+.estrelas {
+  padding: 30px 0;
 }
+
 .estrelas input[type=radio] {
   display: none;
 }
 
-.estrelas i{
+.estrelas i {
   font-size: 2.5em;
-  content:'\f005';
+  content: '\f005';
   color: #FC0;
 }
 
-.estrelas label i.fa{
+.estrelas label i.fa {
   font-size: 2.5em
 }
+
 .estrelas label i.fa:before {
-  content:'\f005';
+  content: '\f005';
   color: #FC0;
 }
-.estrelas input[type=radio]:checked ~ label i.fa:before {
+
+.estrelas input[type=radio]:checked~label i.fa:before {
   color: #CCC;
 }
 
@@ -1080,11 +1089,13 @@ body {
 .responder .form .inputfield:last-child {
   margin-bottom: 0;
 }
-@media (max-width: 586px){
-  .btns{
+
+@media (max-width: 586px) {
+  .btns {
     display: block;
   }
 }
+
 @media (max-width:420px) {
 
   .responder .form .inputfield {
@@ -1100,7 +1111,8 @@ body {
     flex-direction: row;
   }
 }
-.chartbox{
+
+.chartbox {
   width: 700px;
   margin-left: auto;
   margin-right: auto;

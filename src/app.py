@@ -168,6 +168,19 @@ def listausuarios():
     return render_template('adm/lista-usuarios.html', usuarios=usuarios, tecnicos=tecnicos, msg1=msg1, msg2=msg2)
 
 
+@app.route("/media/<id>", methods=['GET'])
+def media(id):
+    if not session.get('loggedin'):
+        return redirect(url_for('login'))
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM usuarios WHERE idUsuario = %s", (id))
+    tecnico=cur.fetchone()
+    cur.execute("SELECT AVG(Chamado_avaliacao) from chamado WHERE idTecnico = %s", (id))
+    media=cur.fetchone()
+    media = round(float(media[0]),2)
+    return render_template('adm/media.html', tecnico=tecnico, media=media)
+
+
 @app.route('/tornar-tecnico/<id>', methods=['GET', 'POST'])
 def tornartecnico(id):  
     cur = mysql.connection.cursor()
@@ -201,7 +214,6 @@ def excluirusuario(id):
 def relatorios():
     mediaNota = 0
     media = 0
-    aceitos = 0
     if not session.get('loggedin'):
         return redirect(url_for('login'))
     cur = mysql.connection.cursor()
@@ -212,20 +224,16 @@ def relatorios():
     chamados = cur.fetchall()
 
     if valor == 0:
-        valor = aberto = fechado = rejeitado = 0
+        valor = aberto = fechado = 0
     else:
         for i in chamados:
-            if i[9] == 1 or i[9] == 0:
-                media += 1
-                if i[9] == 1:
-                    aceitos += 1
-        fechado = round(aceitos * 100 / valor,2)
-        rejeitado = round((media - aceitos) * 100 / valor,2)
-        aberto = 100 - fechado - rejeitado
+            media += i[8]
+        fechado = round(media * 100 / valor,2)
+        aberto = 100 - fechado
 
     # ----- # ----- #
 
-    # ---- EVOLUÇÃO DIÁRIA DE CHAMADOS ABERTOS E FECHADOS ----- #
+    # ---- EVOLUÇÃO DIÁRIA DE CHAMADOS ABERTOS ----- #
 
     hoje = datetime.today().strftime('%d-%m-%Y')
 
@@ -241,13 +249,12 @@ def relatorios():
         mediaNota = mediaNota/ava
     else:
         mediaNota = 0
-
     # ----- # ----- #
 
     mysql.connection.commit()
     cur.close()
 
-    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, rejeitado=rejeitado, avaliacao=avaliacao, valor=valor, mediaNota=mediaNota)
+    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, avaliacao=avaliacao, valor=valor, mediaNota=mediaNota)
 
 
 @app.route('/solicitacoes-p-adm')
@@ -291,7 +298,10 @@ def avaliaradm(id):
     cur.execute("SELECT chamado_resposta FROM chamado WHERE idChamado = %s", [id])
     resposta = cur.fetchone()
     if request.method == 'POST':
-        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (request.form['nota'], id))
+        nota = request.form['nota']
+        if nota == '':
+            nota = 0
+        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (nota, id))
         cur.connection.commit()
         cur.close()
         return redirect('/solicitacoes-r-adm')
@@ -344,7 +354,7 @@ def solicitaradm():
         primeiro = cur.fetchone()
 
         if a is not None:
-            if a[0] == ultimo[0]:
+            if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
                 mysql.connection.commit()
                 cur.close()
@@ -431,7 +441,7 @@ def solicitar():
         primeiro = cur.fetchone()
 
         if a is not None:
-            if a[0] == ultimo[0]:
+            if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
                 mysql.connection.commit()
                 cur.close()
@@ -480,7 +490,10 @@ def avaliar(id):
     cur.execute("SELECT chamado_resposta FROM chamado WHERE idChamado = %s", [id])
     resposta = cur.fetchone()
     if request.method == 'POST':
-        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (request.form['nota'], id))
+        nota = request.form['nota']
+        if nota == '':
+            nota = 0
+        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (nota, id))
         cur.connection.commit()
         cur.close()
         return redirect('/solicitacoes-r')
@@ -575,7 +588,7 @@ def tecnicoSolicitar():
         primeiro = cur.fetchone()
 
         if a is not None:
-            if a[0] == ultimo[0]:
+            if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
                 mysql.connection.commit()
                 cur.close()
@@ -627,7 +640,10 @@ def avaliartec(id):
     cur.execute("SELECT chamado_resposta FROM chamado WHERE idChamado = %s", [id])
     resposta = cur.fetchone()
     if request.method == 'POST':
-        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (request.form['nota'], id))
+        nota = request.form['nota']
+        if nota == '':
+            nota = 0
+        cur.execute("UPDATE chamado SET chamado_avaliacao = %s WHERE idChamado = %s", (nota, id))
         cur.connection.commit()
         cur.close()
         return redirect('/solic-r-tecnico')

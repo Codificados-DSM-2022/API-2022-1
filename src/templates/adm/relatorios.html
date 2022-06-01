@@ -11,61 +11,32 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script type="text/javascript">
-        function loadingVariables()
-        {
+        function loadingVariables() {
             var r = document.querySelector(':root');
             var solR = {{ fechado }} * 3.6;
-            var solD = {{ rejeitado }} * 3.6;
-            var solP = 360 - solR - solD;
-            if (solR > solP && solR > solD) {
-                r.style.setProperty('--secondSliceColor','#0078BE');
-                r.style.setProperty('--thirdSliceColor','#D27800');
-                if (solR > 180) {
-                    var v1 = 180;
-                } else {
-                    var v1 = 60;
-                }
-                var v2 = solR - v1;
-                var v3 = 360 - solR - solD;
-                var v4 = 360 - solR - solP;
-            } else if (solP > solR && solP > solD) {
-                r.style.setProperty('--secondSliceColor','#D27800');
-                r.style.setProperty('--thirdSliceColor','#D27800');
-                if (solP > 180) {
-                    var v2 = 180;
-                } else {
-                    var v2 = 60;
-                }
-                var v1 = 360 - solP - solD;
-                var v3 = solP - v2;
-                var v4 = 360 - solR - solP;
-            } else {
-                r.style.setProperty('--secondSliceColor','#D27800');
-                r.style.setProperty('--thirdSliceColor','#DC140A');
-                if (solD > 180) {
-                    var v3 = 180;
-                } else {
-                    var v3 = 60;
-                }
-                var v1 = 360 - solP - solD;
-                var v2 = 360 - solR - solD;
-                var v4 = solD - v3;
-            }
-            var b2 = v1 + 'deg';
-            var b3 = (v1 + v2) + 'deg';
-            var b4 = (v1 + v2 + v3) + 'deg';
-            var s1 = v1 + 'deg';
-            var s2 = v2 + 'deg';
-            var s3 = v3 + 'deg';
-            var s4 = v4 + 'deg';
+        var solP = 360 - solR;
+        if (solR > solP) {
+            r.style.setProperty('--secondSliceColor', '#0078BE');
+            var v1 = 180;
+            var v2 = solR - 180;
+            var v3 = 360 - solR;
+        } else {
+            r.style.setProperty('--secondSliceColor', '#DC140A');
+            var v1 = 360 - solP;
+            var v2 = solP - 180;
+            var v3 = 180;
+        }
+        var b2 = v1 + 'deg';
+        var b3 = (v1 + v2) + 'deg';
+        var s1 = v1 + 'deg';
+        var s2 = v2 + 'deg';
+        var s3 = v3 + 'deg';
 
-            r.style.setProperty('--firstSlice',s1);
-            r.style.setProperty('--beforeSSlice',b2);
-            r.style.setProperty('--secondSlice',s2);
-            r.style.setProperty('--beforeTSlice',b3);
-            r.style.setProperty('--thirdSlice',s3);
-            r.style.setProperty('--beforeFSlice',b4);
-            r.style.setProperty('--fourthSlice',s4);
+        r.style.setProperty('--firstSlice', s1);
+        r.style.setProperty('--beforeSSlice', b2);
+        r.style.setProperty('--secondSlice', s2);
+        r.style.setProperty('--beforeTSlice', b3);
+        r.style.setProperty('--thirdSlice', s3);
         }
     </script>
     <title>Relatórios</title>
@@ -132,15 +103,11 @@
                 <div id="pieSlice3" class="hold">
                     <div class="pie"></div>
                 </div>
-                <div id="pieSlice4" class="hold">
-                    <div class="pie"></div>
-                </div>
             </div><br>
             <div class="legenda">
                 <ul>
-                    <li><span style='background:#0078BE;'></span>{{fechado}}% Solicitações aceitas</li>
-                    <li><span style='background:#DC140A;'></span>{{rejeitado}}% Solicitações rejeitadas</li>
-                    <li><span style='background:#D27800;'></span>{{aberto}}% Solitações abertas</li>
+                    <li><span style='background:#0078BE;'></span>{{fechado}}% Solicitações fechadas</li>
+                    <li><span style='background:#DC140A;'></span>{{aberto}}% Solitações abertas</li>
                     <li>{{valor}} Solicitações realizadas</li>
                 </ul><br><br>
             </div>
@@ -150,117 +117,117 @@
             <div class="chartbox">
                 <canvas id="myChart" width="500px" height="250px"></canvas>
                 <script>
-                const ctx = document.getElementById('myChart').getContext('2d');
-                const myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Tri 1', 'Tri 2', 'Tri 3', 'Tri 4', 'Tri 5', 'Tri 6', 'Tri 7'],
-                        datasets: [{
-                            label: 'Solicitações Abertas',
-                            data: [12, 19, 3, 5, 2, 3, 15],
-                            backgroundColor: [
-                                'rgba(131, 56, 236, 0.2)',
-                                'rgba(131, 56, 236, 0.2)',
-                                'rgba(131, 56, 236, 0.2)',
-                            ],
-                            borderColor: [
-                                'rgba(131, 56, 236, 1)',
-                                'rgba(131, 56, 236, 1)',
-                                'rgba(131, 56, 236, 1)',
-                            ],
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Solicitações Fechadas',
-                            data: [5, 8, 7, 1, 4],
-                            backgroundColor: [
-                                'rgba(255, 0, 110, 0.2)',
-                                'rgba(255, 0, 110, 0.2)',
-                                'rgba(255, 0, 110, 0.2)',
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Tri 1', 'Tri 2', 'Tri 3', 'Tri 4', 'Tri 5', 'Tri 6', 'Tri 7'],
+                            datasets: [{
+                                label: 'Solicitações Abertas',
+                                data: [12, 19, 3, 5, 2, 3, 15],
+                                backgroundColor: [
+                                    'rgba(131, 56, 236, 0.2)',
+                                    'rgba(131, 56, 236, 0.2)',
+                                    'rgba(131, 56, 236, 0.2)',
                                 ],
-                            borderColor: [
-                                'rgba(255, 0, 110, 1)',
-                                'rgba(255, 0, 110, 1)',
-                                'rgba(255, 0, 110, 1)',
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
+                                borderColor: [
+                                    'rgba(131, 56, 236, 1)',
+                                    'rgba(131, 56, 236, 1)',
+                                    'rgba(131, 56, 236, 1)',
+                                ],
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Solicitações Fechadas',
+                                data: [5, 8, 7, 1, 4],
+                                backgroundColor: [
+                                    'rgba(255, 0, 110, 0.2)',
+                                    'rgba(255, 0, 110, 0.2)',
+                                    'rgba(255, 0, 110, 0.2)',
+                                ],
+                                borderColor: [
+                                    'rgba(255, 0, 110, 1)',
+                                    'rgba(255, 0, 110, 1)',
+                                    'rgba(255, 0, 110, 1)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
-                    }
-                });
+                    });
                 </script>
-                </div>
+            </div>
             <div class="rating-css">
                 <br>
                 <h3>Avaliação media do sistema: {{mediaNota}}</h3>
                 <div class="estrelas">
-                        {% if mediaNota == 0 %}
+                    {% if mediaNota == 0 %}
+                    <i class='bx bx-star'></i>
+                    <i class='bx bx-star'></i>
+                    <i class='bx bx-star'></i>
+                    <i class='bx bx-star'></i>
+                    <i class='bx bx-star'></i>
+                    {% elif mediaNota <= 0.5 %} <i class='bx bxs-star-half'></i>
                         <i class='bx bx-star'></i>
                         <i class='bx bx-star'></i>
                         <i class='bx bx-star'></i>
                         <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        {% elif mediaNota <= 0.5 %} <i class='bx bxs-star-half'></i>
+                        {% elif mediaNota <= 1 %} <i class='bx bxs-star'></i>
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
-                            {% elif mediaNota <= 1 %} <i class='bx bxs-star'></i>
+                            {% elif mediaNota <= 1.5 %} <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star-half'></i>
                                 <i class='bx bx-star'></i>
                                 <i class='bx bx-star'></i>
                                 <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                                {% elif mediaNota <= 1.5 %} <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star-half'></i>
+                                {% elif mediaNota <= 2 %} <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
                                     <i class='bx bx-star'></i>
                                     <i class='bx bx-star'></i>
                                     <i class='bx bx-star'></i>
-                                    {% elif mediaNota <= 2 %} <i class='bx bxs-star'></i>
+                                    {% elif mediaNota <= 2.5 %} <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star-half'></i>
                                         <i class='bx bx-star'></i>
                                         <i class='bx bx-star'></i>
-                                        <i class='bx bx-star'></i>
-                                        {% elif mediaNota <= 2.5 %} <i class='bx bxs-star'></i>
+                                        {% elif mediaNota <= 3 %} <i class='bx bxs-star'></i>
                                             <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star-half'></i>
+                                            <i class='bx bxs-star'></i>
                                             <i class='bx bx-star'></i>
                                             <i class='bx bx-star'></i>
-                                            {% elif mediaNota <= 3 %} <i class='bx bxs-star'></i>
+                                            {% elif mediaNota <= 3.5 %} <i class='bx bxs-star'></i>
                                                 <i class='bx bxs-star'></i>
                                                 <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star-half'></i>
                                                 <i class='bx bx-star'></i>
-                                                <i class='bx bx-star'></i>
-                                                {% elif mediaNota <= 3.5 %} <i class='bx bxs-star'></i>
+                                                {% elif mediaNota <= 4 %} <i class='bx bxs-star'></i>
                                                     <i class='bx bxs-star'></i>
                                                     <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star-half'></i>
+                                                    <i class='bx bxs-star'></i>
                                                     <i class='bx bx-star'></i>
-                                                    {% elif mediaNota <= 4 %} <i class='bx bxs-star'></i>
+                                                    {% elif mediaNota <= 4.5 %} <i class='bx bxs-star'></i>
                                                         <i class='bx bxs-star'></i>
                                                         <i class='bx bxs-star'></i>
                                                         <i class='bx bxs-star'></i>
-                                                        <i class='bx bx-star'></i>
-                                                        {% elif mediaNota <= 4.5 %} <i class='bx bxs-star'></i>
+                                                        <i class='bx bxs-star-half'></i>
+                                                        {% elif mediaNota <= 5 %} <i class='bx bxs-star'></i>
                                                             <i class='bx bxs-star'></i>
                                                             <i class='bx bxs-star'></i>
                                                             <i class='bx bxs-star'></i>
-                                                            <i class='bx bxs-star-half'></i>
-                                                            {% elif mediaNota <= 5 %} <i class='bx bxs-star'></i>
-                                                                <i class='bx bxs-star'></i>
-                                                                <i class='bx bxs-star'></i>
-                                                                <i class='bx bxs-star'></i>
-                                                                <i class='bx bxs-star'></i>
-                                                                {% endif %}
+                                                            <i class='bx bxs-star'></i>
+                                                            {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-    <script src="../static/script.js"></script>
+        <script src="../static/script.js"></script>
 </body>
 
 </html>
