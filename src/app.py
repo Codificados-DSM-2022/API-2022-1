@@ -172,6 +172,7 @@ def listausuarios():
 def tornartecnico(id):  
     cur = mysql.connection.cursor()
     cur.execute('UPDATE usuarios SET usuario_cargo = %s WHERE idUsuario = %s', ('tecnico', id))
+    cur.execute("UPDATE chamado SET idTecnico = %s WHERE idTecnico IS NULL", (id))
     mysql.connection.commit()
     cur.close()
     return redirect(url_for('listausuarios'))
@@ -189,22 +190,12 @@ def tornarusuario(id):
 @app.route('/excluir-usuario/<id>', methods=['GET', 'POST'])
 def excluirusuario(id):
     cur = mysql.connection.cursor()
-    cur.execute('DELETE FROM Chamado WHERE idUsuario = %s', [id])
+    cur.execute('UPDATE Chamado SET idUsuario = NULL WHERE idUsuario = %s', [id])
+    cur.execute('UPDATE Chamado SET idTecnico = NULL WHERE idTecnico = %s', [id])
     cur.execute('DELETE FROM usuarios WHERE idUsuario = %s', [id])
     mysql.connection.commit()
     cur.close()
     return redirect(url_for('listausuarios'))
-
-
-@app.route('/excluir-tecnico/<id>', methods=['GET', 'POST'])
-def excluirtecnico(id):
-    cur = mysql.connection.cursor()
-    cur.execute('DELETE FROM Chamado WHERE idtecnico = %s', [id])
-    cur.execute('DELETE FROM usuarios WHERE idtecnico = %s', [id])
-    mysql.connection.commit()
-    cur.close()
-    return redirect(url_for('listausuarios'))
-
 
 @app.route('/relatorios')
 def relatorios():
@@ -215,18 +206,7 @@ def relatorios():
         return redirect(url_for('login'))
     cur = mysql.connection.cursor()
 
-    ava = cur.execute('SELECT Chamado_avaliacao FROM Chamado WHERE Chamado_avaliacao > 0')
-    avaliacao = cur.fetchall()
-    if ava > 0:
-        for i in avaliacao:
-            mediaNota += i[0]
-        mediaNota = mediaNota/ava
-    else:
-        mediaNota = 0
-
-    valor = cur.execute('SELECT * FROM Chamado')
-    chamados = cur.fetchall()
-
+    # ----- PORCENTAGEM ABERTOS E FECHADOS ----- #
     if valor == 0:
         valor = aberto = fechado = rejeitado = 0
     else:
@@ -238,6 +218,28 @@ def relatorios():
         fechado = round(aceitos * 100 / valor,2)
         rejeitado = round((media - aceitos) * 100 / valor,2)
         aberto = 100 - fechado - rejeitado
+
+    # ----- # ----- #
+
+    # ---- EVOLUÇÃO DIÁRIA DE CHAMADOS ABERTOS E FECHADOS ----- #
+
+    hoje = datetime.today().strftime('%d-%m-%Y')
+
+    # ---- # ---- #
+
+    # ----- AVALIAÇÃO MÉDIA ----- #
+    ava = cur.execute('SELECT Chamado_avaliacao FROM Chamado WHERE Chamado_avaliacao > 0')
+    avaliacao = cur.fetchall()
+    if ava > 0:
+        for i in avaliacao:
+            mediaNota += i[0]
+        mediaNota = mediaNota/ava
+    else:
+        mediaNota = 0
+
+    valor = cur.execute('SELECT * FROM Chamado')
+    chamados = cur.fetchall()
+    # ----- # ----- #
 
     mysql.connection.commit()
     cur.close()
