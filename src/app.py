@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 
-app.config['MYSQL_PASSWORD'] = 'tuca123' # <- Coloque aqui sua senha do MySQL
+app.config['MYSQL_PASSWORD'] = 'fatec' # <- Coloque aqui sua senha do MySQL
 
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
@@ -335,10 +335,6 @@ def solicitaradm():
     cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
     ultimo = cur.fetchone()
 
-    msg = ''
-
-    if tecnicos == 0:
-        msg = 'Não existem tecnicos cadastrados'
     if request.method == 'POST' and tecnicos > 0:
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
@@ -353,6 +349,11 @@ def solicitaradm():
         cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario LIMIT 1")
         primeiro = cur.fetchone()
 
+        if tecnicos == 0:
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario))
+            mysql.connection.commit()
+            cur.close()
+            return redirect("/solic-p-tecnico")
         if a is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
@@ -371,7 +372,7 @@ def solicitaradm():
             mysql.connection.commit()
             cur.close()
             return redirect("/solicitacoes-p-adm")
-    return render_template('adm/solicitar.html', msg=msg, tecnicos=tecnicos)
+    return render_template('adm/solicitar.html', tecnicos=tecnicos)
 
 
 #-------------------------------------------------------------------------------------------------------------#
@@ -422,10 +423,7 @@ def solicitar():
     cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
     ultimo = cur.fetchone()
 
-    msg = ''
 
-    if tecnicos == 0:
-        msg = 'Não existem tecnicos cadastrados'
     if request.method == 'POST' and tecnicos > 0:
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
@@ -440,6 +438,11 @@ def solicitar():
         cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario LIMIT 1")
         primeiro = cur.fetchone()
 
+        if tecnicos == 0:
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario))
+            mysql.connection.commit()
+            cur.close()
+            return redirect("/solic-p-tecnico")
         if a is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
@@ -561,19 +564,19 @@ def tecnicoSolicitar():
         return redirect(url_for('login'))    
 
     cur = mysql.connection.cursor()
-    tecnicos = cur.execute("SELECT * FROM usuarios WHERE usuario_cargo = 'tecnico'")
+
+    idd = session['idUsuario']
+    tecnicos = cur.execute("SELECT * FROM usuarios WHERE usuario_cargo = 'tecnico' and idUsuario != %s",(idd,))
     exe = cur.fetchall()
+
+
     cur.execute("SELECT idTecnico FROM Chamado ORDER BY idChamado DESC LIMIT 1")
     a = cur.fetchone()
 
     cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
     ultimo = cur.fetchone()
-
-    msg = ''
-
-    if tecnicos == 0:
-        msg = 'Não existem tecnicos cadastrados'
-    if request.method == 'POST' and tecnicos > 0:
+        
+    if request.method == 'POST':
         Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
         Chamado_data_entrega = '0'
         Chamado_titulo = request.form['Chamado_titulo']
@@ -584,7 +587,7 @@ def tecnicoSolicitar():
         Chamado_respondido = '0'
         idUsuario = session['idUsuario']
 
-        cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario LIMIT 1")
+        cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' and idUsuario != %s ORDER BY idUsuario LIMIT 1", (idd,))
         primeiro = cur.fetchone()
 
         if a is not None:
@@ -605,7 +608,7 @@ def tecnicoSolicitar():
             mysql.connection.commit()
             cur.close()
             return redirect("/solic-p-tecnico")
-    return render_template('tecnico/solicitar.html', msg=msg, tecnicos=tecnicos)
+    return render_template('tecnico/solicitar.html', tecnicos=tecnicos)
 
 
 @app.route('/solic-p-tecnico')
