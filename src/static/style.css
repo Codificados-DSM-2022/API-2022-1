@@ -545,7 +545,11 @@ form .button-area {
     text-align: center;
   }
 }
-
+p {
+  font-size: 15px;
+  color: #11101D;
+  word-break: break-all;
+}
 /*ESTRELINHA*/
 .estrelas{
   padding: 30px 0 ;
@@ -566,8 +570,7 @@ form .button-area {
 
 /*FORMULARIO ACEITAR/RECUSAR CSS*/
 .responder {
-  max-width: 500px;
-  width: 100%;
+  width: 500px;
   background: #fff;
   margin: 100px auto;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.125);
@@ -674,7 +677,7 @@ form .button-area {
   opacity: 0;
 }
 
-.responder .form .inputfield .btn {
+.responder form .inputfield .btn {
   width: 100%;
   padding: 8px 10px;
   font-size: 15px;
@@ -694,16 +697,34 @@ form .button-area {
   margin-bottom: 0;
 }
 
-@media (max-width:420px) {
-  .responder .form .inputfield {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width:805px) {
+  .responder {
+    width: 100%;
+    margin: 0;
+    height: 825px;
+    background: #fff;
   }
-
+  .responder .form{
+    margin-top: 40px;
+  }
+  .responder .title{
+    color: #11101D;
+  }
+  .responder .form .inputfield {
+    margin-bottom: 15px;
+    display: block;
+  }
+  .responder .form .inputfield p {
+    font-size: 14px;
+    color: #11101D;
+    margin: 30px 10px;
+}
   .responder .form .inputfield label {
     margin-bottom: 5px;
+    font-size: 19px;
+    color: #11101D;
   }
-
+  
   .responder .form .inputfield.terms {
     flex-direction: row;
   }

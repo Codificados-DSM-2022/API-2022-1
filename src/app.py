@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 
-app.config['MYSQL_PASSWORD'] = 'fatec' # <- Coloque aqui sua senha do MySQL
+app.config['MYSQL_PASSWORD'] = 'fatecsjc' # <- Coloque aqui sua senha do MySQL
 
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
@@ -461,7 +461,7 @@ def solicitar():
             mysql.connection.commit()
             cur.close()
             return redirect("/solicitacoes-p")
-    return render_template('usuario/solicitar.html', msg=msg, tecnicos=tecnicos)
+    return render_template('usuario/solicitar.html', tecnicos=tecnicos)
     
 
 @app.route('/solicitacoes-p')
@@ -590,7 +590,7 @@ def tecnicoSolicitar():
         cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' and idUsuario != %s ORDER BY idUsuario LIMIT 1", (idd,))
         primeiro = cur.fetchone()
 
-        if a is not None:
+        if a[0] is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
                 mysql.connection.commit()

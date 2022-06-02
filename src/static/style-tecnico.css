@@ -630,34 +630,45 @@ form .button-area {
 }
 
 p {
-  font-size: 20px;
-  color: #ffffff;
-  margin-top: 20px;
+  font-size: 15px;
+  color: #11101D;
+  word-break: break-all;
 }
 
 /*ESTRELINHA*/
-.estrelas{
-  padding: 30px 0 ;
+.estrelas {
+  padding: 30px 0;
 }
+
 .estrelas input[type=radio] {
   display: none;
 }
 
-.estrelas i{
+.estrelas i {
   font-size: 2.5em;
-  content:'\f005';
+  content: '\f005';
   color: #FC0;
 }
 
-.estrelas label i.fa{
+.estrelas label i.fa {
   font-size: 2.5em
 }
+
 .estrelas label i.fa:before {
-  content:'\f005';
+  content: '\f005';
   color: #FC0;
 }
-.estrelas input[type=radio]:checked ~ label i.fa:before {
+
+.estrelas input[type=radio]:checked~label i.fa:before {
   color: #CCC;
+}
+
+.responder {
+  width: 500px;
+  background: #fff;
+  margin: 100px auto;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.125);
+  padding: 30px;
 }
 
 .responder .form {
@@ -734,8 +745,8 @@ p {
 .responder .form .inputfield p {
   font-size: 14px;
   color: #757575;
+  margin-top: 30px;
 }
-
 .responder .form .inputfield .check {
   width: 15px;
   height: 15px;
@@ -751,13 +762,13 @@ p {
   opacity: 0;
 }
 
-.responder .form .inputfield .btn {
+.responder form .inputfield .btn {
   width: 100%;
   padding: 8px 10px;
   font-size: 15px;
   border: 0px;
-  background: #11101D;
-  color: #fff;
+  background: #fff;
+  color: #11101D;
   cursor: pointer;
   border-radius: 3px;
   outline: none;
@@ -771,17 +782,36 @@ p {
   margin-bottom: 0;
 }
 
-@media (max-width:420px) {
-  .responder .form .inputfield {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width:805px) {
+  .responder {
+    width: 100%;
+    margin: 0;
+    height: 825px;
+    background: #11101D;
   }
-
+  .responder .form{
+    margin-top: 40px;
+  }
+  .responder .title{
+    color: #E4E9F7;
+  }
+  .responder .form .inputfield {
+    margin-bottom: 15px;
+    display: block;
+  }
+  .responder .form .inputfield p {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 20px;
+}
   .responder .form .inputfield label {
     margin-bottom: 5px;
+    font-size: 19px;
+    color: #fff;
   }
-
+  
   .responder .form .inputfield.terms {
     flex-direction: row;
   }
 }
+
