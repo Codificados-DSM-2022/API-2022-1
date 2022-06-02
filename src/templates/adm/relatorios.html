@@ -8,6 +8,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script type="text/javascript">
         function loadingVariables() {
@@ -15,12 +16,12 @@
             var solR = {{ fechado }} * 3.6;
         var solP = 360 - solR;
         if (solR > solP) {
-            r.style.setProperty('--secondSliceColor', '#58d3f7');
+            r.style.setProperty('--secondSliceColor', '#0078BE');
             var v1 = 180;
             var v2 = solR - 180;
             var v3 = 360 - solR;
         } else {
-            r.style.setProperty('--secondSliceColor', '#f7d358');
+            r.style.setProperty('--secondSliceColor', '#DC140A');
             var v1 = 360 - solP;
             var v2 = solP - 180;
             var v3 = 180;
@@ -42,72 +43,51 @@
 </head>
 
 <body onload="loadingVariables()">
-    <div class="sidebar">
-        <div class="logo-details">
-            <div class="logo_name">API</div>
-            <i class='bx bx-menu' id="btn"></i>
+    <div class="header" id="header">
+        <button onclick="toggleSidebar()" class="btn_icon_header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+            </svg>
+        </button>
+        <div class="info_header">
+
+            <a href="./perfil-adm">
+                <i class='bx bx-user'></i>
+                <span class="links_name">Perfil</span>
+            </a>
+            <a href="logout">
+                <i class='bx bx-log-out'></i>
+                <span class="links_name">Sair</span>
+            </a>
         </div>
-        <ul class="nav-list">
-            <li>
-                <a href="./index-adm">
-                    <i class='bx bx-home'></i>
-                    <span class="links_name">Início</span>
-                </a>
-                <span class="tooltip">Início</span>
-            </li>
-            <li>
-                <a href="./perfil-adm">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Perfil</span>
-                </a>
-                <span class="tooltip">Perfil</span>
-            </li>
-            <li>
-                <a href="./lista-usuarios">
-                    <i class='bx bx-list-ul'></i>
-                    <span class="links_name">Lista de usuários</span>
-                </a>
-                <span class="tooltip">Lista de usuários</span>
-            </li>
-            <li>
-                <a href="./relatorios">
-                    <i class='bx bx-line-chart'></i>
-                    <span class="links_name">Relatórios</span>
-                </a>
-                <span class="tooltip">Relatórios</span>
-            </li>
-            <li>
-                <a href="./solicitar-adm">
-                    <i class='bx bx-message-add'></i>
-                    <span class="links_name">Solicitar</span>
-                </a>
-                <span class="tooltip">Solicitar</span>
-            </li>
-            <li>
-                <a href="./solicitacoes-p-adm">
-                    <i class='bx bx-message-dots'></i>
-                    <span class="links_name">Solicitaçoes pendentes</span>
-                </a>
-                <span class="tooltip">Solicitaçoes pendentes</span>
-            </li>
-            <li>
-                <a href="./solicitacoes-r-adm">
-                    <i class='bx bx-message-check'></i>
-                    <span class="links_name">Solicitaçoes respondidas</span>
-                </a>
-                <span class="tooltip">Solicitaçoes respondidas</span>
-            </li>
-            <li>
-                <a href="logout">
-                    <i class='bx bx-log-out'></i>
-                    <span class="links_name">Sair</span>
-                </a>
-                <span class="tooltip">Sair</span>
-            </li>
-        </ul>
+        <div class="navigation_header" id="navigation_header">
+            <button onclick="toggleSidebar()" class="btn_icon_header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </button>
+            <a href="./index-adm">
+                <i class='bx bx-home'></i>Início</a>
+            <a href="./perfil-adm">
+                <i class='bx bx-user'></i>Perfil</a>
+            <a href="./lista-usuarios">
+                <i class='bx bx-list-ul'></i>Lista de Usuários</a>
+            <a href="./relatorios">
+                <i class='bx bx-line-chart'></i>Relatórios</a>
+            <a href="./solicitar-adm">
+                <i class='bx bx-message-add'></i>Solicitar</a>
+            <a href="./solicitacoes-p-adm">
+                <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
+            <a href="./solicitacoes-r-adm">
+                <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
+        </div>
     </div>
 
-    <main>
+    <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
         <h1>Relatorios</h1><br>
         <div class="graficos">
             <h3>Percentual de chamadas abertas e fechadas</h3>
@@ -126,82 +106,128 @@
             </div><br>
             <div class="legenda">
                 <ul>
-                    <li><span style='background:#58d3f7;'></span>{{fechado}}% Solicitações fechadas</li>
-                    <li><span style='background:#f7d358;'></span>{{aberto}}% Solitações abertas</li>
+                    <li><span style='background:#0078BE;'></span>{{fechado}}% Solicitações fechadas</li>
+                    <li><span style='background:#DC140A;'></span>{{aberto}}% Solitações abertas</li>
                     <li>{{valor}} Solicitações realizadas</li>
                 </ul><br><br>
             </div>
-            <br>
+            <br><br>
             <h3>Evolução diária da quantidade de solicitações abertas e fechadas</h3>
-            <img src="../../static/image/grafico.png"
-                alt="Gráfico de exemplo para evolução diária da quantidade de solicitações abertas e fechadas">
+            <br>
+            <div class="chartbox">
+                <canvas id="myChart" width="500px" height="250px"></canvas>
+                <script>
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Tri 1', 'Tri 2', 'Tri 3', 'Tri 4', 'Tri 5', 'Tri 6', 'Tri 7'],
+                            datasets: [{
+                                label: 'Solicitações Abertas',
+                                data: [12, 19, 3, 5, 2, 3, 15],
+                                backgroundColor: [
+                                    'rgba(131, 56, 236, 0.2)',
+                                    'rgba(131, 56, 236, 0.2)',
+                                    'rgba(131, 56, 236, 0.2)',
+                                ],
+                                borderColor: [
+                                    'rgba(131, 56, 236, 1)',
+                                    'rgba(131, 56, 236, 1)',
+                                    'rgba(131, 56, 236, 1)',
+                                ],
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Solicitações Fechadas',
+                                data: [5, 8, 7, 1, 4],
+                                backgroundColor: [
+                                    'rgba(255, 0, 110, 0.2)',
+                                    'rgba(255, 0, 110, 0.2)',
+                                    'rgba(255, 0, 110, 0.2)',
+                                ],
+                                borderColor: [
+                                    'rgba(255, 0, 110, 1)',
+                                    'rgba(255, 0, 110, 1)',
+                                    'rgba(255, 0, 110, 1)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
             <div class="rating-css">
                 <br>
                 <h3>Avaliação media do sistema: {{mediaNota}}</h3>
-                <div class="rating-css">
-                    <div class="star-icon">
-                        {% if mediaNota == 0 %}
+                <div class="estrelas">
+                    {% if mediaNota == 0 %}
+                    <i class='bx bx-star'></i>
+                    <i class='bx bx-star'></i>
+                    <i class='bx bx-star'></i>
+                    <i class='bx bx-star'></i>
+                    <i class='bx bx-star'></i>
+                    {% elif mediaNota <= 0.5 %} <i class='bx bxs-star-half'></i>
                         <i class='bx bx-star'></i>
                         <i class='bx bx-star'></i>
                         <i class='bx bx-star'></i>
                         <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        {% elif mediaNota <= 0.5 %} <i class='bx bxs-star-half'></i>
+                        {% elif mediaNota <= 1 %} <i class='bx bxs-star'></i>
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
-                            {% elif mediaNota <= 1 %} <i class='bx bxs-star'></i>
+                            {% elif mediaNota <= 1.5 %} <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star-half'></i>
                                 <i class='bx bx-star'></i>
                                 <i class='bx bx-star'></i>
                                 <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                                {% elif mediaNota <= 1.5 %} <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star-half'></i>
+                                {% elif mediaNota <= 2 %} <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
                                     <i class='bx bx-star'></i>
                                     <i class='bx bx-star'></i>
                                     <i class='bx bx-star'></i>
-                                    {% elif mediaNota <= 2 %} <i class='bx bxs-star'></i>
+                                    {% elif mediaNota <= 2.5 %} <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star-half'></i>
                                         <i class='bx bx-star'></i>
                                         <i class='bx bx-star'></i>
-                                        <i class='bx bx-star'></i>
-                                        {% elif mediaNota <= 2.5 %} <i class='bx bxs-star'></i>
+                                        {% elif mediaNota <= 3 %} <i class='bx bxs-star'></i>
                                             <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star-half'></i>
+                                            <i class='bx bxs-star'></i>
                                             <i class='bx bx-star'></i>
                                             <i class='bx bx-star'></i>
-                                            {% elif mediaNota <= 3 %} <i class='bx bxs-star'></i>
+                                            {% elif mediaNota <= 3.5 %} <i class='bx bxs-star'></i>
                                                 <i class='bx bxs-star'></i>
                                                 <i class='bx bxs-star'></i>
+                                                <i class='bx bxs-star-half'></i>
                                                 <i class='bx bx-star'></i>
-                                                <i class='bx bx-star'></i>
-                                                {% elif mediaNota <= 3.5 %} <i class='bx bxs-star'></i>
+                                                {% elif mediaNota <= 4 %} <i class='bx bxs-star'></i>
                                                     <i class='bx bxs-star'></i>
                                                     <i class='bx bxs-star'></i>
-                                                    <i class='bx bxs-star-half'></i>
+                                                    <i class='bx bxs-star'></i>
                                                     <i class='bx bx-star'></i>
-                                                    {% elif mediaNota <= 4 %} <i class='bx bxs-star'></i>
+                                                    {% elif mediaNota <= 4.5 %} <i class='bx bxs-star'></i>
                                                         <i class='bx bxs-star'></i>
                                                         <i class='bx bxs-star'></i>
                                                         <i class='bx bxs-star'></i>
-                                                        <i class='bx bx-star'></i>
-                                                        {% elif mediaNota <= 4.5 %} <i class='bx bxs-star'></i>
+                                                        <i class='bx bxs-star-half'></i>
+                                                        {% elif mediaNota <= 5 %} <i class='bx bxs-star'></i>
                                                             <i class='bx bxs-star'></i>
                                                             <i class='bx bxs-star'></i>
                                                             <i class='bx bxs-star'></i>
-                                                            <i class='bx bxs-star-half'></i>
-                                                            {% elif mediaNota <= 5 %} <i class='bx bxs-star'></i>
-                                                                <i class='bx bxs-star'></i>
-                                                                <i class='bx bxs-star'></i>
-                                                                <i class='bx bxs-star'></i>
-                                                                <i class='bx bxs-star'></i>
-                                                                {% endif %}
-                    </div>
+                                                            <i class='bx bxs-star'></i>
+                                                            {% endif %}
                 </div>
             </div>
         </div>
-    </main>
+        <script src="../static/script.js"></script>
 </body>
 
 </html>

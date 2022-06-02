@@ -3,11 +3,15 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../../static/style-adm.css">
-  <title>Início</title>
+  <link rel="stylesheet" href="../../static/style-tecnico.css">
+  <title> {% if aceitar == "1" %}
+    Aceitar Chamado
+    {% else %}
+    Rejeitar Chamado
+    {% endif %}</title>
 </head>
 
 <body>
@@ -21,15 +25,16 @@
     </button>
     <div class="info_header">
 
-      <a href="./perfil-adm">
+      <a href="/perfil-tecnico">
         <i class='bx bx-user'></i>
         <span class="links_name">Perfil</span>
       </a>
-      <a href="logout">
+      <a href="/logout">
         <i class='bx bx-log-out'></i>
         <span class="links_name">Sair</span>
       </a>
     </div>
+
     <div class="navigation_header" id="navigation_header">
       <button onclick="toggleSidebar()" class="btn_icon_header">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
@@ -38,57 +43,56 @@
             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
         </svg>
       </button>
-      <a href="./index-adm">
+      <a href="/index-tecnico">
         <i class='bx bx-home'></i>Início</a>
-      <a href="./perfil-adm">
-        <i class='bx bx-user'></i>Perfil</a>
-      <a href="./lista-usuarios">
-        <i class='bx bx-list-ul'></i>Lista de Usuários</a>
-      <a href="./relatorios">
-        <i class='bx bx-line-chart'></i>Relatórios</a>
-      <a href="./solicitar-adm">
+      <a href="/solic-tecnico">
         <i class='bx bx-message-add'></i>Solicitar</a>
-      <a href="./solicitacoes-p-adm">
+      <a href="/solic-p-tecnico">
         <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
-      <a href="./solicitacoes-r-adm">
+      <a href="/solic-r-tecnico">
         <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
     </div>
   </div>
-
   <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
-    <section class="home-section">
 
-      <div class="wrapper">
-        <header>Realizar Solicitação</header>
-        <form action="/solicitar-adm" method="POST">
-          <div class="dbl-field">
-            <div class="field">
-              <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema">
-              <i class='bx bx-comment-error'></i>
-            </div>
-            <div class="dropdown">
-              <select id="Chamado_tipo" name="Chamado_tipo">
-                <option value="Hardware">Hardware</option>
-                <option value="Software">Software</option>
-                <option value="Informação">Informação</option>
-              </select>
-            </div>
+    <div class="wrapper">
+      <header> {% if aceitar == "1" %}
+        Aceitar Chamado
+        {% else %}
+        Rejeitar Chamado
+        {% endif %}</header>
+      <form method="POST">
+        <div class="dbl-field">
+          <div class="field">
+            <label>Titulo:</label><br>
+            <P>{{chamado[3]}}</P>
           </div>
-          <div class="message">
-            <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao"></textarea>
-            <i class="bx bxs-edit"></i>
+          <div class="field">
+            <label>Tipo:</label>
+            <p>{{chamado[4]}}</p>
           </div>
-          <input type="file" name="Chamado_imagem">
-          <div class="button-area">
-            <button type="submit">Enviar Solicitação</button>
+          <div class="field">
+            <label>Descricao:</label>
+            <p>{{chamado[5]}}</p>
           </div>
-          <span></span>
-          <br>
-        </form>
-      </div>
-    </section>
+        </div>
+        <div class="message">
+          <textarea class="textarea" name="resposta" id="resposta"></textarea>
+          <i class='bx bxs-edit-alt'></i>
+        </div>
+        <input type="file" name="Chamado_imagem">
+        <div class="text"></div>
+        <div class="button-area">
+          <button type="submit">Enviar Resposta</button>
+        </div>
+        <span></span>
+        <br>
+      </form>
+    </div>
+
   </div>
   <script src="../static/script.js"></script>
 </body>
+
 
 </html>

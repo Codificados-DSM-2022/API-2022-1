@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" dir="ltr">
 
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../static/style-tecnico.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Início</title>
+  <title>Realizar Solicitação</title>
 </head>
 
 <body>
@@ -20,8 +19,8 @@
       </svg>
     </button>
     <div class="info_header">
-
-      <a href="/perfil-tecnico">
+     
+      <a href="./perfil-tecnico">
         <i class='bx bx-user'></i>
         <span class="links_name">Perfil</span>
       </a>
@@ -39,28 +38,50 @@
             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
         </svg>
       </button>
-      <a href="/index-tecnico">
+      <a href="./index-tecnico">
         <i class='bx bx-home'></i>Início</a>
-      <a href="/solic-tecnico">
+      <a href="./solic-tecnico">
         <i class='bx bx-message-add'></i>Solicitar</a>
-      <a href="/solic-p-tecnico">
+      <a href="./solic-p-tecnico">
         <i class='bx bx-message-dots'></i>Solicitações Pendentes</a>
-      <a href="/solic-r-tecnico">
+      <a href="./solic-r-tecnico">
         <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
     </div>
   </div>
-
-  <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
-    <section class="inicio">
-      <div class="titulo">
-        <h1>Bem-Vindo {{nome}}!</h1>
+<div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
+  <section class="home-section">
+     
+    <div class="wrapper">
+      <header>Realizar Solicitação</header>
+      <form method="POST">
+        <div class="dbl-field">
+          <div class="field">
+            <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema">
+            <i class='bx bxs-edit'></i>
+          </div>
+          <div class="dropdown">
+            <select id="Chamado_tipo" name="Chamado_tipo">
+              <option value="Hardware">Hardware</option>
+              <option value="Software">Software</option>
+              <option value="Informação">Informação</option>
+            </select>
+          </div>
+        </div>
+        <div class="message">
+          <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao"></textarea>
+          <i class='bx bxs-edit-alt'></i>
+        </div>
+        <input type="file" name="Chamado_imagem">
+        <div class="text"></div>
+        <div class="button-area">
+          <button type="submit">Enviar Solicitação</button>
+        </div>
+          <span></span>
         <br>
-        <p>Você está cadastrado comoﾠ<b>tecnico!</b></p>
-        <p> Navegue através da barra lateral, para ter acesso à todas as funcionalidades disponíveis!</p>
-      </div>
-    </section>
+      </form>
+    </div>
+  </section>
   </div>
-
   <script src="../static/script.js"></script>
 </body>
 

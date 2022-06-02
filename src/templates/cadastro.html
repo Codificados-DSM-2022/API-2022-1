@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
@@ -26,12 +26,12 @@
                         <label>Senha</label>
                     </div>
                     <div class="txt_field">
-                        <input type="text" name="usuario_endereco" required>
+                        <input type="password" name="usuario_csenha" required>
                         <span></span>
-                        <label>Endereço</label>
+                        <label>Confirmar Senha</label>
                     </div>
-
                 </div>
+                
                 <div class="right-side">
                     <div class="txt_field">
                         <input type="text" name="usuario_email" required>
@@ -39,9 +39,9 @@
                         <label>Email</label>
                     </div>
                     <div class="txt_field">
-                        <input type="password" name="usuario_csenha" required>
+                        <input type="text" name="usuario_endereco" required>
                         <span></span>
-                        <label>Confirmar Senha</label>
+                        <label>Endereço</label>
                     </div>
                     <div class="txt_field">
                         <input type="text" maxlength="11" name="usuario_contato" required>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="down-side">
-                <input type="checkbox" name="check" id="check">Concordo em armazenar meus dados
+                <input type="checkbox" name="check" id="check" required>Concordo em armazenar meus dados
             </div><br>
             <p>{{msg}}</p><br>
             <input type="submit" value="Cadastrar">
