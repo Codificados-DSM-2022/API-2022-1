@@ -87,10 +87,25 @@
         </div>
     </div>
 
+
+
     <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
         <h1>Relatorios</h1><br>
         <div class="graficos">
             <h3>Percentual de chamadas abertas e fechadas</h3>
+            <div class="legenda">
+                <span>Selecionar intervalo de tempo:</span>
+                <form action="" method="POST">
+                    <select name="intervalo1" class="grafico">
+                        <option value="sempre">Desde sempre</option>
+                        <option value="1">1 dia</option>
+                        <option value="7">7 dias</option>
+                        <option value="30">30 dias</option>
+                        <button type="submit">Pesquisar</button>
+                    </select>
+                    <button type="submit">Pesquisar</button>
+                </form>
+            </div>
             <br>
             <div class="pieContainer">
                 <div class="pieBackground"></div>
@@ -113,6 +128,17 @@
             </div>
             <br><br>
             <h3>Evolução diária da quantidade de solicitações abertas e fechadas</h3>
+            <div class="legenda">
+                <span>Selecionar intervalo de tempo:</span>
+                <form action="" method="post">
+                    <select name="intervalo2" id="intervalo1" class="grafico">
+                        <option value="7">7 dias</option>
+                        <option value="14">15 dias</option>
+                        <option value="30">30 dias</option>
+                    </select>
+                    <button type="submit">Pesquisar</button>
+                </form>
+            </div>
             <br>
             <div class="chartbox">
                 <canvas id="myChart" width="500px" height="250px"></canvas>

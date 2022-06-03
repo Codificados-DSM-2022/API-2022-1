@@ -19,8 +19,9 @@ body {
   --color-white: #fff;
   --color-main: #11101D;
   --color-main2: #E4E9F7;
-  --color-main3:  #363445;
+  --color-main3: #363445;
 }
+
 .info_header {
   align-items: center;
 }
@@ -87,9 +88,11 @@ body {
   text-align: center;
   font-size: 17px;
 }
-.navigation_header i{
+
+.navigation_header i {
   margin-right: 10px;
 }
+
 .navigation_header a:hover {
   color: var(--color-white);
   background: var(--color-main3);
@@ -106,7 +109,8 @@ body {
 .text {
   margin-bottom: 50px;
 }
-.meio p{
+
+.meio p {
   color: var(--color-main);
   margin: 50px;
 }
@@ -114,19 +118,23 @@ body {
 
 @keyframes showSidebar {
   from {
-      margin-left: -100vw;
+    margin-left: -100vw;
   }
+
   to {
-      margin-left: -10vw;
+    margin-left: -10vw;
   }
 }
+
 .inicio {
   margin-top: 250px;
 }
-.inicio .titulo h1{
+
+.inicio .titulo h1 {
   font-size: 25px;
 }
-.inicio .titulo p{
+
+.inicio .titulo p {
   font-size: 19px;
 }
 
@@ -183,6 +191,7 @@ summary img {
   font-size: 17px;
   margin-top: 20px;
 }
+
 /*PERFIL DO USUÁRIO*/
 
 .container {
@@ -290,12 +299,14 @@ summary img {
   display: flex;
   flex-direction: column;
 }
-.formBx .form form h4{
+
+.formBx .form form h4 {
   font-size: 0.8em;
   font-weight: 500;
   display: flex;
   margin: 5px;
 }
+
 .formBx .form form h3 {
   font-size: 1em;
   color: #333;
@@ -304,7 +315,8 @@ summary img {
   display: flex;
   justify-content: center;
 }
-.formBx .form form textarea{
+
+.formBx .form form textarea {
   height: 40px;
 }
 
@@ -545,26 +557,32 @@ form .button-area {
     text-align: center;
   }
 }
+
 p {
   font-size: 15px;
   color: #11101D;
   word-break: break-all;
 }
+
 /*ESTRELINHA*/
-.estrelas{
-  padding: 30px 0 ;
+.estrelas {
+  padding: 30px 0;
 }
+
 .estrelas input[type=radio] {
   display: none;
 }
-.estrelas label i.fa{
+
+.estrelas label i.fa {
   font-size: 2.5em
 }
+
 .estrelas label i.fa:before {
-  content:'\f005';
+  content: '\f005';
   color: #FC0;
 }
-.estrelas input[type=radio]:checked ~ label i.fa:before {
+
+.estrelas input[type=radio]:checked~label i.fa:before {
   color: #CCC;
 }
 
@@ -704,27 +722,32 @@ p {
     height: 825px;
     background: #fff;
   }
-  .responder .form{
+
+  .responder .form {
     margin-top: 40px;
   }
-  .responder .title{
+
+  .responder .title {
     color: #11101D;
   }
+
   .responder .form .inputfield {
     margin-bottom: 15px;
     display: block;
   }
+
   .responder .form .inputfield p {
     font-size: 14px;
     color: #11101D;
     margin: 30px 10px;
-}
+  }
+
   .responder .form .inputfield label {
     margin-bottom: 5px;
     font-size: 19px;
     color: #11101D;
   }
-  
+
   .responder .form .inputfield.terms {
     flex-direction: row;
   }

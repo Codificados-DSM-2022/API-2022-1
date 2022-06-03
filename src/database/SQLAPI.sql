@@ -16,12 +16,12 @@ INSERT INTO Usuarios VALUES(0,'admin','admin','Administrador','admin','admin','a
 
 CREATE TABLE Chamado(
 	idChamado INT NOT NULL AUTO_INCREMENT,
-    Chamado_data_criacao varchar(15) NOT NULL,
-    Chamado_data_entrega varchar(15) NOT NULL,
+    Chamado_data_criacao int NOT NULL,
+    Chamado_data_entrega int,
     Chamado_titulo varchar(200) NOT NULL,
     Chamado_tipo varchar(30) NOT NULL,
     Chamado_descricao varchar(2000) NOT NULL,
-    Chamado_resposta varchar(2000) NOT NULL,
+    Chamado_resposta varchar(2000),
     Chamado_avaliacao int,
     Chamado_respondido bool, 
     Chamado_aceitar bool,

@@ -746,10 +746,7 @@ p {
   color: #757575;
   margin-top: 30px;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> fb31dae7d9d8a8d451dbd9003bd2dfb3d8bcce82
 .responder .form .inputfield .check {
   width: 15px;
   height: 15px;
@@ -765,11 +762,7 @@ p {
   opacity: 0;
 }
 
-<<<<<<< HEAD
-.responder .form .inputfield .btn {
-=======
 .responder form .inputfield .btn {
->>>>>>> fb31dae7d9d8a8d451dbd9003bd2dfb3d8bcce82
   width: 100%;
   padding: 8px 10px;
   font-size: 15px;
@@ -796,29 +789,33 @@ p {
     height: 825px;
     background: #11101D;
   }
-  .responder .form{
+
+  .responder .form {
     margin-top: 40px;
   }
-  .responder .title{
+
+  .responder .title {
     color: #E4E9F7;
   }
+
   .responder .form .inputfield {
     margin-bottom: 15px;
     display: block;
   }
+
   .responder .form .inputfield p {
     font-size: 14px;
     color: #fff;
     margin-top: 20px;
-}
+  }
+
   .responder .form .inputfield label {
     margin-bottom: 5px;
     font-size: 19px;
     color: #fff;
   }
-  
+
   .responder .form .inputfield.terms {
     flex-direction: row;
   }
 }
-

@@ -210,13 +210,15 @@ def excluirusuario(id):
     cur.close()
     return redirect(url_for('listausuarios'))
 
-@app.route('/relatorios')
+@app.route('/relatorios', methods=['GET', 'POST'])
 def relatorios():
     mediaNota = 0
     media = 0
     if not session.get('loggedin'):
         return redirect(url_for('login'))
     cur = mysql.connection.cursor()
+
+    date_format = "%Y%m%d"
 
     # ----- PORCENTAGEM ABERTOS E FECHADOS ----- #
 
@@ -235,7 +237,11 @@ def relatorios():
 
     # ---- EVOLUÇÃO DIÁRIA DE CHAMADOS ABERTOS ----- #
 
-    hoje = datetime.today().strftime('%d-%m-%Y')
+    hoje = int(datetime.today().strftime('%Y%m%d'))
+    sete= []
+    quinze = []
+    trinta = []
+    for i in range(1:)
 
     # ---- # ---- #
 
@@ -251,6 +257,15 @@ def relatorios():
         mediaNota = 0
     # ----- # ----- #
 
+    # ----- MUDAR DATA ----- #
+
+    if request.method == 'POST':
+        print(request.form["intervalo1"])
+        if str(request.form['intervalo1']) == 'Desde sempre':
+            print('rapaz')
+
+    # ---- # ---- #
+
     mysql.connection.commit()
     cur.close()
 
@@ -262,12 +277,15 @@ def pendentesadm():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM Chamado WHERE Chamado_Respondido = 0")
-    Chamados = cur.fetchall()
-    if Values > 0:
-        return render_template('adm/solicitacoes-p.html', Chamados=Chamados)
-    else:
-        return render_template('adm/solicitacoes-p.html')
+    Chamados = []
+    cur.execute("SELECT * FROM Chamado WHERE Chamado_Respondido = 0")
+    datas = list(cur.fetchall())
+    for i in datas:
+        Chamados.append(list(i))
+    for i in Chamados:
+        i[1] = str(i[1])[6:8] + "/" + str(i[1])[4:6] + "/" + str(i[1])[0:4]
+    return render_template('adm/solicitacoes-p.html', Chamados=Chamados)
+
 
 @app.route('/responderadm/<aceitar>/<idChamado>', methods=['POST','GET'])
 def responderadm(aceitar, idChamado):
@@ -278,7 +296,7 @@ def responderadm(aceitar, idChamado):
     if request.method == "POST":
         Chamado_resposta = request.form["resposta"]
         Chamado_respondido = True
-        Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
+        Chamado_data_entrega = int(datetime.today().strftime('%Y%m%d'))
         if aceitar == '1':
             Chamado_aceitar = 1
         else:
@@ -313,12 +331,15 @@ def respondidasadm():
     if not session.get('loggedin'):
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
-    Values = cur.execute("SELECT * FROM chamado WHERE Chamado_respondido = 1")
-    if Values > 0:
-        Chamados = cur.fetchall()
-        return render_template('adm/solicitacoes-r.html', Chamados=Chamados)
-    else:
-        return render_template('adm/solicitacoes-r.html')
+    cur.execute("SELECT * FROM chamado WHERE Chamado_respondido = 1")
+    Chamados = []
+    datas = list(cur.fetchall())
+    for i in datas:
+        Chamados.append(list(i))
+    for i in Chamados:
+        i[1] = str(i[1])[6:8] + "/" + str(i[1])[4:6] + "/" + str(i[1])[0:4]
+        i[2] = str(i[2])[6:8] + "/" + str(i[2])[4:6] + "/" + str(i[2])[0:4]
+    return render_template('adm/solicitacoes-r.html', Chamados=Chamados)
 
 
 @app.route('/solicitar-adm', methods=['POST', 'GET'])
@@ -335,14 +356,13 @@ def solicitaradm():
     cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
     ultimo = cur.fetchone()
 
-    if request.method == 'POST' and tecnicos > 0:
-        Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
+    if request.method == 'POST':
+        Chamado_data_criacao = int(datetime.today().strftime('%Y%m%d'))
         Chamado_data_entrega = '0'
         Chamado_titulo = request.form['Chamado_titulo']
         Chamado_tipo = request.form['Chamado_tipo']
         Chamado_descricao = request.form['Chamado_descricao']
         Chamado_Reposta = ''
-        #Chamado_avaliacao = 0
         Chamado_respondido = '0'
         idUsuario = session['idUsuario']
 
@@ -350,10 +370,10 @@ def solicitaradm():
         primeiro = cur.fetchone()
 
         if tecnicos == 0:
-            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario))
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario))
             mysql.connection.commit()
             cur.close()
-            return redirect("/solic-p-tecnico")
+            return redirect("/solicitacoes-p-adm")
         if a is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
@@ -424,14 +444,13 @@ def solicitar():
     ultimo = cur.fetchone()
 
 
-    if request.method == 'POST' and tecnicos > 0:
-        Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
+    if request.method == 'POST':
+        Chamado_data_criacao = datetime.today().strftime('%Y%m%d')
         Chamado_data_entrega = '0'
         Chamado_titulo = request.form['Chamado_titulo']
         Chamado_tipo = request.form['Chamado_tipo']
         Chamado_descricao = request.form['Chamado_descricao']
         Chamado_Reposta = ''
-        #Chamado_avaliacao = 0
         Chamado_respondido = '0'
         idUsuario = session['idUsuario']
 
@@ -442,7 +461,7 @@ def solicitar():
             cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario))
             mysql.connection.commit()
             cur.close()
-            return redirect("/solic-p-tecnico")
+            return redirect("/solicitacoes-p")
         if a is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
@@ -470,7 +489,12 @@ def admpendentes():
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     msg = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '0'", [session['idUsuario']])
-    Chamados = cur.fetchall()
+    Chamados = []
+    datas = list(cur.fetchall())
+    for i in datas:
+        Chamados.append(list(i))
+    for i in Chamados:
+        i[1] = str(i[1])[6:8] + "/" + str(i[1])[4:6] + "/" + str(i[1])[0:4]
     return render_template('usuario/solicitacoes-p.html', Chamados=Chamados, msg=msg)
 
 
@@ -481,7 +505,13 @@ def respondidas():
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     msg = cur.execute("SELECT * FROM chamado WHERE idUsuario = %s AND Chamado_respondido = '1'", [session['idUsuario']])
-    Chamados = cur.fetchall()
+    Chamados = []
+    datas = list(cur.fetchall())
+    for i in datas:
+        Chamados.append(list(i))
+    for i in Chamados:
+        i[1] = str(i[1])[6:8] + "/" + str(i[1])[4:6] + "/" + str(i[1])[0:4]
+        i[2] = str(i[2])[6:8] + "/" + str(i[2])[4:6] + "/" + str(i[2])[0:4]
     return render_template('usuario/solicitacoes-r.html', Chamados=Chamados, msg=msg)
 
 
@@ -546,7 +576,7 @@ def responderTecnico(idChamado, aceitar):
     if request.method == "POST":
         Chamado_resposta = request.form["resposta"]
         Chamado_respondido = True
-        Chamado_data_entrega = datetime.today().strftime('%d-%m-%Y')
+        Chamado_data_entrega = datetime.today().strftime('%Y%m%d')
         if aceitar == '1':
             Chamado_aceitar = 1
         else:
@@ -577,7 +607,7 @@ def tecnicoSolicitar():
     ultimo = cur.fetchone()
         
     if request.method == 'POST':
-        Chamado_data_criacao = datetime.today().strftime('%d-%m-%Y')
+        Chamado_data_criacao = datetime.today().strftime('%Y%m%d')
         Chamado_data_entrega = '0'
         Chamado_titulo = request.form['Chamado_titulo']
         Chamado_tipo = request.form['Chamado_tipo']
@@ -617,9 +647,19 @@ def tecnicoPendentes():
         return redirect(url_for('login'))    
     cur = mysql.connection.cursor()
     msg1 = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '0' and idtecnico = %s", (session['idUsuario'],))
-    Chamados = cur.fetchall()
+    datas1 = list(cur.fetchall())
     msg2 = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '0' and idUsuario = %s", (session['idUsuario'],))
-    Chamados2 = cur.fetchall()
+    datas2 = list(cur.fetchall())
+    Chamados = []
+    Chamados2 = []
+    for i in datas1:
+        Chamados.append(list(i))
+    for i in Chamados:
+        i[1] = str(i[1])[6:8] + "/" + str(i[1])[4:6] + "/" + str(i[1])[0:4]
+    for i in datas2:
+        Chamados2.append(list(i))
+    for i in Chamados2:
+        i[1] = str(i[1])[6:8] + "/" + str(i[1])[4:6] + "/" + str(i[1])[0:4]
     return render_template('tecnico/solic-p-tecnico.html', Chamados=Chamados, msg1=msg1, Chamados2=Chamados2, msg2=msg2)
 
 
@@ -630,9 +670,21 @@ def tecnicoRespondidas():
         return redirect(url_for('login'))
     cur = mysql.connection.cursor()
     msg1 = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '1' and idtecnico = %s", (session['idUsuario'],))
-    Chamados = cur.fetchall()
+    datas1 = list(cur.fetchall())
     msg2 = cur.execute("SELECT * FROM chamado WHERE chamado_respondido = '1' and idUsuario = %s", (session['idUsuario'],))
-    Chamados2 = cur.fetchall()
+    datas2 = list(cur.fetchall())
+    Chamados = []
+    Chamados2 = []
+    for i in datas1:
+        Chamados.append(list(i))
+    for i in Chamados:
+        i[1] = str(i[1])[6:8] + "/" + str(i[1])[4:6] + "/" + str(i[1])[0:4]
+        i[2] = str(i[2])[6:8] + "/" + str(i[2])[4:6] + "/" + str(i[2])[0:4]
+    for i in datas2:
+        Chamados2.append(list(i))
+    for i in Chamados2:
+        i[1] = str(i[1])[6:8] + "/" + str(i[1])[4:6] + "/" + str(i[1])[0:4]
+        i[2] = str(i[2])[6:8] + "/" + str(i[2])[4:6] + "/" + str(i[2])[0:4]
     return render_template('tecnico/solic-r-tecnico.html', Chamados=Chamados, msg1=msg1, Chamados2=Chamados2, msg2=msg2)
 
 @app.route('/avaliartec/<id>', methods=['POST', 'GET'])
