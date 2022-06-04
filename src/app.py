@@ -179,7 +179,10 @@ def media(id):
     tecnico=cur.fetchone()
     cur.execute("SELECT AVG(Chamado_avaliacao) from chamado WHERE idTecnico = %s", (id))
     media=cur.fetchone()
-    media = round(float(media[0]),2)
+    if media[0] is None:
+        media = 0
+    else:
+        media = round(float(media[0]),2)
     return render_template('adm/media.html', tecnico=tecnico, media=media)
 
 
@@ -196,7 +199,24 @@ def tornartecnico(id):
 @app.route('/tornar-usuario/<id>', methods=['GET', 'POST'])
 def tornarusuario(id):  
     cur = mysql.connection.cursor()
+    c = 0
     cur.execute('UPDATE usuarios SET usuario_cargo = %s WHERE idUsuario = %s', ('usuario', id))
+    cur.execute("SELECT idChamado FROM chamado WHERE idTecnico = %s", (id))
+    chamados = cur.fetchall()
+    tec = cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico'")
+    tecnicos = cur.fetchall()
+    if tec == 0:
+        cur.execute("UPDATE chamado SET idTecnico = NULL WHERE idTecnico = %s", (id))
+    else:
+        for i in chamados:
+            if tecnicos[-1] == tecnicos[c]:
+                cur.execute("UPDATE chamado SET idTecnico = %s WHERE idChamado = %s", (tecnicos[c][0], i[0]))
+                c = 0
+            else:
+                cur.execute("UPDATE chamado SET idTecnico = %s WHERE idChamado = %s", (tecnicos[c][0], i[0]))
+                c += 1
+
+
     mysql.connection.commit()
     cur.close()
     return redirect(url_for('listausuarios'))
@@ -239,6 +259,8 @@ def relatorios():
     solicitacoes = cur.execute('SELECT * FROM Chamado')
     chamados = cur.fetchall()
 
+    datainicial1 = "2022-01-01"
+
     if solicitacoes == 0:
         solicitacoes = aberto = fechado = 0
     else:
@@ -263,7 +285,7 @@ def relatorios():
     fecha = 0
     fechados = []
 
-    datainicial=(datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d')
+    datainicial2=(datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d')
 
     for i in range (0,8):
         sete.append(datetime.today() - timedelta(days=i))
@@ -271,13 +293,12 @@ def relatorios():
     for i in sete:
         dias.append(int(i.strftime('%d%m%Y')))
         i = i.strftime('%Y%m%d')
-        cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao = %s", (i,))
-        abre += cur.fetchone()[0]
-        cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega = %s and Chamado_respondido = 1", (i,))
+        cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao <= %s", (i,))
+        abre = cur.fetchone()[0]
+        cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega <= %s and Chamado_respondido = 1", (i,))
         fecha = cur.fetchone()[0]
-        abre -= fecha
         fechados.append(fecha)
-        abertos.append(abre)
+        abertos.append(abre - fecha)
 
 
     # ---- # ---- #
@@ -293,20 +314,50 @@ def relatorios():
         fecha = 0
         fechados = []
 
-        datainicial=(datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d')
+        
+        datainicial1 = request.form['data1']
+
+        intervalo1 = request.form['intervalo1']
+        if intervalo1 == "0":
+            intervalo1 = 365
+        data1 = datetime.strptime(datainicial1, '%Y-%m-%d')
+        data2 = data1 + timedelta(days=int(intervalo1))
+
+        data1= int(data1.strftime('%Y%m%d'))
+        data2= int(data2.strftime('%Y%m%d'))
+
+        qtd = cur.execute('SELECT COUNT(*) FROM Chamado where Chamado_data_criacao >= %s and Chamado_data_criacao <= %s', (data1, data2))
+        solicitacoes = cur.fetchall()
+        solicitacoes = solicitacoes[0][0]
+        aberto = cur.execute('SELECT COUNT(*) FROM Chamado where Chamado_data_criacao >= %s and Chamado_data_criacao <= %s and chamado_respondido = 0', (data1, data2))
+        aberto = cur.fetchall()
+
+        if solicitacoes == 0:
+            solicitacoes = fechado = aberto = 0
+        elif aberto[0][0] == 0:
+            aberto = 0
+            fechado = 100
+        else:
+            a = 0
+            aberto = round(int(aberto[0][0]) * 100 / int(solicitacoes),2)
+            fechado = 100 - aberto
+
+
+
+        datainicial2 = request.form["data2"]
 
         for i in range (0,int(request.form["intervalo2"])+1):
-            print(request.form["data2"])
             sete.append(datetime.strptime(request.form["data2"],"%Y-%m-%d") + timedelta(days=i))
         for i in sete:
             dias.append(int(i.strftime('%d%m%Y')))
             i = i.strftime('%Y%m%d')
-            cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao = %s", (i,))
-            abre += cur.fetchone()[0]
+            cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao <= %s", (i,))
+            abre = cur.fetchone()[0]
             cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega <= %s and Chamado_respondido = 1", (i,))
             fecha = cur.fetchone()[0]
             fechados.append(fecha)
             abertos.append(abre - fecha)
+        
 
 
 
@@ -315,7 +366,7 @@ def relatorios():
     mysql.connection.commit()
     cur.close()
 
-    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, solicitacoes=solicitacoes, mediaNota=mediaNota, hojedata=hojedata, dias=dias, abertos=abertos,fechados=fechados, datainicial=datainicial)
+    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, solicitacoes=solicitacoes, mediaNota=mediaNota, hojedata=hojedata, dias=dias, abertos=abertos,fechados=fechados, datainicial1=datainicial1, datainicial2=datainicial2)
 
 
 @app.route('/solicitacoes-p-adm')
@@ -348,7 +399,7 @@ def responderadm(aceitar, idChamado):
         else:
             Chamado_aceitar = 0
 
-        cur.execute("UPDATE chamado SET Chamado_resposta=%s, Chamado_respondido=%s, Chamado_data_entrega=%s, Chamado_aceitar=%s WHERE idChamado=%s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar,idChamado))
+        cur.execute("UPDATE chamado SET Chamado_resposta=%s, Chamado_respondido=%s, Chamado_data_entrega=%s, Chamado_aceitar=%s, idTecnico='1' WHERE idChamado=%s", (Chamado_resposta, Chamado_respondido, Chamado_data_entrega, Chamado_aceitar,idChamado))
         cur.connection.commit()
         cur.close()
         return redirect("/solicitacoes-r-adm")

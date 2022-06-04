@@ -107,7 +107,7 @@
                             <option value="30">30 dias</option>
                         </select><br>
                         <label for="data1">Data inicial:</label>
-                        <input type="date" name="data1" min="2022-01-01" max="{{hojedata}}" value="2022-01-01""><br>
+                        <input type="date" name="data1" min="2022-01-01" max="{{hojedata}}" value="{{datainicial1}}""><br>
                         <button type="submit">Pesquisar</button>
             </div>
             <br>
@@ -145,14 +145,13 @@
                     <option value="30">30 dias</option>
                 </select><br>
                 <label for="data2">Data inicial:</label>
-                <input type="date" name="data2" min="2022-01-01" max="{{hojedata}}" value="{{datainicial}}"><br>
+                <input type="date" name="data2" min="2022-01-01" max="{{hojedata}}" value="{{datainicial2}}"><br>
                 <button type="submit">Pesquisar</button>
                 </form>
             </div>
             <br>
             <div class="chartbox">
                 <canvas id="myChart" width="500px" height="250px"></canvas>
-                <p>{{dias}}</p>
                 <script>
                     const ctx = document.getElementById('myChart').getContext('2d');
                     const myChart = new Chart(ctx, {

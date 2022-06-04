@@ -20,7 +20,7 @@
       </svg>
     </button>
     <div class="info_header">
-     
+
       <a href="./perfil-tecnico">
         <i class='bx bx-user'></i>
         <span class="links_name">Perfil</span>
@@ -52,77 +52,64 @@
 
   <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
     <section class="home-section">
-        <div class="text">Perfil</div>
-        <div class="container">
+      <div class="text">Perfil</div>
+      <div class="container">
 
-            <div class="right-side">
-                <div class="right-side">
-                    <div class="profile">
-                        <div class="img-sett">
-                            <img src="../static/image/perfil.png" alt="">
-                        </div>
-                        <div class="texto">
-                            <h4>{{nome}}</h4>
-                            <h5>Nome: {{nome}}</h5>
-                            <h5>Endereço: {{endereco}}</h5>
-                            <h5>Telefone: {{contato}}</h5>
-                            <h5>Email: {{email}}</h5>
-                        </div>
-
-                        <button class="BtnExc">Excluir conta</button>
-
-                        <div class="popup">
-                            <div class="popup-content">
-                                <i class="bx bxs-x-square"></i>
-                                <p>Deseja excluir sua conta?</p>
-                                <div class="inputfield">
-                                    <input type="submit" value="Sim" class="btn">
-                                    <input type="submit" value="Não" class="btn">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="right-side">
+          <div class="right-side">
+            <div class="profile">
+              <div class="img-sett">
+                <img src="../static/image/perfil.png" alt="">
+              </div>
+              <div class="texto">
+                <h4>{{nome}}</h4>
+                <h5>Nome: {{nome}}</h5>
+                <h5>Endereço: {{endereco}}</h5>
+                <h5>Telefone: {{contato}}</h5>
+                <h5>Email: {{email}}</h5>
+              </div>
             </div>
-
-            <div class="left-side">
-                <div class="left-side">
-                    <div class="left-items">
-                        <h1 class="title"></h1>
-                        <div class="formBx">
-                            <div class="form signupForm">
-                                <form method="POST">
-                                    <h3>Atualize suas Informações</h3>
-                                    <h4>Nome:</h4>
-                                    <textarea class="textarea" name="nome">{{nome}}</textarea>
-                                    <h4>Endereço:</h4>
-                                    <textarea class="textarea" name="endereco">{{endereco}}</textarea>
-                                    <h4>Telefone:</h4>
-                                    <textarea class="textarea" name="contato">{{contato}}</textarea>
-                                    <h4>Email:</h4>
-                                    <textarea class="textarea" name="email">{{email}}</textarea>
-                                    <h4>Nova senha:</h4>
-                                    <input type="password" name="senha">
-                                    <h4>Confirmar senha:</h4>
-                                    <input type="password" name="csenha">
-                                    <h3>{{msg}}</h3>
-                                    <input type="submit" value="Atualizar">
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+          </div>
         </div>
-</div>
 
-</div>
+        <div class="left-side">
+          <div class="left-side">
+            <div class="left-items">
+              <h1 class="title"></h1>
+              <div class="formBx">
+                <div class="form signupForm">
+                  <form method="POST">
+                    <h3>Atualize suas Informações</h3>
+                    <h4>Nome:</h4>
+                    <textarea class="textarea" name="nome">{{nome}}</textarea>
+                    <h4>Endereço:</h4>
+                    <textarea class="textarea" name="endereco">{{endereco}}</textarea>
+                    <h4>Telefone:</h4>
+                    <textarea class="textarea" name="contato">{{contato}}</textarea>
+                    <h4>Email:</h4>
+                    <textarea class="textarea" name="email">{{email}}</textarea>
+                    <h4>Nova senha:</h4>
+                    <input type="password" name="senha">
+                    <h4>Confirmar senha:</h4>
+                    <input type="password" name="csenha">
+                    <h3>{{msg}}</h3>
+                    <input type="submit" value="Atualizar">
+                  </form>
+                </div>
 
-</section>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
   </div>
-  
+
+  </div>
+
+  </section>
+  </div>
+
   <script src="../static/script.js"></script>
 </body>
 
