@@ -95,16 +95,20 @@
             <h3>Percentual de chamadas abertas e fechadas</h3>
             <div class="legenda">
                 <span>Selecionar intervalo de tempo:</span>
-                <form action="" method="POST">
-                    <select name="intervalo1" class="grafico">
-                        <option value="sempre">Desde sempre</option>
-                        <option value="1">1 dia</option>
-                        <option value="7">7 dias</option>
-                        <option value="30">30 dias</option>
+
+
+                <form action="" method="post">
+                    <form action="" method="POST"><br>
+                        <label for="intervalo1">Intervalo:</label>
+                        <select name="intervalo1" class="grafico">
+                            <option value="0">Até hoje</option>
+                            <option value="1">1 dia</option>
+                            <option value="7">7 dias</option>
+                            <option value="30">30 dias</option>
+                        </select><br>
+                        <label for="data1">Data inicial:</label>
+                        <input type="date" name="data1" min="2022-01-01" max="{{hojedata}}" value="2022-01-01""><br>
                         <button type="submit">Pesquisar</button>
-                    </select>
-                    <button type="submit">Pesquisar</button>
-                </form>
             </div>
             <br>
             <div class="pieContainer">
@@ -123,34 +127,41 @@
                 <ul>
                     <li><span style='background:#0078BE;'></span>{{fechado}}% Solicitações fechadas</li>
                     <li><span style='background:#DC140A;'></span>{{aberto}}% Solitações abertas</li>
-                    <li>{{valor}} Solicitações realizadas</li>
+                    <li>{{solicitacoes}} Solicitações realizadas</li>
                 </ul><br><br>
             </div>
+
+
             <br><br>
+
+
             <h3>Evolução diária da quantidade de solicitações abertas e fechadas</h3>
             <div class="legenda">
                 <span>Selecionar intervalo de tempo:</span>
-                <form action="" method="post">
-                    <select name="intervalo2" id="intervalo1" class="grafico">
-                        <option value="7">7 dias</option>
-                        <option value="14">15 dias</option>
-                        <option value="30">30 dias</option>
-                    </select>
-                    <button type="submit">Pesquisar</button>
+                <label for="intervalo1">Intervalo:</label>
+                <select name="intervalo2" class="grafico">
+                    <option value="7">7 dias</option>
+                    <option value="15">15 dias</option>
+                    <option value="30">30 dias</option>
+                </select><br>
+                <label for="data2">Data inicial:</label>
+                <input type="date" name="data2" min="2022-01-01" max="{{hojedata}}" value="{{datainicial}}"><br>
+                <button type="submit">Pesquisar</button>
                 </form>
             </div>
             <br>
             <div class="chartbox">
                 <canvas id="myChart" width="500px" height="250px"></canvas>
+                <p>{{dias}}</p>
                 <script>
                     const ctx = document.getElementById('myChart').getContext('2d');
                     const myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: ['Tri 1', 'Tri 2', 'Tri 3', 'Tri 4', 'Tri 5', 'Tri 6', 'Tri 7'],
+                            labels: {{dias}},
                             datasets: [{
                                 label: 'Solicitações Abertas',
-                                data: [12, 19, 3, 5, 2, 3, 15],
+                                data: {{abertos}},
                                 backgroundColor: [
                                     'rgba(131, 56, 236, 0.2)',
                                     'rgba(131, 56, 236, 0.2)',
@@ -165,7 +176,7 @@
                             },
                             {
                                 label: 'Solicitações Fechadas',
-                                data: [5, 8, 7, 1, 4],
+                                data: {{fechados}},
                                 backgroundColor: [
                                     'rgba(255, 0, 110, 0.2)',
                                     'rgba(255, 0, 110, 0.2)',
@@ -189,6 +200,9 @@
                     });
                 </script>
             </div>
+
+
+
             <div class="rating-css">
                 <br>
                 <h3>Avaliação media do sistema: {{mediaNota}}</h3>

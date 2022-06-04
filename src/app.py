@@ -1,7 +1,9 @@
+import re
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_mysqldb import MySQL
+from datetime import datetime, timedelta
 import MySQLdb.cursors
-from datetime import datetime
+
 
 
 app = Flask(__name__)
@@ -218,32 +220,7 @@ def relatorios():
         return redirect(url_for('login'))
     cur = mysql.connection.cursor()
 
-    date_format = "%Y%m%d"
-
-    # ----- PORCENTAGEM ABERTOS E FECHADOS ----- #
-
-    valor = cur.execute('SELECT * FROM Chamado')
-    chamados = cur.fetchall()
-
-    if valor == 0:
-        valor = aberto = fechado = 0
-    else:
-        for i in chamados:
-            media += i[8]
-        fechado = round(media * 100 / valor,2)
-        aberto = 100 - fechado
-
-    # ----- # ----- #
-
-    # ---- EVOLUÇÃO DIÁRIA DE CHAMADOS ABERTOS ----- #
-
-    hoje = int(datetime.today().strftime('%Y%m%d'))
-    sete= []
-    quinze = []
-    trinta = []
-    for i in range(1:)
-
-    # ---- # ---- #
+    #datetime_format = "%Y%m%d"
 
     # ----- AVALIAÇÃO MÉDIA ----- #
 
@@ -257,19 +234,88 @@ def relatorios():
         mediaNota = 0
     # ----- # ----- #
 
+    # ----- PORCENTAGEM ABERTOS E FECHADOS ----- #
+
+    solicitacoes = cur.execute('SELECT * FROM Chamado')
+    chamados = cur.fetchall()
+
+    if solicitacoes == 0:
+        solicitacoes = aberto = fechado = 0
+    else:
+        for i in chamados:
+            media += i[8]
+        fechado = round(media * 100 / solicitacoes,2)
+        aberto = 100 - fechado
+
+    # ----- # ----- #
+
+    # ---- EVOLUÇÃO DIÁRIA DE CHAMADOS ABERTOS ----- #
+
+    #hoje = int(datetime.today().strftime('%Y%m%d'))
+
+    hojedata = datetime.today().strftime('%Y-%m-%d')
+
+    dias = []
+    sete = []
+
+    abre = 0
+    abertos = []
+    fecha = 0
+    fechados = []
+
+    datainicial=(datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d')
+
+    for i in range (0,8):
+        sete.append(datetime.today() - timedelta(days=i))
+    sete.reverse()
+    for i in sete:
+        dias.append(int(i.strftime('%d%m%Y')))
+        i = i.strftime('%Y%m%d')
+        cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao = %s", (i,))
+        abre += cur.fetchone()[0]
+        cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega = %s and Chamado_respondido = 1", (i,))
+        fecha = cur.fetchone()[0]
+        abre -= fecha
+        fechados.append(fecha)
+        abertos.append(abre)
+
+
+    # ---- # ---- #
+
     # ----- MUDAR DATA ----- #
 
     if request.method == 'POST':
-        print(request.form["intervalo1"])
-        if str(request.form['intervalo1']) == 'Desde sempre':
-            print('rapaz')
+        dias = []
+        sete = []
+
+        abre = 0
+        abertos = []
+        fecha = 0
+        fechados = []
+
+        datainicial=(datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d')
+
+        for i in range (0,int(request.form["intervalo2"])+1):
+            print(request.form["data2"])
+            sete.append(datetime.strptime(request.form["data2"],"%Y-%m-%d") + timedelta(days=i))
+        for i in sete:
+            dias.append(int(i.strftime('%d%m%Y')))
+            i = i.strftime('%Y%m%d')
+            cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao = %s", (i,))
+            abre += cur.fetchone()[0]
+            cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega <= %s and Chamado_respondido = 1", (i,))
+            fecha = cur.fetchone()[0]
+            fechados.append(fecha)
+            abertos.append(abre - fecha)
+
+
 
     # ---- # ---- #
 
     mysql.connection.commit()
     cur.close()
 
-    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, avaliacao=avaliacao, valor=valor, mediaNota=mediaNota)
+    return render_template('/adm/relatorios.html', aberto=aberto, fechado=fechado, solicitacoes=solicitacoes, mediaNota=mediaNota, hojedata=hojedata, dias=dias, abertos=abertos,fechados=fechados, datainicial=datainicial)
 
 
 @app.route('/solicitacoes-p-adm')
