@@ -15,6 +15,7 @@
     <a href="#userstories">UserStories</a> |
     <a href="#sprint1">Entrega da Primeira Sprint</a> |
     <a href="#sprint2">Entrega da Segunda Sprint</a> |
+    <a href="#sprint3">Entrega da Terceira Sprint</a> |
     <a href="#tecnologias">Tecnologias</a> |
     <a href="#equipe">Equipe</a> |
 </p>
@@ -212,6 +213,42 @@ Atualização da Área do técnico:
 Clique [aqui](https://youtu.be/JMtoR40EMvQ) para acessar o vídeo técnico, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
       
  → [Voltar ao topo](#topo)
+      
+<span id="sprint3">
+      
+## ✔️ Entrega Terceira Sprint
+      
+### :desktop_computer: Páginas desenvolvindas nessa sprint
+      
+De acordo com o planejamento da terceira Sprint apresentará um sistema com a página de relatórios e avaliações completa e também o sistema completo, abaixo consegue observar o resultado dela: 
+      
+Atualização da Área Login/Registro:
+      
+
+      
+Atualização da Área do cliente:
+      
+
+      
+Atualização da Área do técnico:
+      
+
+      
+Atualização da Área Administrador:
+      
+
+Atualização da Página de relatórios:
+      
+      
+Atualização da Página de avaliação:
+    
+
+      
+### 🎥 Vídeo de apresentação da Sprint 3
+
+Clique [aqui] para acessar o vídeo técnico do sistema completo, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
+      
+ → [Voltar ao topo](#topo)
 
 <span id="tecnologias">
 
@@ -260,5 +297,7 @@ Para melhor organização do projeto, foi levantado as habilidades técnicas da 
  ![](/doc/Readme/tabela-s2.png)
       
  #### Sprint 3
+      
+ ![](/doc/Readme/tabela-s3.png)   
 
 → [Voltar ao topo](#topo)
