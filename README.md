@@ -169,7 +169,7 @@ Antes de realmente desenvolver o projeto, foi idealizado um layout específico, 
  
 De acordo com o planejamento a primeira Sprint apresentará um sistema com a página de solicitação, do técnico e a página de visualização do usuário, abaixo consegue observar o resultado dela: 
 
-Área de cliente:
+Área do cliente:
 
 ![](/doc/Readme/cliente.gif)
 
@@ -189,9 +189,23 @@ Clique [aqui](https://youtu.be/7HnSxZ8ArkI) para acessar o vídeo técnico, no q
       
 ### :desktop_computer: Páginas desenvolvindas nessa sprint
       
+De acordo com o planejamento a segunda Sprint apresentará um sistema com a página de login e registro tais como as suas páginas de perfil, e a páginas da área do administrador, abaixo consegue observar o resultado dela: 
+      
 Área Login/Registro:
-Área Perfil:
+      
+![](/doc/Readme/login.gif)
+      
+Atualização da Área do cliente:
+      
+![](/doc/Readme/usuario.gif)
+      
+Atualização da Área do técnico:
+      
+![](/doc/Readme/tenico.gif)
+      
 Área Administrador:
+      
+![](/doc/Readme/admin.gif)
       
 ### 🎥 Vídeo de apresentação da Sprint 2
 
@@ -215,7 +229,7 @@ Clique [aqui](https://youtu.be/JMtoR40EMvQ) para acessar o vídeo técnico, no q
 | [Visual Studio Code](https://code.visualstudio.com/) | Codificação |
 | [Slack](https://slack.com/) | Comunicação com o cliente |
 | [Discord](https://discord.com/)|  Comunicação com a equipe |
-| [Trello](https://trello.com/pt-BR) | Método Kanban |
+| [Trello](https://trello.com/pt-BR) | Organização do backlog |
 | [GitHub](https://github.com/) | Compartilhamento e versionamento |
       
  → [Voltar ao topo](#topo)
