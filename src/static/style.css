@@ -579,7 +579,7 @@ p {
 
 .estrelas label i.fa:before {
   content: '\f005';
-  color: #FC0;
+  color: rgb(255, 174, 0);
 }
 
 .estrelas input[type=radio]:checked~label i.fa:before {
