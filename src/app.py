@@ -18,7 +18,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 
-app.config['MYSQL_PASSWORD'] = 'tuca123' # <- Coloque aqui sua senha do MySQL
+app.config['MYSQL_PASSWORD'] = 'Dede_0807' # <- Coloque aqui sua senha do MySQL
 
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
@@ -173,7 +173,7 @@ def listausuarios():
     if usu == 0:
         msg1 = 'Nenhum usuário cadastrado!'
     if exe == 0:
-        msg2 = 'Nenhum tecnico cadastrado!'
+        msg2 = 'Nenhum técnico cadastrado!'
 
     return render_template('adm/lista-usuarios.html', usuarios=usuarios, tecnicos=tecnicos, msg1=msg1, msg2=msg2)
 
