@@ -19,7 +19,7 @@
       </svg>
     </button>
     <div class="info_header">
-     
+
       <a href="./perfil-tecnico">
         <i class='bx bx-user'></i>
         <span class="links_name">Perfil</span>
@@ -48,39 +48,39 @@
         <i class='bx bx-message-check'></i>Solicitações Respondidas</a>
     </div>
   </div>
-<div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
-  <section class="home-section">
-     
-    <div class="wrapper">
-      <header>Realizar Solicitação</header>
-      <form method="POST">
-        <div class="dbl-field">
-          <div class="field">
-            <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema" required>
-            <i class='bx bxs-edit'></i>
+  <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
+    <section class="home-section">
+
+      <div class="wrapper">
+        <header>Realizar Solicitação</header>
+        <form method="POST" enctype="multipart/form-data">
+          <div class="dbl-field">
+            <div class="field">
+              <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema" required>
+              <i class='bx bxs-edit'></i>
+            </div>
+            <div class="dropdown">
+              <select id="Chamado_tipo" name="Chamado_tipo">
+                <option value="Hardware">Hardware</option>
+                <option value="Software">Software</option>
+                <option value="Informação">Informação</option>
+              </select>
+            </div>
           </div>
-          <div class="dropdown">
-            <select id="Chamado_tipo" name="Chamado_tipo">
-              <option value="Hardware">Hardware</option>
-              <option value="Software">Software</option>
-              <option value="Informação">Informação</option>
-            </select>
+          <div class="message">
+            <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao" required></textarea>
+            <i class='bx bxs-edit-alt'></i>
           </div>
-        </div>
-        <div class="message">
-          <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao" required></textarea>
-          <i class='bx bxs-edit-alt'></i>
-        </div>
-        <input type="file" name="Chamado_imagem">
-        <div class="text"></div>
-        <div class="button-area">
-          <button type="submit">Enviar Solicitação</button>
-        </div>
+          <input type="file" name="Chamado_imagem" class="form-control" autocomplete="off">
+          <p>{{msg}}</p>
+          <div class="button-area">
+            <button type="submit">Enviar Solicitação</button>
+          </div>
           <span></span>
-        <br>
-      </form>
-    </div>
-  </section>
+          <br>
+        </form>
+      </div>
+    </section>
   </div>
   <script src="../static/script.js"></script>
 </body>

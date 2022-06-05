@@ -902,11 +902,11 @@ display: flex;
 flex-direction: column;
 }
 .legenda1 i:first-of-type {
- color: blue;
+ color: #0078BE;
  font-size: 2rem;
 }
 .legenda2 i {
-  color: red; 
+  color: #DC140A; 
   font-size: 2rem;
 }
 /* ESTRELINHA */

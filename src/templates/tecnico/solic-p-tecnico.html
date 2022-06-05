@@ -70,8 +70,12 @@
           <p>{{chamado[4]}}</p>
           <h1>Descrição:</h1>
           <p>{{chamado[5]}}</p>
-          <h1>Data enviada:</h1>
+          <h1>Data recebida:</h1>
           <p>{{chamado[1]}}</p>
+          {% if chamado[10] != '' %}
+          <h1>Imagem recebida:</h1>
+          <img src="../../static/uploads/{{chamado[10]}}" alt="">
+          {% endif %}
           <br>
           <a href="/respondertecnico/1/{{chamado[0]}}" class="btnact">Aceitar</a>
           <a href="/respondertecnico/0/{{chamado[0]}}" class="btnrec">Recusar</a>
@@ -103,6 +107,10 @@
           <p>{{chamado[5]}}</p>
           <h1>Data enviada:</h1>
           <p>{{chamado[1]}}</p>
+          {% if chamado[10] != '' %}
+          <h1>Imagem enviada:</h1>
+          <img src="../../static/uploads/{{chamado[10]}}" alt="">
+          {% endif %}
         </div>
       </details>
 

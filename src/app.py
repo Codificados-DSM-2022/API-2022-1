@@ -1,13 +1,19 @@
-import re
+from ctypes.wintypes import MSG
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_mysqldb import MySQL
 from datetime import datetime, timedelta
+from werkzeug.utils import secure_filename
 import MySQLdb.cursors
+import os
 
 
 
 app = Flask(__name__)
 
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -20,6 +26,8 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 mysql = MySQL(app)
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def index():   
@@ -249,7 +257,7 @@ def relatorios():
     if ava > 0:
         for i in avaliacao:
             mediaNota += i[0]
-        mediaNota = mediaNota/ava
+        mediaNota = round(mediaNota/ava,2)
     else:
         mediaNota = 0
     # ----- # ----- #
@@ -450,6 +458,7 @@ def solicitaradm():
 
     cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
     ultimo = cur.fetchone()
+    msg= ''
 
     if request.method == 'POST':
         Chamado_data_criacao = int(datetime.today().strftime('%Y%m%d'))
@@ -460,34 +469,44 @@ def solicitaradm():
         Chamado_Reposta = ''
         Chamado_respondido = '0'
         idUsuario = session['idUsuario']
+        file = request.files['Chamado_imagem']
+        if not file:
+            filename = ''
+        elif file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        elif not allowed_file(file.filename):
+            msg = 'Arquivo não permitido'
+            return render_template('adm/solicitar.html', msg=msg)
+
 
         cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario LIMIT 1")
         primeiro = cur.fetchone()
 
         if tecnicos == 0:
-            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario))
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, filename))
             mysql.connection.commit()
             cur.close()
             return redirect("/solicitacoes-p-adm")
         if a is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
-                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro, filename))
                 mysql.connection.commit()
                 cur.close()
                 return redirect("/solicitacoes-p-adm")
             for i in exe:
                 if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
                     idtecnico = exe[exe.index(i) + 1][0]
-                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico))
+                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico, filename))
                     mysql.connection.commit()
                     cur.close()
                     return redirect("/solicitacoes-p-adm")
         else:
-            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro, filename))
             mysql.connection.commit()
             cur.close()
             return redirect("/solicitacoes-p-adm")
-    return render_template('adm/solicitar.html', tecnicos=tecnicos)
+    return render_template('adm/solicitar.html', msg=msg)
 
 
 #-------------------------------------------------------------------------------------------------------------#
@@ -537,7 +556,7 @@ def solicitar():
 
     cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
     ultimo = cur.fetchone()
-
+    msg = ''
 
     if request.method == 'POST':
         Chamado_data_criacao = datetime.today().strftime('%Y%m%d')
@@ -552,30 +571,40 @@ def solicitar():
         cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario LIMIT 1")
         primeiro = cur.fetchone()
 
+        file = request.files['Chamado_imagem']
+        if not file:
+            filename = ''
+        elif file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        elif not allowed_file(file.filename):
+            msg = 'Arquivo não permitido'
+            return render_template('adm/solicitar.html', msg=msg)
+
         if tecnicos == 0:
-            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario))
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, filename))
             mysql.connection.commit()
             cur.close()
             return redirect("/solicitacoes-p")
         if a is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
-                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro, filename))
                 mysql.connection.commit()
                 cur.close()
                 return redirect("/solicitacoes-p")
             for i in exe:
                 if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
                     idtecnico = exe[exe.index(i) + 1][0]
-                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico))
+                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico, filename))
                     mysql.connection.commit()
                     cur.close()
                     return redirect("/solicitacoes-p")
         else:
-            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro, filename))
             mysql.connection.commit()
             cur.close()
             return redirect("/solicitacoes-p")
-    return render_template('usuario/solicitar.html', tecnicos=tecnicos)
+    return render_template('usuario/solicitar.html', msg=msg)
     
 
 @app.route('/solicitacoes-p')
@@ -700,6 +729,8 @@ def tecnicoSolicitar():
 
     cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' ORDER BY idUsuario DESC LIMIT 1")
     ultimo = cur.fetchone()
+
+    msg = ''
         
     if request.method == 'POST':
         Chamado_data_criacao = datetime.today().strftime('%Y%m%d')
@@ -712,28 +743,38 @@ def tecnicoSolicitar():
         Chamado_respondido = '0'
         idUsuario = session['idUsuario']
 
+        file = request.files['Chamado_imagem']
+        if not file:
+            filename = ''
+        elif file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        elif not allowed_file(file.filename):
+            msg = 'Arquivo não permitido'
+            return render_template('adm/solicitar.html', msg=msg)
+
         cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' and idUsuario != %s ORDER BY idUsuario LIMIT 1", (idd,))
         primeiro = cur.fetchone()
 
         if a[0] is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
-                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+                cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro, filename))
                 mysql.connection.commit()
                 cur.close()
                 return redirect("/solic-p-tecnico")
             for i in exe:
                 if (i[0] == a[0] and len(exe) > exe.index(i) + 1):
                     idtecnico = exe[exe.index(i) + 1][0]
-                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico))
+                    cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario,idtecnico, filename))
                     mysql.connection.commit()
                     cur.close()
                     return redirect("/solic-p-tecnico")
         else:
-            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro))
+            cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro, filename))
             mysql.connection.commit()
             cur.close()
             return redirect("/solic-p-tecnico")
-    return render_template('tecnico/solicitar.html', tecnicos=tecnicos)
+    return render_template('tecnico/solicitar.html', msg=msg)
 
 
 @app.route('/solic-p-tecnico')
