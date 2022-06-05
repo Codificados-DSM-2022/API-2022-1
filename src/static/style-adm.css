@@ -606,6 +606,13 @@ summary img {
   margin-top: 20px;
 }
 
+.conteudo img {
+  max-width: 800px;
+  max-height: 1200px;
+  width: auto;
+  height: auto;
+}
+
 /*PERFIL DO USUÁRIO*/
 .perfil {
   position: relative;
@@ -812,6 +819,10 @@ summary img {
     height: 100px;
   }
 
+  .conteudo img {
+    max-width: 700px;
+    max-height: 900px;
+  }
 }
 
 .graficos {
@@ -902,11 +913,11 @@ display: flex;
 flex-direction: column;
 }
 .legenda1 i:first-of-type {
- color: blue;
+ color: #0078BE;
  font-size: 2rem;
 }
 .legenda2 i {
-  color: red; 
+  color: #DC140A; 
   font-size: 2rem;
 }
 /* ESTRELINHA */
@@ -1112,6 +1123,10 @@ flex-direction: column;
   .responder1 .title{
     padding: 30px;
   }
+  .conteudo img {
+    max-width: 450px;
+    max-height: 550px;
+  }
 }
 
 @media (max-width:420px) {
@@ -1127,6 +1142,10 @@ flex-direction: column;
 
   .responder .form .inputfield.terms {
     flex-direction: row;
+  }
+  .conteudo img {
+    max-width: 300px;
+    max-height: 400px;
   }
 }
 

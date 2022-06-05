@@ -237,6 +237,12 @@ summary img {
   font-size: 17px;
   margin-top: 20px;
 }
+.conteudo img {
+  max-width: 800px;
+  max-height: 1200px;
+  width: auto;
+  height: auto;
+}
 
 /*PERFIL DO USUÁRIO*/
 .container {
@@ -433,6 +439,10 @@ summary img {
 
   .popup-content {
     margin-top: 450px;
+  }
+  .conteudo img {
+    max-width: 700px;
+    max-height: 900px;
   }
 }
 
@@ -666,7 +676,8 @@ p {
 .responder {
   width: 500px;
   background: #fff;
-  border-radius: 5px;
+  margin: 100px auto;
+  padding: 30px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -767,8 +778,8 @@ p {
   padding: 8px 10px;
   font-size: 15px;
   border: 0px;
-  background: #fff;
-  color: #11101D;
+  background: rgb(0, 0, 0);
+  color: #ffffff;
   cursor: pointer;
   border-radius: 3px;
   outline: none;
@@ -809,13 +820,27 @@ p {
     margin-top: 20px;
   }
 
-  .responder .form .inputfield label {
+  .responder .form label {
     margin-bottom: 5px;
     font-size: 19px;
-    color: #fff;
+    color: rgb(255, 255, 255);
   }
 
   .responder .form .inputfield.terms {
     flex-direction: row;
+  }
+}
+
+@media (max-width: 586px) {
+  .conteudo img {
+    max-width: 450px;
+    max-height: 550px;
+  }
+}
+
+@media (max-width: 420px) {
+  .conteudo img {
+    max-width: 300px;
+    max-height: 400px;
   }
 }

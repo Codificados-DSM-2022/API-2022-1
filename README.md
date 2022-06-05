@@ -224,21 +224,23 @@ De acordo com o planejamento da terceira Sprint apresentará um sistema com a p�
       
 Atualização da Área Login/Registro:
       
-
+![](/doc/Readme/alogin.gif)
       
 Atualização da Área do cliente:
       
-
+![](/doc/Readme/acliente.gif)
       
 Atualização da Área do técnico:
       
-
+![](/doc/Readme/atecnico.gif)
       
 Atualização da Área Administrador:
       
-
+![](/doc/Readme/aadmin.gif)
+      
 Atualização da Página de relatórios:
       
+ ![](/doc/Readme/relatorio.gif)
       
 Atualização da Página de avaliação:
     

@@ -55,12 +55,14 @@
     </div>
   </div>
 
+
+
   <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
     <section class="home-section">
 
       <div class="wrapper">
         <header>Realizar Solicitação</header>
-        <form action="/solicitar-adm" method="POST">
+        <form action="/solicitar-adm" method="POST" enctype="multipart/form-data">
           <div class="dbl-field">
             <div class="field">
               <input type="text" class="input" name="Chamado_titulo" placeholder="Titulo do Problema" required>
@@ -78,7 +80,8 @@
             <textarea class="textarea" placeholder="Exponha seu problema" name="Chamado_descricao" required></textarea>
             <i class="bx bxs-edit"></i>
           </div>
-          <input type="file" name="Chamado_imagem">
+          <input type="file" name="Chamado_imagem" class="form-control" autocomplete="off">
+          <p>{{msg}}</p>
           <div class="button-area">
             <button type="submit">Enviar Solicitação</button>
           </div>
