@@ -90,7 +90,7 @@
 
 
     <div tabindex="0" class="content" onfocus="closeSidebar()" id="content">
-        <h1>Relatorios</h1><br>
+        <h1>Relatórios</h1><br>
         <div class="graficos">
             <h3>Percentual de chamadas abertas e fechadas</h3>
             <div class="legenda">
@@ -107,7 +107,7 @@
                             <option value="30">30 dias</option>
                         </select><br>
                         <label for="data1">Data inicial:</label>
-                        <input type="date" name="data1" min="2022-01-01" max="{{hojedata}}" value="{{datainicial1}}""><br>
+                        <input type="date" name="data1" min="2022-01-01" max="{{hojedata}}" value="{{datainicial1}}"><br>
                         <button type="submit">Pesquisar</button>
             </div>
             <br>
@@ -128,7 +128,7 @@
             
             </div>
             <div class="legenda2">
-                <span><i class='bx bxs-square'></i>{{aberto}}% Solitações abertas</span>
+                <span><i class='bx bxs-square'></i>{{aberto}}% Solicitações abertas</span>
                 <span> {{solicitacoes}} Solicitações realizadas</span> 
             </div>
 
@@ -204,7 +204,7 @@
 
             <div class="rating-css">
                 <br>
-                <h3>Avaliação media do sistema: {{mediaNota}}</h3>
+                <h3>Avaliação média do sistema: {{mediaNota}}</h3>
                 <div class="estrelas">
                     {% if mediaNota == 0 %}
                     <i class='bx bx-star'></i>
