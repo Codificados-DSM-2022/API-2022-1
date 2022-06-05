@@ -1,4 +1,3 @@
-from ctypes.wintypes import MSG
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_mysqldb import MySQL
 from datetime import datetime, timedelta
@@ -18,7 +17,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 
-app.config['MYSQL_PASSWORD'] = 'Dede_0807' # <- Coloque aqui sua senha do MySQL
+app.config['MYSQL_PASSWORD'] = 'tuca123' # <- Coloque aqui sua senha do MySQL
 
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
