@@ -14,6 +14,7 @@ CREATE TABLE Usuarios(
 
 INSERT INTO Usuarios VALUES(0,'admin','admin','Administrador','admin','admin','administrador');
 
+
 CREATE TABLE Chamado(
 	idChamado INT NOT NULL AUTO_INCREMENT,
     Chamado_data_criacao int NOT NULL,
@@ -25,6 +26,7 @@ CREATE TABLE Chamado(
     Chamado_avaliacao int,
     Chamado_respondido bool, 
     Chamado_aceitar bool,
+    Chamado_arquivo varchar(1000),
     IdUsuario int,
     idTecnico int,
 	primary key(idChamado)
