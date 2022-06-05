@@ -99,7 +99,7 @@ def cadastro():
         
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM usuarios WHERE usuario_email = %s', (usuario_email))
+        cursor.execute('SELECT * FROM usuarios WHERE usuario_email = %s', (usuario_email,))
 
         usuarios = cursor.fetchone()
 
