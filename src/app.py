@@ -17,7 +17,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 
-app.config['MYSQL_PASSWORD'] = 'tuca123' # <- Coloque aqui sua senha do MySQL
+app.config['MYSQL_PASSWORD'] = '1234' # <- Coloque aqui sua senha do MySQL
 
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'

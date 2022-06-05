@@ -193,6 +193,12 @@ summary img {
   font-size: 17px;
   margin-top: 20px;
 }
+.conteudo img {
+  max-width: 800px;
+  max-height: 1200px;
+  width: auto;
+  height: auto;
+}
 
 /*PERFIL DO USUÁRIO*/
 
@@ -362,7 +368,10 @@ summary img {
     padding: 5px;
     font-size: 14px;
   }
-
+  .conteudo img {
+    max-width: 700px;
+    max-height: 900px;
+  }
 }
 
 
@@ -751,5 +760,19 @@ p {
 
   .responder .form .inputfield.terms {
     flex-direction: row;
+  }
+}
+
+@media (max-width: 586px) {
+  .conteudo img {
+    max-width: 450px;
+    max-height: 550px;
+  }
+}
+
+@media (max-width: 420px) {
+  .conteudo img {
+    max-width: 300px;
+    max-height: 400px;
   }
 }
