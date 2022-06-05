@@ -123,21 +123,21 @@
                     <div class="pie"></div>
                 </div>
             </div><br>
-            <div class="legenda">
-                <ul>
-                    <li><span style='background:#0078BE;'></span>{{fechado}}% Solicitações fechadas</li>
-                    <li><span style='background:#DC140A;'></span>{{aberto}}% Solitações abertas</li>
-                    <li>{{solicitacoes}} Solicitações realizadas</li>
-                </ul><br><br>
+            <div class="legenda1">
+                <span><i class='bx bxs-square' ></i>{{fechado}}% Solicitações fechadas</span> 
+            
             </div>
-
+            <div class="legenda2">
+                <span><i class='bx bxs-square'></i>{{aberto}}% Solitações abertas</span>
+                <span> {{solicitacoes}} Solicitações realizadas</span> 
+            </div>
 
             <br><br>
 
 
             <h3>Evolução diária da quantidade de solicitações abertas e fechadas</h3>
             <div class="legenda">
-                <span>Selecionar intervalo de tempo:</span>
+                <span>Selecionar intervalo de tempo:</span><br>
                 <label for="intervalo1">Intervalo:</label>
                 <select name="intervalo2" class="grafico">
                     <option value="7">7 dias</option>

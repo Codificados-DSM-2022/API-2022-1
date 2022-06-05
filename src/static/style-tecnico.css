@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  text-decoration: none;
 }
 
 body {
@@ -294,7 +295,6 @@ summary img {
   font-size: 1.2rem;
   font-weight: 500;
   padding-top: 1rem;
-  border-top: 1px solid #fff;
 }
 
 .profile .texto h5 {

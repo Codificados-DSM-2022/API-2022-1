@@ -357,9 +357,7 @@ def relatorios():
             fecha = cur.fetchone()[0]
             fechados.append(fecha)
             abertos.append(abre - fecha)
-        
-
-
+    
 
     # ---- # ---- #
 

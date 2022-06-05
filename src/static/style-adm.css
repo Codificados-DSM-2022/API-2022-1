@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  text-decoration: none;
 }
 
 body {
@@ -22,7 +23,9 @@ body {
   --color-main2: #E4E9F7;
   --color-main3: orange;
 }
-
+h1{
+  margin-top: 30px;
+}
 .info_header {
   align-items: center;
 }
@@ -289,6 +292,7 @@ body {
 }
 
 @media (max-width:1045px) {
+  
   .container .box {
     width: 300px;
     margin-bottom: 20px;
@@ -304,7 +308,7 @@ body {
   .esquerda h1 {
     font-size: 18px;
   }
-
+  
 }
 
 @media (max-width:710px) {
@@ -321,6 +325,7 @@ body {
   .box .grid-info {
     grid-template-columns: 1fr
   }
+
 
 }
 
@@ -351,6 +356,7 @@ body {
   .inicio .titulo p {
     font-size: 16px;
   }
+  
 }
 
 /*FORM SOLICITAÇÃO CSS*/
@@ -543,6 +549,7 @@ form .button-area {
     margin: 20px 0 0;
     text-align: center;
   }
+  
 }
 
 /*TABELA DE INFORMAÇÕES CSS*/
@@ -656,7 +663,6 @@ summary img {
   font-size: 1.2rem;
   font-weight: 500;
   padding-top: 1rem;
-  border-top: 1px solid #fff;
 }
 
 .profile .texto h5 {
@@ -828,7 +834,8 @@ body {
 
 .pieContainer {
   height: 250px;
-  margin-left: 39%;
+  display: flex;
+  justify-content: center;
 }
 
 .pieBackground {
@@ -890,32 +897,18 @@ body {
   transform: rotate(var(--thirdSlice));
 }
 
-.legenda ul {
-  margin-left: 42%;
-  margin-bottom: 5px;
-  padding: 0;
-  float: left;
-  list-style: none;
+.legenda1, .legenda2{
+display: flex;
+flex-direction: column;
 }
-
-.legenda ul li {
-  font-size: 80%;
-  list-style: none;
-  margin-left: 0;
-  line-height: 18px;
-  margin-bottom: 2px;
+.legenda1 i:first-of-type {
+ color: blue;
+ font-size: 2rem;
 }
-
-.legenda ul li span {
-  display: block;
-  float: left;
-  height: 16px;
-  width: 30px;
-  margin-right: 5px;
-  margin-left: 0;
-  border: 1px solid #999;
+.legenda2 i {
+  color: red; 
+  font-size: 2rem;
 }
-
 /* ESTRELINHA */
 
 /*ESTRELINHA*/
@@ -977,6 +970,13 @@ body {
   margin: 100px auto;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.125);
   padding: 30px;
+}
+.responder1{
+  width: 500px;
+  background: #fff;
+  border-radius: 5px;
+  margin: 100px auto;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
 
 .responder .title {
@@ -1103,6 +1103,15 @@ body {
   .btns {
     display: block;
   }
+  .responder1{
+    width: 100%;
+    margin: 0;
+
+    height: 900px;
+  }
+  .responder1 .title{
+    padding: 30px;
+  }
 }
 
 @media (max-width:420px) {
@@ -1122,7 +1131,8 @@ body {
 }
 
 .chartbox {
-  width: 700px;
+  max-width: 700px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
