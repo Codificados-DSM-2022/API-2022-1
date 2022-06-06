@@ -17,7 +17,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 
-app.config['MYSQL_PASSWORD'] = '1234' # <- Coloque aqui sua senha do MySQL
+app.config['MYSQL_PASSWORD'] = 'tuca123' # <- Coloque aqui sua senha do MySQL
 
 app.config['MYSQL_DB'] = 'API_Codificados'
 app.secret_key = 'super secret key'
@@ -197,7 +197,7 @@ def media(id):
 def tornartecnico(id):  
     cur = mysql.connection.cursor()
     cur.execute('UPDATE usuarios SET usuario_cargo = %s WHERE idUsuario = %s', ('tecnico', id))
-    cur.execute("UPDATE chamado SET idTecnico = %s WHERE idTecnico IS NULL", (id))
+    cur.execute("UPDATE chamado SET idTecnico = %s WHERE idTecnico IS NULL", [id])
     mysql.connection.commit()
     cur.close()
     return redirect(url_for('listausuarios'))
@@ -208,12 +208,12 @@ def tornarusuario(id):
     cur = mysql.connection.cursor()
     c = 0
     cur.execute('UPDATE usuarios SET usuario_cargo = %s WHERE idUsuario = %s', ('usuario', id))
-    cur.execute("SELECT idChamado FROM chamado WHERE idTecnico = %s", (id))
+    cur.execute("SELECT idChamado FROM chamado WHERE idTecnico = %s", [id])
     chamados = cur.fetchall()
     tec = cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico'")
     tecnicos = cur.fetchall()
     if tec == 0:
-        cur.execute("UPDATE chamado SET idTecnico = NULL WHERE idTecnico = %s", (id))
+        cur.execute("UPDATE chamado SET idTecnico = NULL WHERE idTecnico = %s", [id])
     else:
         for i in chamados:
             if tecnicos[-1] == tecnicos[c]:
@@ -238,6 +238,36 @@ def excluirusuario(id):
     mysql.connection.commit()
     cur.close()
     return redirect(url_for('listausuarios'))
+
+@app.route("/excluir-tecnico/<id>", methods=['GET', 'POST'])
+def excluirtecnico(id):
+    cur = mysql.connection.cursor()
+    c = 0
+    cur.execute('UPDATE Chamado SET idUsuario = NULL WHERE idUsuario = %s', [id])
+    cur.execute("SELECT idChamado FROM chamado WHERE idTecnico = %s", [id])
+    chamados = cur.fetchall()
+    tec = cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' and idUsuario != %s", [id])
+    tecnicos = cur.fetchall()
+    if tec == 0:
+        cur.execute("UPDATE chamado SET idTecnico = NULL WHERE idTecnico = %s", [id])
+    else:
+        for i in chamados:
+            if tecnicos[-1] == tecnicos[c]:
+                cur.execute("UPDATE chamado SET idTecnico = %s WHERE idChamado = %s", (tecnicos[c][0], i[0]))
+                c = 0
+            else:
+                cur.execute("UPDATE chamado SET idTecnico = %s WHERE idChamado = %s", (tecnicos[c][0], i[0]))
+                c += 1
+    mysql.connection.commit()
+    cur.execute('SELECT idTecnico from chamado')
+    a = cur.fetchall()
+    for i in a:print(i)
+    cur.execute('DELETE FROM usuarios WHERE idUsuario = %s', [id])
+
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('listausuarios'))
+    
 
 @app.route('/relatorios', methods=['GET', 'POST'])
 def relatorios():
