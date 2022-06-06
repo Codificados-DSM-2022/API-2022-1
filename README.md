@@ -248,7 +248,7 @@ Atualização da Página de avaliação:
       
 ### 🎥 Vídeo de apresentação da Sprint 3
 
-Clique [aqui] para acessar o vídeo técnico do sistema completo, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
+Clique [aqui](https://youtu.be/R8Ahl50-CVo) para acessar o vídeo técnico do sistema completo, no qual apresenta uma demonstração do sistema e os códigos sendo explicado.
       
  → [Voltar ao topo](#topo)
 
