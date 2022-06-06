@@ -244,7 +244,7 @@ Atualização da Página de relatórios:
       
 Atualização da Página de avaliação:
     
-
+ ![](/doc/Readme/avaliacao.gif)
       
 ### 🎥 Vídeo de apresentação da Sprint 3
 
