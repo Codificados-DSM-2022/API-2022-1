@@ -386,14 +386,19 @@ def relatorios():
         for i in range (0,int(request.form["intervalo2"])+1):
             sete.append(datetime.strptime(request.form["data2"],"%Y-%m-%d") + timedelta(days=i))
         for i in sete:
+            hojee = int(datetime.today().strftime('%Y%m%d'))
             dias.append(int(i.strftime('%d%m%Y')))
             i = i.strftime('%Y%m%d')
-            cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao <= %s", (i,))
-            abre = cur.fetchone()[0]
-            cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega <= %s and Chamado_respondido = 1", (i,))
-            fecha = cur.fetchone()[0]
-            fechados.append(fecha)
-            abertos.append(abre - fecha)
+            if int(hojee) < int(i):
+                fechados.append(0)
+                abertos.append(0)
+            else:
+                cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao <= %s", (i,))
+                abre = cur.fetchone()[0]
+                cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega <= %s and Chamado_respondido = 1", (i,))
+                fecha = cur.fetchone()[0]
+                fechados.append(fecha)
+                abertos.append(abre - fecha)
     
 
     # ---- # ---- #
@@ -785,7 +790,10 @@ def tecnicoSolicitar():
         cur.execute("SELECT idUsuario FROM usuarios WHERE usuario_cargo = 'tecnico' and idUsuario != %s ORDER BY idUsuario LIMIT 1", (idd,))
         primeiro = cur.fetchone()
 
-        if a[0] is not None:
+        if type(a) == tuple:
+            a = a[0]
+        print(a)
+        if a is not None:
             if a[0] == ultimo[0] or tecnicos == 1:
                 cur.execute("INSERT INTO chamado (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_resposta, Chamado_respondido, idUsuario,idTecnico, Chamado_arquivo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Chamado_data_criacao, Chamado_data_entrega, Chamado_titulo, Chamado_tipo, Chamado_descricao, Chamado_Reposta, Chamado_respondido, idUsuario, primeiro, filename))
                 mysql.connection.commit()
