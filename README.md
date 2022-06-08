@@ -28,14 +28,14 @@ Tema: Sistema de Gestão de Serviços de Tecnologia da Informação
 <h4>O projeto tem como objetivo desenvolver um sistema que controlar a prestação de serviços de TI, tanto sob o ponto de vista do cliente como do executor</h4>
 
 > _Projeto baseado na metodologia ágil SCRUM_ <br><br>
-> **Status do Projeto: Em andamento**
+> **Status do Projeto: Concluído**
 
 ## Entregas de Sprints
 | Sprint | Previsão | Status | tag |
 |:--:|:----------:|:----------------| :---------: |
 | 01 | 14/04/2022 | ✔️ Concluída    | [Tag v1.0](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.0) |
 | 02 | 15/05/2022 | ✔️ Concluída | [Tag v1.1](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.1) |
-| 03 | 05/06/2022 | 🕤 Em andamento | -- |
+| 03 | 05/06/2022 | ✔️ Concluída | [Tag v1.2](https://github.com/Codificados-DSM-2022/API-2022-1/releases/tag/v1.2) |
 
 ## 📁 Configuração das pastas
 
