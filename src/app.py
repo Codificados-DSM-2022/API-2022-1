@@ -346,45 +346,38 @@ def relatorios():
         dias = []
         sete = []
 
+        dias2 = 0
+
         abre = 0
         abertos = []
         fecha = 0
         fechados = []
 
         
-        datainicial1 = request.form['data1']
+        datainicial1 = datetime.strptime(request.form['data1'],"%Y-%m-%d").strftime('%Y%m%d')
+        datafinal = int(request.form['intervalo1'])
+        if datafinal == 0:
+            datafinal = 365
 
-        intervalo1 = request.form['intervalo1']
-        if intervalo1 == "0":
-            intervalo1 = 365
-        data1 = datetime.strptime(datainicial1, '%Y-%m-%d')
-        data2 = data1 + timedelta(days=int(intervalo1))
+        dias2 = (datetime.strptime(request.form["data1"], '%Y-%m-%d').date() + timedelta(days=datafinal)).strftime('%Y%m%d')
+        cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_criacao <= %s", [dias2])
+        abre = cur.fetchone()[0]
+        cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega <= %s and Chamado_respondido = '1'", [dias2])
+        fecha = cur.fetchone()[0]
+        fechado = fecha
+        aberto = abre - fechado
+        
+        aberto = round(aberto * 100 / abre,2)
+        fechado = round(fechado * 100 / abre,2)
 
-        data1= int(data1.strftime('%Y%m%d'))
-        data2= int(data2.strftime('%Y%m%d'))
-
-        qtd = cur.execute('SELECT COUNT(*) FROM Chamado where Chamado_data_criacao >= %s and Chamado_data_criacao <= %s', (data1, data2))
-        solicitacoes = cur.fetchall()
-        solicitacoes = solicitacoes[0][0]
-        aberto = cur.execute('SELECT COUNT(*) FROM Chamado where Chamado_data_criacao >= %s and Chamado_data_criacao <= %s and chamado_respondido = 0', (data1, data2))
-        aberto = cur.fetchall()
-
-        if solicitacoes == 0:
-            solicitacoes = fechado = aberto = 0
-        elif aberto[0][0] == 0:
-            aberto = 0
-            fechado = 100
-        else:
-            a = 0
-            aberto = round(int(aberto[0][0]) * 100 / int(solicitacoes),2)
-            fechado = 100 - aberto
-
-
+        datainicial1 = request.form["data1"]
 
         datainicial2 = request.form["data2"]
 
+        
         for i in range (0,int(request.form["intervalo2"])+1):
             sete.append(datetime.strptime(request.form["data2"],"%Y-%m-%d") + timedelta(days=i))
+        print(datainicial2, ' até ',  sete[-1])
         for i in sete:
             hojee = int(datetime.today().strftime('%Y%m%d'))
             dias.append(int(i.strftime('%d%m%Y')))
@@ -400,7 +393,6 @@ def relatorios():
                 fechados.append(fecha)
                 abertos.append(abre - fecha)
     
-
     # ---- # ---- #
 
     mysql.connection.commit()
