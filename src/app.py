@@ -364,11 +364,21 @@ def relatorios():
         abre = cur.fetchone()[0]
         cur.execute("SELECT COUNT(*) FROM Chamado WHERE Chamado_data_entrega <= %s and Chamado_respondido = '1'", [dias2])
         fecha = cur.fetchone()[0]
+
+        cur.execute("SELECT COUNT(*) FROM CHAMADO WHERE CHAMADO_DATA_CRIACAO >= %s and CHAMADO_DATA_CRIACAO <= %s", [datainicial1, dias2])
+        solicitacoes = cur.fetchone()[0]
+
         fechado = fecha
         aberto = abre - fechado
         
-        aberto = round(aberto * 100 / abre,2)
-        fechado = round(fechado * 100 / abre,2)
+        try:
+            aberto = round(aberto * 100 / abre,2)
+        except:
+            aberto = 0
+        try:
+            fechado = round(fechado * 100 / abre,2)
+        except:
+            fechado = 0
 
         datainicial1 = request.form["data1"]
 
@@ -377,7 +387,7 @@ def relatorios():
         
         for i in range (0,int(request.form["intervalo2"])+1):
             sete.append(datetime.strptime(request.form["data2"],"%Y-%m-%d") + timedelta(days=i))
-        print(datainicial2, ' até ',  sete[-1])
+        #print(datainicial2, ' até ',  sete[-1])
         for i in sete:
             hojee = int(datetime.today().strftime('%Y%m%d'))
             dias.append(int(i.strftime('%d%m%Y')))
